@@ -7,6 +7,7 @@ import { HeaderComponent } from './public/template/header/header.component';
 import { FooterComponent } from './public/template/footer/footer.component';
 import { NotFoundComponent } from './public/errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './public/errors/internal-server-error/internal-server-error.component';
+import { HomeComponent } from './public/general/home/home.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { InternalServerErrorComponent } from './public/errors/internal-server-er
     FooterComponent,
     NotFoundComponent,
     InternalServerErrorComponent,
+    HomeComponent,
    
   ],
   imports: [
