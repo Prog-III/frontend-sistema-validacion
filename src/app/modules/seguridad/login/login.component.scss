@@ -6,6 +6,15 @@
     background-size: contain;
 }
 
-.form-container {
-    width: 85%;
+.img-container {
+    width: 100%;
+
+    img {
+        width: 35%;
+    }
+}
+
+.g-recaptcha {
+    transform:scale(0.77);
+    transform-origin:0 0;
 }
