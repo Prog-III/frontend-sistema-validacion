@@ -6,15 +6,28 @@
     background-size: contain;
 }
 
+label {
+    font-size: .875rem;
+    
+}
+
 .img-container {
     width: 100%;
 
     img {
-        width: 35%;
+        width: 160px;
     }
 }
 
 .g-recaptcha {
-    transform:scale(0.77);
-    transform-origin:0 0;
+    transform:scale(0.9);
+    transform-origin: center center;
+}
+
+.forgot-class {
+    transition: all .1s ease-in-out;
+
+    &:hover {
+        opacity: 0.7;
+    }
 }
