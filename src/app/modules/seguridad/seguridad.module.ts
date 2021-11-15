@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
 import { RecuperacionClaveComponent } from './recuperacion-clave/recuperacion-clave.component';
 
-
 @NgModule({
   declarations: [
     LoginComponent,
