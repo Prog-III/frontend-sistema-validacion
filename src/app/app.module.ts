@@ -8,6 +8,7 @@ import { FooterComponent } from './public/template/footer/footer.component';
 import { NotFoundComponent } from './public/errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './public/errors/internal-server-error/internal-server-error.component';
 import { HomeComponent } from './public/general/home/home.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HomeComponent } from './public/general/home/home.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
