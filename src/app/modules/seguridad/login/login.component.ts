@@ -23,11 +23,11 @@ export class LoginComponent implements OnInit {
       usuario: ['', [
         Validators.required,
         Validators.email,
-        Validators.minLength(GeneralData.emailMinimaLongitud)
+        Validators.minLength(GeneralData.EMAIL_MIN_LONGITUD)
       ]],
       clave: ['', [
         Validators.required,
-        Validators.minLength(GeneralData.claveMinimaLongitd)
+        Validators.minLength(GeneralData.CLAVE_MIN_LONGITUD)
       ]]
     })
   }
