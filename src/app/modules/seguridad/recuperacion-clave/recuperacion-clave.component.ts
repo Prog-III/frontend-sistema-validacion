@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-recuperacion-clave',
   templateUrl: './recuperacion-clave.component.html',
-  styleUrls: ['./recuperacion-clave.component.css']
+  styleUrls: ['./recuperacion-clave.component.scss']
 })
 export class RecuperacionClaveComponent implements OnInit {
 
