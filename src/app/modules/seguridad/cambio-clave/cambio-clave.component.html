@@ -7,12 +7,19 @@
                             <div class="text-center img-container">
                                 <img src= "../../../../assets/images/logo-uc.png" class="img-fluid"/>
                             </div>
-                            <div class="form-outline form-white mb-3 mt-4">
-                                <label class="form-label m-0 text-muted" for="userEmail">Usuario</label>
-                                <input  type="email" id="userEmail" 
-                                    class="form-control" placeholder="Ingrese el correo electrónico"/>
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label m-0 text-muted" for="userPassword">Contraseña actual</label>
+                                <input formControlName="clave" type="password" id="userPassword" class="form-control" placeholder="Ingrese la contraseña"/>
                             </div>
-                            <button class="btn btn-primary d-block mx-auto mt-5 px-4" type="submit">Identificar</button>
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label m-0 text-muted" for="userPassword">Contraseña nueva</label>
+                                <input formControlName="clave" type="password" id="userPassword" class="form-control" placeholder="Ingrese la contraseña"/>
+                            </div>
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label m-0 text-muted" for="userPassword">Verificar Contraseña nueva</label>
+                                <input formControlName="clave" type="password" id="userPassword" class="form-control" placeholder="Ingrese la contraseña"/>
+                            </div>
+                            <button class="btn btn-primary d-block mx-auto mt-5 px-4" type="submit">Cambiar Clave</button>
                         </div>
                 </form>
             </div>

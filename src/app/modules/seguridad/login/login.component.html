@@ -8,29 +8,68 @@
                                 <img src= "../../../../assets/images/logo-uc.png" class="img-fluid"/>
                             </div>
 
-                            <div class="form-outline form-white mb-3 mt-4">
+                            <div class="form-outline form-white mb-4 mt-4">
                                 <label class="form-label m-0 text-muted" for="userEmail">Usuario</label>
-                                <input [ngClass]="{'': controlUsuario}" type="email" id="userEmail" 
+                                <input formControlName="usuario" [ngClass]="{'': controlUsuario}" type="email" id="userEmail" 
                                     class="form-control" placeholder="Ingrese el correo electrónico"/>
+                                    <div class="errorValidation">
+                                        <label *ngIf="GetDF['clave'].errors && (formulario.controls['clave'].dirty || formulario.controls['clave'].touched)">
+                                            <div class="errorValidation">
+                                                <label *ngIf="GetDF['usuario'].errors && (formulario.controls['usuario'].dirty || formulario.controls['usuario'].touched)">
+                                                    El nombre de usuario no cumple con los requisitos (correo electrónico)
+                                                </label>
+                                            </div>
+                                        </label>
+                                    </div>
                             </div>
 
                             <div class="form-outline form-white mb-4">
                                 <label class="form-label m-0 text-muted" for="userPassword">Contraseña</label>
                                 <input formControlName="clave" type="password" id="userPassword" class="form-control" placeholder="Ingrese la contraseña"/>
+                                <div class="errorValidation">
+                                    <label *ngIf="GetDF['clave'].errors && (formulario.controls['clave'].dirty || formulario.controls['clave'].touched)">
+                                        La contraseña no cumple con los requisitos
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-outline form-white mb-5 mt-4">
+                                <a href="#" class="forgot-class" routerLink="/seguridad/recuperacion-clave">¿Has olvidado tu contraseña?</a>
                             </div>
 
                             <div class="g-recaptcha text-center mb-2">
-                                <ngx-recaptcha2 class="d-inline-block" siteKey="6LeNbTcdAAAAAKOzE76Uk0RB-Vkq2-3su860xC89">
+                                <ngx-recaptcha2 formControlName="recaptcha" class="d-inline-block" siteKey={{key}}>
                                 </ngx-recaptcha2>
+                                <div class="errorValidation">
+                                    <label *ngIf="GetDF['recaptcha'].errors && (formulario.controls['recaptcha'].dirty || formulario.controls['recaptcha'].touched)">
+                                        Falto comprobar que no es un Robot
+                                    </label>
+                                </div>
                             </div>
 
-                            <button class="btn btn-primary d-block mx-auto px-4" type="submit">Iniciar sesión</button>
+                            <button [disabled]="formulario.controls['usuario'].errors || formulario.controls['clave'].errors || formulario.controls['recaptcha'].errors" class="btn btn-primary d-block mx-auto px-4" type="button" (click)="login()">Iniciar sesión</button>
                         </div>
                 </form>
-                <a href="#" class="forgot-class" routerLink="/seguridad/recuperacion-clave">¿Has olvidado tu contraseña?</a>
+                
             </div>
         </div>
     </div>
-    
+    <div id="mensajeGeneralModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{title}}
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="txtMensajeGeneral" >{{body}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
 
 </main>

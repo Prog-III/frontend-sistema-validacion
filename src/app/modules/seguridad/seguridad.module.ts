@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 
 import { SeguridadRoutingModule } from './seguridad-routing.module';
@@ -18,7 +18,9 @@ import { RecuperacionClaveComponent } from './recuperacion-clave/recuperacion-cl
     CommonModule,
     SeguridadRoutingModule,
     ReactiveFormsModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SeguridadModule { }
