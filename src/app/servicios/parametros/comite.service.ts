@@ -10,30 +10,28 @@ import { ComiteModel } from 'src/app/models/parametros/comite.model';
 })
 export class ComiteService {
   url: string = GeneralData.MS_NEGOCIO_URL;
+  token: any
   constructor(
     private http: HttpClient
   ) {
+    this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
    }
 
   GetRecordList(): Observable<ComiteModel[]>{
-    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
-    
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token.token}` 
+      'Authorization': `Bearer ${this.token.token}` 
     })}
 
     return this.http.get<ComiteModel[]>(`${this.url}/comites`,httpOptions);
   }
 
   GuardarRegistro(data: ComiteModel): Observable<ComiteModel>{
-    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
-    
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token.token}` 
+      'Authorization': `Bearer ${this.token.token}` 
     })}
 
     return this.http.post<ComiteModel>(`${this.url}/comites`,{
@@ -42,24 +40,20 @@ export class ComiteService {
   }
 
   BuscarRegistro(id: number): Observable<ComiteModel>{
-    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
-    
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token.token}` 
+      'Authorization': `Bearer ${this.token.token}` 
     })}
 
     return this.http.get<ComiteModel>(`${this.url}/comites/${id}`,httpOptions)
   }
 
   EditarRegistro(data: ComiteModel): Observable<ComiteModel>{
-    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
-    
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token.token}` 
+      'Authorization': `Bearer ${this.token.token}` 
     })}
 
     return this.http.put<ComiteModel>(`${this.url}/comites/${data.id}`,{
@@ -69,12 +63,10 @@ export class ComiteService {
   }
 
   EliminarRegistro(id: number): Observable<any>{
-    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
-    
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token.token}` 
+      'Authorization': `Bearer ${this.token.token}` 
     })}
 
     return this.http.delete(`${this.url}/comites/${id}`,httpOptions);
