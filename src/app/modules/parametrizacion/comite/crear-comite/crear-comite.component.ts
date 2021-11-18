@@ -12,4 +12,7 @@ export class CrearComiteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  CrearRegistro(){
+    
+  }
 }

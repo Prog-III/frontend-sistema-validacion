@@ -1,1 +1,8 @@
-<p>crear-comite works!</p>
+<form>
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <button (click)="GuardarRegistro()" type="submit" class="btn btn-primary">Submit</button>
+    <a routerLink="/parametrizacion/listar-comite" class="btn btn-danger text-white">Cancelar</a>
+  </form>
