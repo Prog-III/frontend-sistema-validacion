@@ -1,9 +1,11 @@
-<form [formGroup]="formulario">
+<div class="w-100 vh-100">
+  <form [formGroup]="formulario">
     <input type="hidden" formControlName="id">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input formControlName="nombre" type="text" class="form-control" id="nombre">
     </div>
-    <button (click)="CrearRegistro()" type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="CrearRegistro()" type="submit" class="btn btn-primary">Editar</button>
     <a routerLink="/parametrizacion/listar-comite" class="btn btn-danger text-white">Cancelar</a>
   </form>
+</div>

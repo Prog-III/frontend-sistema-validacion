@@ -51,7 +51,7 @@ const routes: Routes = [
     component:EditarComiteComponent
   },
   {
-    path: "eliminar-comite",
+    path: "eliminar-comite/:id",
     component:EliminarComiteComponent
   },
   {

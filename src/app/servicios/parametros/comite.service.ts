@@ -67,4 +67,16 @@ export class ComiteService {
       nombre: data.nombre
     },httpOptions);
   }
+
+  EliminarRegistro(id: number): Observable<any>{
+    let token = JSON.parse(localStorage.getItem("session-info") || '{}')
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token.token}` 
+    })}
+
+    return this.http.delete(`${this.url}/comites/${id}`,httpOptions);
+  }
 }

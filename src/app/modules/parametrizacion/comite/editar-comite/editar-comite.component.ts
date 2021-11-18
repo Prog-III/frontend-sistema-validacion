@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
-import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class EditarComiteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private localStorageService: LocalStorageService,
     private service: ComiteService,
     private route: ActivatedRoute
   ) { }
