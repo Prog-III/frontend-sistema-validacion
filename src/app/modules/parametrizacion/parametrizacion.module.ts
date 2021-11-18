@@ -42,6 +42,7 @@ import { CrearJuradoComponent } from './jurado/crear-jurado/crear-jurado.compone
 import { EditarJuradoComponent } from './jurado/editar-jurado/editar-jurado.component';
 import { EliminarJuradoComponent } from './jurado/eliminar-jurado/eliminar-jurado.component';
 import { ListarJuradoComponent } from './jurado/listar-jurado/listar-jurado.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { ListarJuradoComponent } from './jurado/listar-jurado/listar-jurado.comp
   ],
   imports: [
     CommonModule,
-    ParametrizacionRoutingModule
-  ]
-})
+    ParametrizacionRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
+  ]})
 export class ParametrizacionModule { }

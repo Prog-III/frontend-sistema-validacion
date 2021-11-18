@@ -5,6 +5,9 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nombre</th>
+        <th>
+          Acciones
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +17,9 @@
         </td>
         <td>
             {{r.nombre}}
+        </td>
+        <td>
+            <a routerLink = "/parametrizacion/editar-comite/{{r.id}}" class="btn btn-warning">Editar</a>
         </td>
       </tr>
     </tbody>

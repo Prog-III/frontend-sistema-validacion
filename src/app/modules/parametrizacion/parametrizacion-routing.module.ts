@@ -47,7 +47,7 @@ const routes: Routes = [
     component: CrearComiteComponent
   },
   {
-    path: "editar-comite",
+    path: "editar-comite/:id",
     component:EditarComiteComponent
   },
   {

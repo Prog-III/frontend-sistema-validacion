@@ -1,8 +1,8 @@
-<form>
+<form [formGroup]="formulario">
     <div class="mb-3">
-      <label for="name" class="form-label">Nombre</label>
-      <input type="text" class="form-control" id="name">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input formControlName="nombre" type="text" class="form-control" id="nombre">
     </div>
-    <button (click)="GuardarRegistro()" type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="CrearRegistro()" type="submit" class="btn btn-primary">Submit</button>
     <a routerLink="/parametrizacion/listar-comite" class="btn btn-danger text-white">Cancelar</a>
   </form>
