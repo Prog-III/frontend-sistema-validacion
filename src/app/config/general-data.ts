@@ -4,6 +4,8 @@ export namespace GeneralData {
 
     export const MENSAJE_FORMULARIO_INVALIDO = 'Formulario inválido, verifique la información';
     export const MENSAJE_FORMULARIO_VALIDO = 'Ok';
+    export const FORMULARIO_INVALIDO = 'Error';
+    export const FORMULARIO_VALIDO = 'Aprobado';
     export const MODAL_MENSAJE_GENERAL = 'Ok';
 
     export const MS_SEGUIRIDAD_URL = "http://localhost:3002";

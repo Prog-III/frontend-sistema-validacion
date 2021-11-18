@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { RecuperacionClaveComponent } from './recuperacion-clave/recuperacion-clave.component';
 
 const routes: Routes = [
@@ -16,7 +17,13 @@ const routes: Routes = [
   {
     path: "recuperacion-clave",
     component:RecuperacionClaveComponent
-  }
+  },
+  
+  {
+    path: "logout",
+    component:LogoutComponent 
+  },
+
 ];
 
 @NgModule({

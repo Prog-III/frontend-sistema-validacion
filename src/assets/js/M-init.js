@@ -1,1 +1,0 @@
-var myModal = new bootstrap.Modal(document.getElementById('mensajeGeneralModal'), options)

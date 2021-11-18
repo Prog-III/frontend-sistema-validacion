@@ -2,7 +2,7 @@
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <form class="bg-white shadow px-5 py-3" [formGroup]="formulario" (submit)="probar()">
+                <form class="bg-white shadow px-5 py-3" [formGroup]="formulario ">
                         <div class="mb-md-5 mt-md-4">
                             <div class="text-center img-container">
                                 <img src= "../../../../assets/images/logo-uc.png" class="img-fluid"/>
@@ -10,16 +10,15 @@
 
                             <div class="form-outline form-white mb-4 mt-4">
                                 <label class="form-label m-0 text-muted" for="userEmail">Usuario</label>
-                                <input formControlName="usuario" [ngClass]="{'': controlUsuario}" type="email" id="userEmail" 
+                                <input formControlName="usuario" type="email" id="userEmail" 
                                     class="form-control" placeholder="Ingrese el correo electrónico"/>
                                     <div class="errorValidation">
-                                        <label *ngIf="GetDF['clave'].errors && (formulario.controls['clave'].dirty || formulario.controls['clave'].touched)">
-                                            <div class="errorValidation">
-                                                <label *ngIf="GetDF['usuario'].errors && (formulario.controls['usuario'].dirty || formulario.controls['usuario'].touched)">
-                                                    El nombre de usuario no cumple con los requisitos (correo electrónico)
-                                                </label>
-                                            </div>
+                                        <label *ngIf="GetDF['usuario'].errors && (formulario.controls['usuario'].dirty || formulario.controls['usuario'].touched)">
+                                            El nombre de usuario no cumple con los requisitos (correo electrónico)
+                                                
+                                           
                                         </label>
+                                        
                                     </div>
                             </div>
 
@@ -32,10 +31,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="form-outline form-white mb-5 mt-4">
-                                <a href="#" class="forgot-class" routerLink="/seguridad/recuperacion-clave">¿Has olvidado tu contraseña?</a>
-                            </div>
-
+                            
                             <div class="g-recaptcha text-center mb-2">
                                 <ngx-recaptcha2 formControlName="recaptcha" class="d-inline-block" siteKey={{key}}>
                                 </ngx-recaptcha2>
@@ -45,6 +41,11 @@
                                     </label>
                                 </div>
                             </div>
+
+                            <div class="form-outline form-white mb-5 mt-4">
+                                <a href="#" class="forgot-class" routerLink="/seguridad/recuperacion-clave">¿Has olvidado tu contraseña?</a>
+                            </div>
+
 
                             <button [disabled]="formulario.controls['usuario'].errors || formulario.controls['clave'].errors || formulario.controls['recaptcha'].errors" class="btn btn-primary d-block mx-auto px-4" type="button" (click)="login()">Iniciar sesión</button>
                         </div>

@@ -3,6 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
 import { GeneralData } from 'src/app/config/general-data';
+import { MD5 } from 'crypto-js';
+import { CredencialesUsuarioModel } from 'src/app/models/seguridad/credenciales-usuario';
+import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.service';
+import { DatosSesionModel } from 'src/app/models/seguridad/datos_sesion';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,8 +22,12 @@ export class LoginComponent implements OnInit {
   body: string = '';
   title: string = '';
   key:string =GeneralData.KEY_RECAPTCHA;
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private seguridadService: SeguridadService,
+    private router: Router,
+    private localStorageService: LocalStorageService,
   ) { }
 
   ngOnInit(): void {
@@ -37,41 +49,35 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  get controlUsuario() {
-    return this.formulario.get('usuario');
-  }
-
-  get controlClave() {
-    return this.formulario.get('clave');
-  }
-  get controlRecaptcha() {
-    return this.formulario.get('recaptcha');
-  }
-
-  probar() {
-    console.log(this.formulario);
-  }
+ 
 
   login() {
-    if (this.formulario.invalid) {
-      this.body = 'Formulario Invalido';
-      this.title = 'error';
-      this.testModal = new bootstrap.Modal(document.getElementById('mensajeGeneralModal') || '',
-        {
-          keyboard: false
-        });
-      this.testModal?.show();
+    if (!this.formulario.invalid) {
+      
+      let credenciales = new CredencialesUsuarioModel();
+      credenciales.usuario = this.GetDF["usuario"].value;
+      credenciales.clave = MD5(this.GetDF["clave"].value).toString();
+      this.seguridadService.Login(credenciales).subscribe({
+        next: (data: DatosSesionModel) => {
+          console.log(data);
+          let saved = this.localStorageService.GuardarDatosSesion(data);
+          data.isLoggedIn = true;
+          this.seguridadService.RefrescarInfoSesion(data);
+          this.router.navigate(["/home"]);
+        },
+        error: (error: any) => {
+
+        },
+        complete: () => {
+
+        }
+      });
     } else {
-      this.body = 'Formulario valido';
-      this.title = 'Ingreso sesion';
-      this.testModal = new bootstrap.Modal(document.getElementById('mensajeGeneralModal') || '',
-        {
-          keyboard: false
-        });
-      this.testModal?.show();
+      //this.activeModal();
     }
 
   }
+
   get GetDF() {
     return this.formulario.controls;
   }

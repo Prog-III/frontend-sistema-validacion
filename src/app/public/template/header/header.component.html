@@ -76,7 +76,11 @@
             </li>
             <fa-icon *ngIf="activeSession"class="pt-2 ms-5 text-white" [icon]="faStickyNote"></fa-icon>
             <li *ngIf="activeSession" class="nav-item">
-                <a class="nav-link text-white" href="#">Reportes</a>
+                <a class="nav-link text-white" >Reportes</a>
+            </li>
+            <fa-icon *ngIf="activeSession"class="pt-2 ms-5 text-white" [icon]="faStickyNote"></fa-icon>
+            <li *ngIf="activeSession" class="nav-item">
+                <a class="nav-link text-white" routerLink="seguridad/logout">Cerrar sesión</a>
             </li>
         </ul>
         <ul class="nav navbar-nav me-5 justify-content-end">

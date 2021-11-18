@@ -9,7 +9,7 @@ import { NotFoundComponent } from './public/errors/not-found/not-found.component
 import { InternalServerErrorComponent } from './public/errors/internal-server-error/internal-server-error.component';
 import { HomeComponent } from './public/general/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
