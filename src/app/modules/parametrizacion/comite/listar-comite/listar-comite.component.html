@@ -20,7 +20,9 @@
           </td>
           <td>
               <a routerLink = "/parametrizacion/editar-comite/{{r.id}}" class="btn btn-warning">Editar</a>
-              <a routerLink = "/parametrizacion/eliminar-comite/{{r.id}}" class="btn btn-danger">Eliminar</a>
+              <!-- <button (click)="EliminarRegistro()" type="button" class="btn btn-danger">Eliminar</button> -->
+              <!-- <a routerLink = "/parametrizacion/eliminar-comite/{{r.id}}" class="btn btn-danger">Eliminar</a> -->
+              <a (click)="EliminarRegistro(r.id)" class="btn btn-danger">Eliminar</a>
           </td>
         </tr>
       </tbody>
