@@ -1,0 +1,53 @@
+.img-logo {
+    width: 100px;
+}
+
+.navbar-toggler {
+    border: 0;
+    box-shadow: none;
+}
+
+.nav-item {
+    .dropdown-menu {
+        background-color: rgba(0, 59, 112, 1);
+        padding: 0;
+    }
+    
+    .dropdown-item {
+        color: white;
+        transition: background-color .1s ease;
+
+        &:hover {
+            color: #003b70;
+            background-color: white;
+        }
+    }
+
+    .dropdown-divider {
+        margin: 0;
+    }
+
+    @media screen and (min-width: 992px) {
+        .dropdown-menu {
+            background-color: white;
+        }
+
+        .dropdown-item {
+            color: black;
+    
+            &:hover {
+                color: white;
+                background-color: #003b70;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

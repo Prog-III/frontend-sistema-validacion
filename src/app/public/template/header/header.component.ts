@@ -9,7 +9,7 @@ import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.servic
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   activeSession: boolean = false;
