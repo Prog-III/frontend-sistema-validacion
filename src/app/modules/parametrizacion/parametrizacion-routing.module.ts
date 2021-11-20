@@ -63,7 +63,7 @@ const routes: Routes = [
     component:CrearCorreosNotificacionComponent
   },
   {
-    path: "editar-correos-notificacion",
+    path: "editar-correos-notificacion/:id",
     component:EditarCorreosNotificacionComponent
   },
   {

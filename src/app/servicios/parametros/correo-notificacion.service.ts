@@ -2,12 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
-import { ComiteModel } from 'src/app/models/parametros/comite.model';
+import { CorreoNotificacionModel } from 'src/app/models/parametros/correo-notificacion.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ComiteService {
+export class CorreoNotificacionService {
   url: string = GeneralData.MS_NEGOCIO_URL;
   token: any
   constructor(
@@ -16,48 +16,52 @@ export class ComiteService {
     this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
    }
 
-  GetRecordList(): Observable<ComiteModel[]>{
+  GetRecordList(): Observable<CorreoNotificacionModel[]>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<ComiteModel[]>(`${this.url}/comites`,httpOptions);
+    return this.http.get<CorreoNotificacionModel[]>(`${this.url}/correos-notificaciones`,httpOptions);
   }
 
-  GuardarRegistro(data: ComiteModel): Observable<ComiteModel>{
+  GuardarRegistro(data: CorreoNotificacionModel): Observable<CorreoNotificacionModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.post<ComiteModel>(`${this.url}/comites`,{
-      nombre: data.nombre
+    return this.http.post<CorreoNotificacionModel>(`${this.url}/correos-notificaciones`,{
+      nombre: data.nombre,
+      correo: data.correo,
+      estado: data.estado
     },httpOptions);
   }
 
-  BuscarRegistro(id: number): Observable<ComiteModel>{
+  BuscarRegistro(id: number): Observable<CorreoNotificacionModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<ComiteModel>(`${this.url}/comites/${id}`,httpOptions)
+    return this.http.get<CorreoNotificacionModel>(`${this.url}/correos-notificaciones/${id}`,httpOptions)
   }
 
-  EditarRegistro(data: ComiteModel): Observable<ComiteModel>{
+  EditarRegistro(data: CorreoNotificacionModel): Observable<CorreoNotificacionModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.put<ComiteModel>(`${this.url}/comites/${data.id}`,{
+    return this.http.put<CorreoNotificacionModel>(`${this.url}/correos-notificaciones/${data.id}`,{
       id: data.id,
-      nombre: data.nombre
+      nombre: data.nombre,
+      correo: data.correo,
+      estado: data.estado
     },httpOptions);
   }
 
@@ -68,6 +72,6 @@ export class ComiteService {
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.delete(`${this.url}/comites/${id}`,httpOptions);
+    return this.http.delete(`${this.url}/correos-notificaciones/${id}`,httpOptions);
   }
 }
