@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-editar-comite',
@@ -10,7 +11,7 @@ import { ComiteService } from 'src/app/servicios/parametros/comite.service';
   styleUrls: ['./editar-comite.component.css']
 })
 export class EditarComiteComponent implements OnInit {
-
+  faAsterisk = faAsterisk;
  
   formulario: FormGroup = new FormGroup({});
 

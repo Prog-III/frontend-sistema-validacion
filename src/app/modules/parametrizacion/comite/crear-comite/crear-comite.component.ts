@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-crear-comite',
@@ -14,6 +15,7 @@ import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 export class CrearComiteComponent implements OnInit {
 
   formulario: FormGroup = new FormGroup({});
+  faAsterisk = faAsterisk;
 
   constructor(
     private fb: FormBuilder,
