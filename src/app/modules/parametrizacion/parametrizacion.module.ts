@@ -43,6 +43,7 @@ import { EditarJuradoComponent } from './jurado/editar-jurado/editar-jurado.comp
 import { EliminarJuradoComponent } from './jurado/eliminar-jurado/eliminar-jurado.component';
 import { ListarJuradoComponent } from './jurado/listar-jurado/listar-jurado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ListarJuradoComponent
   ],
   imports: [
+    FontAwesomeModule,
     CommonModule,
     ParametrizacionRoutingModule,
     FormsModule,

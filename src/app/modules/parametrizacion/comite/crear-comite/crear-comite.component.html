@@ -1,11 +1,17 @@
-<div class="w-100 vh-100">
-  <form [formGroup]="formulario">
-    <div class="mb-3">
-      <label for="nombre" class="form-label">Nombre</label>
-      <input formControlName="nombre" type="text" class="form-control" id="nombre">
+<main class="login-main w-100 vh-100 d-flex justify-content-center align-items-center">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <form [formGroup]="formulario">
+          <input type="hidden" formControlName="id">
+          <div class="mb-3">
+            <label for="nombre" class="form-label fw-bold">Nombre</label>
+            <input formControlName="nombre" type="text" class="form-control" id="nombre">
+          </div>
+          <button (click)="CrearRegistro()" type="submit" class="btn btn-primary me-2">Añadir Registro</button>
+          <a routerLink="/parametrizacion/listar-comite" class="btn btn-danger text-white">Cancelar</a>
+        </form>
+      </div>
     </div>
-    <button (click)="CrearRegistro()" type="submit" class="btn btn-primary">Submit</button>
-    <a routerLink="/parametrizacion/listar-comite" class="btn btn-danger text-white">Cancelar</a>
-  </form>
-</div>
-
+  </div>
+</main>

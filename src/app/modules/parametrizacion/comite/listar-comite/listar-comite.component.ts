@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
+import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-listar-comite',
@@ -11,7 +12,9 @@ import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 export class ListarComiteComponent implements OnInit {
 
   recordList: ComiteModel[] = [];
-
+  faPlus = faPlus;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   id: number= 0;
 
@@ -40,7 +43,6 @@ export class ListarComiteComponent implements OnInit {
           //aqui va el modal
           console.log("Se elimino el mensaje");
           location.reload();
-          
         },
         error: (err:any)=>{
           //modal de error
