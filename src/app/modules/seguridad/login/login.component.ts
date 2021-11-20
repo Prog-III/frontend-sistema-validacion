@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
@@ -13,6 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ObjetoErrorModel } from '../../../models/seguridad/objetoError';
 
 import { ReCaptcha2Component } from 'ngx-captcha';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { ReCaptcha2Component } from 'ngx-captcha';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   formulario: FormGroup = new FormGroup({});
   testModal: Modal | undefined;
   body: string = '';
@@ -29,8 +30,9 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('elementoCaptcha') recaptcha?: ReCaptcha2Component;
 
-
   mensajeError: string | undefined;
+
+  subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +43,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
-    
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   crearFormulario() {
@@ -65,9 +70,8 @@ export class LoginComponent implements OnInit {
       let credenciales = new CredencialesUsuarioModel();
       credenciales.usuario = this.controlesFormulario["usuario"].value;
       credenciales.clave = MD5(this.controlesFormulario["clave"].value).toString();
-      this.seguridadService.Login(credenciales).subscribe({
+      this.subscription = this.seguridadService.Login(credenciales).subscribe({
         next: (data: DatosSesionModel) => {
-          console.log(data);
           this.localStorageService.GuardarDatosSesion(data);
           
           data.isLoggedIn = true;

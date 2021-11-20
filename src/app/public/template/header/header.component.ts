@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faCog, faGlobe, faUsers, faPencilAlt, faStickyNote, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { DatosSesionModel } from 'src/app/models/seguridad/datos_sesion';
 import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.service';
+import { LocalStorageService } from '../../../servicios/compartidos/local-storage.service';
+import { Router } from '@angular/router';
 
 
 
@@ -11,7 +13,7 @@ import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.servic
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   activeSession: boolean = false;
   subscription: Subscription = new Subscription();
   
@@ -23,7 +25,9 @@ export class HeaderComponent implements OnInit {
   faUser = faUser
 
   constructor(
-    private seguridadService: SeguridadService
+    private seguridadService: SeguridadService,
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) { }
   
   ngOnInit(): void {
@@ -39,4 +43,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  cerrarSesion(): void {
+    const datosRemovidos = this.localStorageService.RemoverDatosSesion();
+
+    if (datosRemovidos) this.router.navigate(['/seguridad/login']);
+  }
 }
