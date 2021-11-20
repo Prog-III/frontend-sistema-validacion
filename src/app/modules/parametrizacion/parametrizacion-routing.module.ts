@@ -95,7 +95,7 @@ const routes: Routes = [
     component:CrearEstadoSolicitudComponent
   },
   {
-    path: "editar-estado-solicitud",
+    path: "editar-estado-solicitud/:id",
     component:EditarEstadoSolicitudComponent
   },
   {
