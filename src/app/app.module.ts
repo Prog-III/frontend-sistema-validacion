@@ -10,6 +10,7 @@ import { InternalServerErrorComponent } from './public/errors/internal-server-er
 import { HomeComponent } from './public/general/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http'; 
+import { CompartidoModule } from './modules/compartido/compartido.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    CompartidoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

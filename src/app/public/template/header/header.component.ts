@@ -46,10 +46,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-  cerrarSesion(): void {
-    const datosRemovidos = this.localStorageService.RemoverDatosSesion();
-
-    if (datosRemovidos) this.router.navigate(['/seguridad/login']);
-  }
 }
