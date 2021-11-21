@@ -58,15 +58,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" role="button"
+                        aria-haspopup="true" aria-expanded="false" (click)="abrirModalUsuarios()">
                         <fa-icon class="pt-2 text-white" [icon]="faUsers"></fa-icon>
                         Usuarios
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" (click)="abrirModalReportes()">
                         <fa-icon class="pt-2 text-white" [icon]="faStickyNote"></fa-icon>
                         Reportes
                     </a>
@@ -92,4 +92,4 @@
     </div>
 </nav>
 
-<app-modal modalHeader="sss" modalBody="dfd" [esModalConfirmacion]="true"></app-modal>
+<ng-template #modalContainer></ng-template>

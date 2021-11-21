@@ -19,8 +19,7 @@ import { CompartidoModule } from './modules/compartido/compartido.module';
     FooterComponent,
     NotFoundComponent,
     InternalServerErrorComponent,
-    HomeComponent,
-   
+    HomeComponent
   ],
   imports: [
     BrowserModule,

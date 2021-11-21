@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import Modal from "bootstrap/js/dist/modal";
+import { ModalData } from '../../../models/compartido/modal-data';
 
 @Component({
   selector: 'app-modal',
@@ -7,19 +8,16 @@ import Modal from "bootstrap/js/dist/modal";
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-  @Input() modalHeader?: string;
-  @Input() modalBody?: string;
-  @Input() esModalConfirmacion: boolean = false;
+  modalHeader?: string;
+  modalBody?: string;
+  esModalConfirmacion?: boolean = false;
 
   @ViewChild('modalTemplate', { static: true }) modalTemplate?: ElementRef;
   modal?: Modal;
 
-  constructor() { 
-  }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.openModal();
-  }
+  ngOnInit(): void { }
 
   openModal(): void {
     this.modal = new Modal(this.modalTemplate?.nativeElement, {});
