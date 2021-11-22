@@ -14,8 +14,6 @@ import { ModalData } from '../../../models/compartido/modal-data';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @ViewChild('modalContainer', { static: true, read: ViewContainerRef }) modalContainer!: ViewContainerRef;
-
   activeSession: boolean = false;
   subscription: Subscription = new Subscription();
   
@@ -27,37 +25,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faUser = faUser
 
   constructor(
-    private seguridadService: SeguridadService,
-    private modalService: ModalService,
-    private localStorageService: LocalStorageService,
-    private router: Router
+    private seguridadService: SeguridadService
   ) { }
   
-  ngOnInit(): void {
-    console.log(this.modalContainer);
-    
-    this.subscription = this.seguridadService.GetSessionInfo().subscribe({
+  ngOnInit(): void {    
+    const seguridadSubscription = this.seguridadService.GetSessionInfo().subscribe({
       next: (data: DatosSesionModel) => {
-        this.activeSession = data.isLoggedIn;
-        console.log(this.activeSession);
-        
+        this.activeSession = data.isLoggedIn;        
       },
       error: (err: any) => {
 
       }
     });
-  }
 
-  abrirModalReportes() {
-    this.abrirModal({ header: 'Reportes', body: '455' })
-  }
-
-  abrirModalUsuarios() {
-    this.abrirModal({ header: 'Usuarios', body: '455', esModalConfirmacion: true })
-  }
-
-  abrirModal(data: ModalData) {
-    this.modalService.openModal(this.modalContainer, data);
+    this.subscription.add(seguridadSubscription);
   }
 
   ngOnDestroy(): void {

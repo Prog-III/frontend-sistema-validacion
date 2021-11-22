@@ -19,6 +19,9 @@ export class ModalService {
     referenciaComponente.instance.modalBody = body;
     referenciaComponente.instance.esModalConfirmacion = esModalConfirmacion;
 
+    const subscription = referenciaComponente.instance.confirmacionEvent;
     referenciaComponente.instance.openModal();
+
+    return subscription;
   }
 }

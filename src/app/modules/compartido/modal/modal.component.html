@@ -13,8 +13,8 @@
             <ng-container *ngIf="esModalConfirmacion; then confirmacionTemplate; else infoTemplate"></ng-container>
             <ng-template #confirmacionTemplate>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger text-white">Aceptar</button>
-                    <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">Cancelar</button>
+                    <button type="button" class="btn btn-danger text-white" (click)="confirmarModal(true)">Aceptar</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="confirmarModal(false)">Cancelar</button>
                 </div>    
             </ng-template>
             <ng-template #infoTemplate>

@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import Modal from "bootstrap/js/dist/modal";
-import { ModalData } from '../../../models/compartido/modal-data';
 
 @Component({
   selector: 'app-modal',
@@ -15,6 +14,8 @@ export class ModalComponent implements OnInit {
   @ViewChild('modalTemplate', { static: true }) modalTemplate?: ElementRef;
   modal?: Modal;
 
+  @Output() confirmacionEvent = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit(): void { }
@@ -27,5 +28,11 @@ export class ModalComponent implements OnInit {
   closeModal(): void {
     this.modal?.hide();
     this.modal?.dispose();
+  }
+
+  confirmarModal(confirmacion: boolean) {
+    this.confirmacionEvent.emit(confirmacion || false);
+
+    this.closeModal();
   }
 }
