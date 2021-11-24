@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 
 @Component({
   selector: 'app-listar-comite',
@@ -11,6 +12,9 @@ import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class ListarComiteComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: ComiteModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -32,6 +36,7 @@ export class ListarComiteComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: ComiteModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

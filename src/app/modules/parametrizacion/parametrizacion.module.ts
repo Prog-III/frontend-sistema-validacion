@@ -44,6 +44,7 @@ import { EliminarJuradoComponent } from './jurado/eliminar-jurado/eliminar-jurad
 import { ListarJuradoComponent } from './jurado/listar-jurado/listar-jurado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -94,6 +95,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     ParametrizacionRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]})
 export class ParametrizacionModule { }

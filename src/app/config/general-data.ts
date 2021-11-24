@@ -17,4 +17,6 @@ export namespace GeneralData {
     export const MENSAJE_ERROR = "Error en el backend."
     export const KEY_RECAPTCHA = "6LeNbTcdAAAAAKOzE76Uk0RB-Vkq2-3su860xC89"
 
+    export const RECORDS_BY_PAGE = 10;
+
 }
