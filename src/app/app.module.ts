@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http'; 
 import { CompartidoModule } from './modules/compartido/compartido.module';
 import { ModalContainerDirective } from './directives/compartido/modal-container.directive';
+import { ToastContainerDirective } from './directives/compartido/toast-container.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModalContainerDirective } from './directives/compartido/modal-container
     NotFoundComponent,
     InternalServerErrorComponent,
     HomeComponent,
-    ModalContainerDirective
+    ModalContainerDirective,
+    ToastContainerDirective
   ],
   imports: [
     BrowserModule,

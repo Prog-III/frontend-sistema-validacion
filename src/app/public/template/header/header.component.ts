@@ -3,7 +3,6 @@ import { faCog, faGlobe, faUsers, faPencilAlt, faStickyNote, faUser } from '@for
 import { Subscription } from 'rxjs';
 import { DatosSesionModel } from 'src/app/models/seguridad/datos_sesion';
 import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.service';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,13 +20,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faUser = faUser
 
   constructor(
-    private seguridadService: SeguridadService
+    private seguridadService: SeguridadService  
   ) { }
   
-  ngOnInit(): void {  
+  ngOnInit(): void {
     const seguridadSubscription = this.seguridadService.GetSessionInfo().subscribe({
       next: (data: DatosSesionModel) => {
-        this.activeSession = data.isLoggedIn;        
+        this.activeSession = data.isLoggedIn;
       },
       error: (err: any) => {
         
