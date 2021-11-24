@@ -11,6 +11,7 @@ import { HomeComponent } from './public/general/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http'; 
 import { CompartidoModule } from './modules/compartido/compartido.module';
+import { ModalContainerDirective } from './directives/compartido/modal-container.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CompartidoModule } from './modules/compartido/compartido.module';
     FooterComponent,
     NotFoundComponent,
     InternalServerErrorComponent,
-    HomeComponent
+    HomeComponent,
+    ModalContainerDirective
   ],
   imports: [
     BrowserModule,

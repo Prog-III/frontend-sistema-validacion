@@ -1,25 +1,32 @@
 import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
-import { ModalService } from './servicios/compartidos/modal.service';
+import { ModalService } from './servicios/modal/modal.service';
+import { ViewContainerModalService } from './servicios/modal/view-container-modal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   faCog = faCog;
   title = 'frontend-sistema-validacion';
 
-  @ViewChild('modalContainer', { read: ViewContainerRef }) modalContainer!: ViewContainerRef;
+  subscription: Subscription = new Subscription();
 
   constructor(
-    private modalService: ModalService
+    private modalService: ModalService,
+    private ViewContainerModalService: ViewContainerModalService
   ) {
     
   }
-  
-  ngAfterViewInit(): void {
-    this.modalService.modalContainerRef = this.modalContainer; 
+
+  ngOnInit(): void {
+    const viewContainerModalSubscription = this.ViewContainerModalService.viewContainerObservable?.subscribe(vc => {
+      this.modalService.modalContainerRef = vc;
+    });
+
+    this.subscription.add(viewContainerModalSubscription);
   }
 }
