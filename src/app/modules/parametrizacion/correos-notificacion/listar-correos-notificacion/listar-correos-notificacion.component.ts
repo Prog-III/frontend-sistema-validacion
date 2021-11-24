@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { CorreoNotificacionModel } from 'src/app/models/parametros/correo-notificacion.model';
 import { CorreoNotificacionService } from 'src/app/servicios/parametros/correo-notificacion.service';
 
@@ -10,6 +11,9 @@ import { CorreoNotificacionService } from 'src/app/servicios/parametros/correo-n
 })
 export class ListarCorreosNotificacionComponent implements OnInit {
   
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: CorreoNotificacionModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -29,6 +33,7 @@ export class ListarCorreosNotificacionComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: CorreoNotificacionModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

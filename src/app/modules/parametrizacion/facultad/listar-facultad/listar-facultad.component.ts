@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { FacultadModel } from 'src/app/models/parametros/facultad.model';
 import { FacultadService } from 'src/app/servicios/parametros/facultad.service';
 
@@ -10,6 +11,9 @@ import { FacultadService } from 'src/app/servicios/parametros/facultad.service';
 })
 export class ListarFacultadComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: FacultadModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -31,6 +35,7 @@ export class ListarFacultadComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: FacultadModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

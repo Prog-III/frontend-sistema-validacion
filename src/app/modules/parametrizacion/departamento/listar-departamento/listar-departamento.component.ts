@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { DepartamentoModel } from 'src/app/models/parametros/departamento.model';
 import { DepartamentoService } from 'src/app/servicios/parametros/departamento.service';
 
@@ -10,6 +11,9 @@ import { DepartamentoService } from 'src/app/servicios/parametros/departamento.s
 })
 export class ListarDepartamentoComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: DepartamentoModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -23,6 +27,7 @@ export class ListarDepartamentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetRecordList();
+    this.total = this.recordList.length
   }
 
   GetRecordList(){
