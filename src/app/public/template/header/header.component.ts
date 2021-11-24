@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faUser = faUser
 
   constructor(
-    private seguridadService: SeguridadService  
+    private seguridadService: SeguridadService
   ) { }
   
   ngOnInit(): void {
