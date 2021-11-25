@@ -127,7 +127,7 @@ const routes: Routes = [
     component:CrearJuradoComponent
   },
   {
-    path: "editar-jurado",
+    path: "editar-jurado/:id",
     component:EditarJuradoComponent
   },
   {
@@ -143,7 +143,7 @@ const routes: Routes = [
     component:CrearLineaInvestigacionComponent
   },
   {
-    path: "editar-linea-investigacion",
+    path: "editar-linea-investigacion/:id",
     component:EditarLineaInvestigacionComponent
   },
   {
@@ -159,7 +159,7 @@ const routes: Routes = [
     component:CrearModalidadComponent
   },
   {
-    path: "editar-modalidad",
+    path: "editar-modalidad/:id",
     component:EditarModalidadComponent
   },
   {
@@ -175,7 +175,7 @@ const routes: Routes = [
     component:CrearTipoSolicitudComponent
   },
   {
-    path: "editar-tipo-solicitud",
+    path: "editar-tipo-solicitud/:id",
     component:EditarTipoSolicitudComponent
   },
   {
@@ -191,7 +191,7 @@ const routes: Routes = [
     component:CrearTipoVinculacionComponent
   },
   {
-    path: "editar-tipo-vinculacion",
+    path: "editar-tipo-vinculacion/:id",
     component:EditarTipoVinculacionComponent
   },
   {

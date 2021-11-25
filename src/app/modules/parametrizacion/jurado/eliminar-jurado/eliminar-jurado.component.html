@@ -1,1 +1,24 @@
-<p>eliminar-jurado works!</p>
+<div class="w-100 vh-100">
+    <div class="mb-3">
+        <label>Está seguro de eliminar por completo el registro con la siguiente información:</label>
+        <ul>
+            <li>
+                Id: {{id}}
+            </li>
+            <li>
+                Nombre: {{nombre}}
+            </li>
+            <li>
+                Email: {{email}}
+            </li>
+            <li>
+                Telefono: {{telefono}}
+            </li>
+            <li>
+                Entidad: {{entidad}}
+            </li>
+        </ul>
+    </div>
+    <button (click)="EliminarRegistro()" type="submit" class="btn btn-primary">Eliminar</button>
+    <a routerLink="/parametrizacion/listar-juraado" class="btn btn-danger text-white">Cancelar</a>
+</div>

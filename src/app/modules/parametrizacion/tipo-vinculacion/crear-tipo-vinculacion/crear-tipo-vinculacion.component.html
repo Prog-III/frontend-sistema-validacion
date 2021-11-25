@@ -1,1 +1,22 @@
-<p>crear-tipo-vinculacion works!</p>
+<main class="login-main w-100 vh-100 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <form [formGroup]="formulario">
+            <p class="fs-2 fw-bold">Crear Tipo de Vinculación </p>
+            <hr class="">
+            <div class="mb-3">
+              <label for="nombre" required="required" class="form-label fw-bold">Nombre </label>
+              <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+              <input formControlName="nombre" type="text" class="form-control" id="nombre">
+            </div>
+            <div class="d-flex align-items-center justify-content-center w-100">
+              <button (click)="CrearRegistro()" type="submit" class="btn btnaceptar text-white w-50 me-2 ">Añadir Registro</button>
+              <a routerLink="/parametrizacion/listar-tipo-vinculacion" class="btn bg-white border border-primary w-50 text-primary">Cancelar</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
