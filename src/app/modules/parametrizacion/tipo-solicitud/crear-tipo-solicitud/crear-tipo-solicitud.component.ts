@@ -39,29 +39,49 @@ export class CrearTipoSolicitudComponent implements OnInit {
     });
   }
 
-  CrearRegistro(){
+   CrearRegistro(){
+    const formData = new FormData();
+    formData.append('file', this.formulario.get('formato')?.value);
+
+
     let model = new TipoSolicitudModel();
     model.nombre = this.formulario.controls['nombre'].value;
-    model.formato = this.formulario.controls['formato'].value;
-    
-    this.service.GuardarRegistro(model).subscribe({
-      next: (data: TipoSolicitudModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
-        this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
+     this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
+      next: (data: any) =>{
+      
+        model.formato=data.name;
+         this.service.GuardarRegistro(model).subscribe({
+          next: (data: TipoSolicitudModel) =>{
+            //aqui va el modal
+            console.log("Se guardo el mensaje");
+            this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
+          },
+          error: (err:any)=>{
+            //modal de error
+            console.log(err);
+            
+            console.log("No se almaceno");
+          }
+        });
       },
       error: (err:any)=>{
-        //modal de error
+       console.log(err);
+       
         console.log("No se almaceno");
       }
     });
+    console.log(model);
+    
+    
 
   }
-  // onChangeImageFile(event: any) {
-  //   if (event.target.value) {
+  onChangeImageFile(event: any) {
+    if (event.target.value) {
      
 
-  //     this.formulario.get('formato')?.setValue(event.target.files[0]);
-  //   } 
-  // }
+      this.formulario.get('formato')?.setValue(event.target.files[0]);
+      
+      
+    } 
+  }
 }

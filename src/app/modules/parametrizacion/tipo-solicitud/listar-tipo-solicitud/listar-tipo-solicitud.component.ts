@@ -5,6 +5,7 @@ import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitu
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archivos.service';
 
 @Component({
   selector: 'app-listar-tipo-solicitud',
@@ -23,7 +24,8 @@ export class ListarTipoSolicitudComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private service: TipoSolicitudService
+    private service: TipoSolicitudService,
+    private cargarService: CargaArchivosService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,18 @@ export class ListarTipoSolicitudComponent implements OnInit {
     })
   }
 
+  descarga(id:any){
+    console.log(id);
+    
+    this.cargarService.GetRecordList(id).subscribe({
+      next: (data: any) =>{
+        console.log(data);
+        let url = window.URL.createObjectURL(data);
+    window.open(url);
+        
+      }
+    })
+  }
   EliminarRegistro(id: number | undefined){
     if(id){
       this.service.EliminarRegistro(id).subscribe({

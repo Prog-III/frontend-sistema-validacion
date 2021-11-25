@@ -18,26 +18,28 @@ export class CargaArchivosService {
     this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
    }
 
-  GetRecordList(): Observable<ArchivoModel[]>{
+  GetRecordList(id:string): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<ArchivoModel[]>(`${this.url}/cargar_archivos_azure`,httpOptions);
+    return this.http.get<any>(`${this.url}/descargar_archivos_azure/${id}`,httpOptions);
   }
 
-  GuardarRegistro(data: ArchivoModel): Observable<ArchivoModel>{
+  GuardarRegistro(formData: any) {
     const httpOptions = {
       headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.post<ArchivoModel>(`${this.url}/cargar_archivos_azure`,{
-      ruta: data.ruta
-    },httpOptions);
+const formData2 = new FormData();
+    formData2.append('file', formData);
+ 
+    
+    return this.http.post<any>(`${this.url}/cargar_archivos_azure`,
+      formData2
+    ,httpOptions);
   }
 
 }

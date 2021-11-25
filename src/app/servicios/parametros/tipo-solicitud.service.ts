@@ -33,6 +33,7 @@ export class TipoSolicitudService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
+console.log(data);
 
     return this.http.post<TipoSolicitudModel>(`${this.url}/tipos-solicitudes`,{
       nombre: data.nombre,

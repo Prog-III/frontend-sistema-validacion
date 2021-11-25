@@ -11,6 +11,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Tipo de Solicitud</th>
                 <th scope="col">Doc</th>
+                <th scope="col">Descargar</th>
                 <th class="col-4">
                   Acciones
                 </th>
@@ -26,6 +27,10 @@
                 </td>
                 <td class="pt-3">
                     {{r.formato}}
+                  </td>
+                <td class="pt-3">
+                  <a (click)="descarga(r.formato)" download>Descargar</a>
+                  
                   </td>
                 <td class="pt-2">
                   <a routerLink="/parametrizacion/editar-tipo-solicitud/{{r.id}}" class="btn btn-primary me-2"><fa-icon class="text-white" [icon]="faEdit"></fa-icon></a>
