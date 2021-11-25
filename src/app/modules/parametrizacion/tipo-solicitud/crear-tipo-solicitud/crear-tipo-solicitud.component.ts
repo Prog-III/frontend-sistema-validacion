@@ -6,6 +6,7 @@ import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
 import { TipoSolicitudModel } from 'src/app/models/parametros/tipoSolicitud.model';
+import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archivos.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class CrearTipoSolicitudComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private service: TipoSolicitudService
+    private service: TipoSolicitudService,
+    private cargaArchivos: CargaArchivosService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class CrearTipoSolicitudComponent implements OnInit {
   }
 
   crearFormulario() {
+    
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required]],
       formato: ['', [Validators.required]]
@@ -40,6 +43,7 @@ export class CrearTipoSolicitudComponent implements OnInit {
     let model = new TipoSolicitudModel();
     model.nombre = this.formulario.controls['nombre'].value;
     model.formato = this.formulario.controls['formato'].value;
+    
     this.service.GuardarRegistro(model).subscribe({
       next: (data: TipoSolicitudModel) =>{
         //aqui va el modal
@@ -53,5 +57,11 @@ export class CrearTipoSolicitudComponent implements OnInit {
     });
 
   }
+  // onChangeImageFile(event: any) {
+  //   if (event.target.value) {
+     
 
+  //     this.formulario.get('formato')?.setValue(event.target.files[0]);
+  //   } 
+  // }
 }
