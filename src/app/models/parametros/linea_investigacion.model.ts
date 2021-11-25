@@ -1,4 +1,4 @@
-export class Linea_InvestigacionModel{
+export class LineaInvestigacionModel{
     id?: number;
     nombre?: string;
 }

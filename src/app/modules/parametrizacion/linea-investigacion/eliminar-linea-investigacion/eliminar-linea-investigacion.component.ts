@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Linea_InvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
-import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion-service';
+import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
+import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
 
 @Component({
   selector: 'app-eliminar-linea-investigacion',
@@ -26,7 +26,7 @@ export class EliminarLineaInvestigacionComponent implements OnInit {
   BuscarRegistro() {
     let id = parseInt(this.route.snapshot.params["id"]);
     this.service.BuscarRegistro(id).subscribe({
-      next: (data: Linea_InvestigacionModel) => {
+      next: (data: LineaInvestigacionModel) => {
         if (data.id && data.nombre) {
           this.id = data.id
           this.nombre = data.nombre
@@ -37,7 +37,7 @@ export class EliminarLineaInvestigacionComponent implements OnInit {
 
   EliminarRegistro() {
     this.service.EliminarRegistro(this.id).subscribe({
-      next: (data: Linea_InvestigacionModel) => {
+      next: (data: LineaInvestigacionModel) => {
         //aqui va el modal
         console.log("Se guardo el mensaje");
         this.router.navigate(["/parametrizacion/listar-linea-investigacion"]);
