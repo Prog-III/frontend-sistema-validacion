@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archivos.service';
+import { GeneralData } from 'src/app/config/general-data';
 
 @Component({
   selector: 'app-listar-tipo-solicitud',
@@ -14,6 +15,9 @@ import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archiv
 })
 export class ListarTipoSolicitudComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: TipoSolicitudModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -36,6 +40,7 @@ export class ListarTipoSolicitudComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: TipoSolicitudModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

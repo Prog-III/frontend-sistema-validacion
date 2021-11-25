@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { ModalidadModel } from 'src/app/models/parametros/modalidad.model';
 import { ModalidadService } from 'src/app/servicios/parametros/modalidad.service';
 
@@ -11,6 +12,9 @@ import { ModalidadService } from 'src/app/servicios/parametros/modalidad.service
   styleUrls: ['./listar-modalidad.component.css']
 })
 export class ListarModalidadComponent implements OnInit {
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: ModalidadModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -32,6 +36,7 @@ export class ListarModalidadComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: ModalidadModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

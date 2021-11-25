@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Linea_InvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
 import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion-service';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 @Component({
   selector: 'app-listar-linea-investigacion',
   templateUrl: './listar-linea-investigacion.component.html',
@@ -10,6 +11,9 @@ import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class ListarLineaInvestigacionComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: Linea_InvestigacionModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -31,6 +35,7 @@ export class ListarLineaInvestigacionComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: Linea_InvestigacionModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

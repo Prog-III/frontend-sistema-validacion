@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { JuradoModel } from 'src/app/models/parametros/jurado.model';
 import { JuradoService } from 'src/app/servicios/parametros/jurado.service';
 
@@ -10,7 +11,9 @@ import { JuradoService } from 'src/app/servicios/parametros/jurado.service';
 })
 export class ListarJuradoComponent implements OnInit {
 
-   
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: JuradoModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -30,6 +33,7 @@ export class ListarJuradoComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: JuradoModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }

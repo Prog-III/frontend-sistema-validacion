@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
 import { ModalidadModel } from 'src/app/models/parametros/modalidad.model';
 import { TipoVinculacionModel } from 'src/app/models/parametros/tipo_Vinculacion.model';
 import { TipoVinculacionService } from 'src/app/servicios/parametros/tipo-vinculacion.service';
@@ -13,6 +14,9 @@ import { TipoVinculacionService } from 'src/app/servicios/parametros/tipo-vincul
 })
 export class ListarTipoVinculacionComponent implements OnInit {
 
+  pageSize: number = GeneralData.RECORDS_BY_PAGE;
+  p: number = 1;
+  total:number = 0;
   recordList: ModalidadModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
@@ -34,6 +38,7 @@ export class ListarTipoVinculacionComponent implements OnInit {
     this.service.GetRecordList().subscribe({
       next: (data: TipoVinculacionModel[]) =>{
         this.recordList = data;
+        this.total = this.recordList.length
       }
     })
   }
