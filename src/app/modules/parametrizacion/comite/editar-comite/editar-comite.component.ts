@@ -48,6 +48,8 @@ export class EditarComiteComponent implements OnInit {
     let model = new ComiteModel();
     model.nombre = this.formulario.controls['nombre'].value;
     model.id = this.formulario.controls['id'].value;
+
+  
     this.service.EditarRegistro(model).subscribe({
       next: (data: ComiteModel) =>{
         //aqui va el modal
