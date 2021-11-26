@@ -16,7 +16,7 @@ import { JuradoLineaInvestigacionModel } from '../../../../models/parametros/jur
   styleUrls: ['./editar-jurado.component.css']
 })
 export class EditarJuradoComponent implements OnInit {
-  formulario: FormGroup = new FormGroup({});
+  formulario?: FormGroup;
 
   lineasInvestigacionOptions: LineaInvestigacionModel[] = [];
   lineasInvestigacionSeleccionadas: LineaInvestigacionModel[] = [];
@@ -37,9 +37,17 @@ export class EditarJuradoComponent implements OnInit {
   ngOnInit(): void {
     this.juradoId = parseInt(this.route.snapshot.params["id"]);
 
-    this.GetLineasInvestigacion();
-    this.crearFormulario();
-    this.BuscarRegistro();
+    this.GetLineasInvestigacion().subscribe(lineasInvestigacion => {
+      this.lineasInvestigacionOptions = lineasInvestigacion;
+
+      this.juradoLineaInvestigacionService.ObtenerLineasInvestigacionPorJurado(this.juradoId!)
+        .subscribe(data => {
+          this.lineasInvestigacionSeleccionadas = data;
+
+          this.BuscarRegistro();
+          this.crearFormulario();
+        })
+    })
   }
 
   crearFormulario() {
@@ -53,23 +61,16 @@ export class EditarJuradoComponent implements OnInit {
   }
 
   GetLineasInvestigacion() {
-    this.lineaInvestigacionService.GetRecordList().subscribe(lineasInvestigacion => {
-      this.lineasInvestigacionOptions = lineasInvestigacion;
-
-      this.juradoLineaInvestigacionService.ObtenerLineasInvestigacionPorJurado(this.juradoId!)
-        .subscribe(data => {
-          this.lineasInvestigacionSeleccionadas = data;
-        })
-    });
+    return this.lineaInvestigacionService.GetRecordList();
   }
 
   BuscarRegistro() {
     this.juradoService.BuscarRegistro(this.juradoId!).subscribe({
       next: (data: JuradoModel) => {
-        this.formulario.controls["nombre"].setValue(data.nombre)
-        this.formulario.controls["email"].setValue(data.email)
-        this.formulario.controls["telefono"].setValue(data.telefono)
-        this.formulario.controls["entidad"].setValue(data.entidad)
+        this.formulario?.controls["nombre"].setValue(data.nombre)
+        this.formulario?.controls["email"].setValue(data.email)
+        this.formulario?.controls["telefono"].setValue(data.telefono)
+        this.formulario?.controls["entidad"].setValue(data.entidad)
       }
     });
   }
@@ -77,10 +78,10 @@ export class EditarJuradoComponent implements OnInit {
   CrearRegistro() {
     let model = new JuradoModel();
     model.id = this.juradoId;
-    model.nombre = this.formulario.controls['nombre'].value;
-    model.email = this.formulario.controls['email'].value;
-    model.telefono = this.formulario.controls['telefono'].value;
-    model.entidad = this.formulario.controls['entidad'].value;
+    model.nombre = this.formulario?.controls['nombre'].value;
+    model.email = this.formulario?.controls['email'].value;
+    model.telefono = this.formulario?.controls['telefono'].value;
+    model.entidad = this.formulario?.controls['entidad'].value;
 
     this.juradoService.EditarRegistro(model).subscribe({
       next: (data: JuradoModel) => {
@@ -120,7 +121,7 @@ export class EditarJuradoComponent implements OnInit {
   }
 
   resetearSelect(controlName: string) {
-    let lineaInvestigacion = this.formulario.get(controlName)?.value;
+    let lineaInvestigacion = this.formulario?.get(controlName)?.value;
     lineaInvestigacion = JSON.parse(lineaInvestigacion) as LineaInvestigacionModel;
 
     const elementoYaExistente = this.lineasInvestigacionSeleccionadas.some(linea => linea.id === lineaInvestigacion.id);
@@ -129,13 +130,13 @@ export class EditarJuradoComponent implements OnInit {
       this.lineasInvestigacionSeleccionadas.push(lineaInvestigacion);
     }
 
-    this.formulario.get(controlName)?.setValue("");
+    this.formulario?.get(controlName)?.setValue("");
   }
 
   eliminarElementoArreglo(indice: number) {
     this.lineasInvestigacionSeleccionadas.splice(indice, 1);
 
-    this.formulario.get('lineasInvestigacion')?.setValue("");
+    this.formulario?.get('lineasInvestigacion')?.setValue("");
   }
 
 

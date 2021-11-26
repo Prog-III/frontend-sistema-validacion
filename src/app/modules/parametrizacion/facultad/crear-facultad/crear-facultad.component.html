@@ -1,26 +1,36 @@
-<main class="login-main w-100 vh-100 d-flex justify-content-center align-items-center">
-    <div class="container h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <form [formGroup]="formulario">
-            <p class="fs-2 fw-bold">Crear Facultad</p>
-            <hr class="">
-            <div class="mb-3">
-                <label for="codigo" required="required" class="form-label fw-bold">Código </label>
-                <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <input formControlName="codigo" type="text" class="form-control" id="codigo">
-              </div>
-            <div class="mb-3">
-              <label for="nombre" required="required" class="form-label fw-bold">Nombre </label>
-              <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-              <input formControlName="nombre" type="text" class="form-control" id="nombre">
-            </div>
-            <div class="d-flex align-items-center justify-content-center w-100">
-              <button (click)="CrearRegistro()" type="submit" class="btn btnaceptar text-white w-50 me-2 ">Añadir Registro</button>
-              <a routerLink="/parametrizacion/listar-facultad" class="btn bg-white border border-primary w-50 text-primary">Cancelar</a>
-            </div>
-          </form>
-        </div>
+<section class="w-100 vh-100 d-flex justify-content-center align-items-center">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <form [formGroup]="formulario">
+          <p class="fs-2 fw-bold">Crear facultad</p>
+
+          <hr>
+
+          <div class="mb-3">
+            <label for="codigo" required="required" class="form-label fw-bold">Código </label>
+            <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+            <input formControlName="codigo" type="text" class="form-control" id="codigo">
+          </div>
+
+          <div class="mb-3">
+            <label for="nombre" required="required" class="form-label fw-bold">Nombre </label>
+            <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+            <input formControlName="nombre" type="text" class="form-control" id="nombre">
+          </div>
+
+          <div class="d-flex align-items-center justify-content-center w-100">
+            <button (click)="CrearRegistro()" [disabled]="this.formulario.invalid" type="submit"
+             class="btn btn-primary text-white w-50 me-2 ">
+             Añadir registro
+            </button>
+            <button type="reset" routerLink="/parametrizacion/listar-facultad"
+              class="btn bg-white border border-primary w-50 text-primary">
+              Cancelar
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-  </main>
+  </div>
+</section>

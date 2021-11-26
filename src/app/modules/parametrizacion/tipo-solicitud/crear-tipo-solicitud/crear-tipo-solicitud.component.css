@@ -1,20 +1,6 @@
-.icon{
-    color: red;
-    font-size: 0.5rem;
-    vertical-align: text-top;
-}
-
-.btnaceptar{
-    background-color: #66829C;
-}
-
-hr {
-    height: 2px;
-  }
-
-  td{
+td {
     white-space: nowrap;
 }
-.bd{
+.bd {
     border:2px solid #003B70;
 }
