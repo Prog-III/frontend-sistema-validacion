@@ -6,6 +6,9 @@ import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { ToastService } from '../../../../servicios/toast/toast.service';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from '../../../../models/compartido/toast-data';
 
 @Component({
   selector: 'app-crear-comite',
@@ -21,6 +24,7 @@ export class CrearComiteComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
+    private toastService: ToastService,
     private service: ComiteService
   ) { }
 
@@ -38,9 +42,12 @@ export class CrearComiteComponent implements OnInit {
     let model = new ComiteModel();
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
-      next: (data: ComiteModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+      next: (data: ComiteModel) => {  
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El comité')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-comite"]);
       },
       error: (err:any)=>{

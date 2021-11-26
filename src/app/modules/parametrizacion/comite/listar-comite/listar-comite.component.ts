@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GeneralData } from 'src/app/config/general-data';
+import { ModalService } from '../../../../servicios/modal/modal.service';
+import { ModalData } from '../../../../models/compartido/modal-data';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listar-comite',
   templateUrl: './listar-comite.component.html',
   styleUrls: ['./listar-comite.component.css']
 })
-export class ListarComiteComponent implements OnInit {
+export class ListarComiteComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
 
   pageSize: number = GeneralData.RECORDS_BY_PAGE;
   p: number = 1;
@@ -25,11 +29,16 @@ export class ListarComiteComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private modalService: ModalService,
     private service: ComiteService
   ) { }
 
   ngOnInit(): void {
     this.GetRecordList();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   GetRecordList(){
@@ -42,19 +51,29 @@ export class ListarComiteComponent implements OnInit {
   }
 
   EliminarRegistro(id: number | undefined){
-    if(id){
-      this.service.EliminarRegistro(id).subscribe({
-        next: (data: ComiteModel) =>{
-          //aqui va el modal
-          console.log("Se elimino el mensaje");
-          location.reload();
-        },
-        error: (err:any)=>{
-          //modal de error
-          console.log("No se elimino");
-        }
-      });
-    }
+    const mensajeModal: ModalData = {
+      header: "Eliminación",
+      body: "¿Seguro que desea eliminar el registro?",
+      esModalConfirmacion: true
+    };
+
+    const modalSubscription = this.modalService.openModal(mensajeModal)?.subscribe(confirmacion => {
+      if(id && confirmacion){
+        this.service.EliminarRegistro(id).subscribe({
+          next: (data: ComiteModel) =>{
+            //aqui va el modal
+            console.log("Se elimino el mensaje");
+            location.reload();
+          },
+          error: (err:any)=>{
+            //modal de error
+            console.log("No se elimino");
+          }
+        });
+      }
+    });
+    
+    this.subscription.add(modalSubscription);
   }
 
 }

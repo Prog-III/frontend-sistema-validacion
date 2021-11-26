@@ -8,6 +8,8 @@ export namespace GeneralData {
     export const FORMULARIO_VALIDO = 'Aprobado';
     export const MODAL_MENSAJE_GENERAL = 'Ok';
 
+    export const TOAST_MENSAJE_CREACION = (componente: string) => `${componente} se ha creado correctamente`;
+
     export const MS_SEGUIRIDAD_URL = "http://localhost:3002";
     export const MS_NEGOCIO_URL = "http://localhost:3000";
     export const MENSAJE_GUARDAR = "Registro almacenado."
