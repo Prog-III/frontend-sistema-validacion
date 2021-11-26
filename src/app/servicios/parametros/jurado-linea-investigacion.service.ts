@@ -31,5 +31,15 @@ export class JuradoLineaInvestigacionService {
     return this.http.post<JuradoLineaInvestigacionModel>(`${this.url}/asociar-jurado-lineas-investigacion/${idJurado}`, {
       array_general: lineasInvestigacionIds
     }, this.httpOptions);
-  } 
+  }
+
+  ObtenerLineasInvestigacionPorJurado(idJurado: number) {
+    return this.http.get<LineaInvestigacionModel[]>(`${this.url}/jurados/${idJurado}/linea-investigacions`, this.httpOptions);
+  }
+
+  EliminarJuradosLineasInvestigacion(juradoLineaInvestigacion: JuradoLineaInvestigacionModel) {
+    const { id_jurado, id_linea_investigacion } = juradoLineaInvestigacion; 
+
+    return this.http.delete<JuradoLineaInvestigacionModel>(`${this.url}/jurados/${id_jurado}/${id_linea_investigacion}`, this.httpOptions);
+  }
 }

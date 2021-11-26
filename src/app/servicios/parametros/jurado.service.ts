@@ -35,7 +35,6 @@ export class JuradoService {
     })}
 
     return this.http.post<JuradoModel>(`${this.url}/jurados`,{
-     
       nombre: data.nombre,
       email: data.email,
       telefono: data.telefono,
@@ -61,12 +60,11 @@ export class JuradoService {
     })}
 
     return this.http.put<JuradoModel>(`${this.url}/jurados/${data.id}`,{
-      id: data.id,
       nombre: data.nombre,
-      correo: data.email,
+      email: data.email,
       telefono: data.telefono,
       entidad: data.entidad
-    },httpOptions);
+    }, httpOptions);
   }
 
   EliminarRegistro(id: number): Observable<any>{

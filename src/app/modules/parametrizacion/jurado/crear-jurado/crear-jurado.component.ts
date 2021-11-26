@@ -20,9 +20,7 @@ import { JuradoLineaInvestigacionService } from '../../../../servicios/parametro
   templateUrl: './crear-jurado.component.html',
   styleUrls: ['./crear-jurado.component.css']
 })
-export class CrearJuradoComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription();
-  
+export class CrearJuradoComponent implements OnInit { 
   formulario: FormGroup = new FormGroup({});
 
   lineasInvestigacionOptions: LineaInvestigacionModel[] = [];
@@ -59,11 +57,10 @@ export class CrearJuradoComponent implements OnInit, OnDestroy {
   }
 
   GetLineasInvestigacion() {
-    const getRecordListSubscription = this.lineaInvestigacionService.GetRecordList().subscribe(lineasInvestigacion => {
+    this.lineaInvestigacionService.GetRecordList().subscribe(lineasInvestigacion => {
       this.lineasInvestigacionOptions = lineasInvestigacion;
+      this.lineasInvestigacionSeleccionadas = lineasInvestigacion;
     });
-
-    this.subscription.add(getRecordListSubscription);
   }
 
   CrearRegistro() {
@@ -74,7 +71,7 @@ export class CrearJuradoComponent implements OnInit, OnDestroy {
     model.telefono = this.formulario.controls['telefono'].value;
     model.entidad = this.formulario.controls['entidad'].value;
 
-    const guardarJuradoSubscription = this.juradoService.GuardarRegistro(model).subscribe({
+    this.juradoService.GuardarRegistro(model).subscribe({
       next: (data: JuradoModel) => {
         //aqui va el modal
         const idsLineasInvestigacion = this.lineasInvestigacionSeleccionadas.map(linea => linea.id as number);
@@ -91,7 +88,6 @@ export class CrearJuradoComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscription.add(guardarJuradoSubscription);
   }
 
   resetearSelect(controlName: string) {
@@ -111,9 +107,5 @@ export class CrearJuradoComponent implements OnInit, OnDestroy {
     this.lineasInvestigacionSeleccionadas.splice(indice, 1);
 
     this.formulario.get('lineasInvestigacion')?.setValue("");
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

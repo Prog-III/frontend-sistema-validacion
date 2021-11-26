@@ -43,7 +43,7 @@
             </select>
 
             <div>
-              <ul class="listaLineasInvestigacion mt-2 d-flex m-w-full flex-wrap gap-3">
+              <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
                 <li *ngFor="let lineaInvestigacion of lineasInvestigacionSeleccionadas; let i = index">
                   <span class="badge bg-primary">
                     {{ lineaInvestigacion.nombre }}
@@ -58,7 +58,7 @@
 
             <button [disabled]="formulario.invalid" (click)="CrearRegistro()" type="submit" class="btn btn-primary text-white w-50 me-2 ">Crear</button>
 
-            <button routerLink="/parametrizacion/listar-jurado"
+            <button type="reset" routerLink="/parametrizacion/listar-jurado"
               class="btn bg-white border border-primary w-50 text-primary">Cancelar</button>
           </div>
         </form>
