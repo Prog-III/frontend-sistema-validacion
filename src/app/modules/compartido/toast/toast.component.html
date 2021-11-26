@@ -1,0 +1,30 @@
+<div class="toast-container position-absolute top-0 end-0 p-3" id="toastPlacement">
+  <div #toastTemplate class="toast align-items-center bg-white" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body d-flex justify-content-between p-0">
+        
+        <ng-container [ngSwitch]="tipo">
+          <div *ngSwitchCase="'error'" class="d-flex justify-content-center 
+            align-items-center bg-danger text-white px-4">
+            <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+          </div>
+
+          <div *ngSwitchCase="'success'" class="d-flex justify-content-center 
+            align-items-center bg-success text-white px-4">
+            <fa-icon [icon]="faCheckCircle"></fa-icon>
+          </div>
+
+          <div *ngSwitchCase="'info'" class="d-flex justify-content-center 
+            align-items-center bg-info text-white px-4">
+            <fa-icon [icon]="faInfoCircle"></fa-icon>
+          </div>
+        </ng-container>
+
+        <p class="m-0 px-2 py-3">
+         {{ mensaje }}
+        </p>
+     </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>

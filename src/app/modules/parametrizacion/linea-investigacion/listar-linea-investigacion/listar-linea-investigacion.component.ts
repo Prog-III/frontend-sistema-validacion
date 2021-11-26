@@ -14,7 +14,7 @@ export class ListarLineaInvestigacionComponent implements OnInit {
   pageSize: number = GeneralData.RECORDS_BY_PAGE;
   p: number = 1;
   total:number = 0;
-  recordList: Linea_InvestigacionModel[] = [];
+  recordList: LineaInvestigacionModel[] = [];
   faPlus = faPlus;
   faEdit = faEdit;
   faTrash = faTrash;

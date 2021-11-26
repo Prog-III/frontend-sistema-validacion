@@ -1,101 +1,94 @@
-<nav class="navbar navbar-light navbar-expand-lg">
-    <img src="../../../../assets/images/unnamed-PhotoRoom (1) (1).png" class= "img-fluid img-logo"alt="">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-dark navbar-expand-lg bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/home">
+            <img src="../../../../assets/images/logo-uc-white.png" class= "img-fluid img-logo" alt="Logo universidad de Caldas">
+        </a>
 
-    <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-        <ul class="nav navbar-nav w-100 justify-content-center">
-            <fa-icon *ngIf="activeSession" class="pt-2 ms-5 text-white" [icon]="faPencilAlt"></fa-icon>
-            <li *ngIf="activeSession"class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Evaluación
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="evaluacion/listar-invitacion-evaluar">Invitación a evaluar</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="evaluacion/listar-recordatorio">Recordatorio</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"routerLink="evaluacion/listar-resultado-evaluacion">Resultado de la Evaluación</a>
-                </div>
-            </li>
-            <fa-icon *ngIf="activeSession" class="pt-2 ms-5 text-white" [icon]="faCog"></fa-icon>
-            <li *ngIf="activeSession" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Parametrización
-                </a>
-                <div class="dropdown-menu text-white" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-comite">Comite</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-correos-notificacion">Correos de Notificación</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"routerLink="parametrizacion/listar-departamento">Departamento</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-estado-solicitud">Estado de la Solicitud</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-facultad">Facultad</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-jurado">Jurado</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-linea-investigacion">Linea de Investigación</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"routerLink="parametrizacion/listar-modalidad">Modalidad</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-tipo-solicitud">Tipo de Solicitud</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="parametrizacion/listar-tipo-vinculacion">Tipo de Vinculación</a>
-                </div>
-            </li>
-            <fa-icon *ngIf="activeSession" class="pt-2 ms-5 text-white" [icon]="faGlobe"></fa-icon>
-            <li *ngIf="activeSession" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Solicitudes
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="solicitud/listar-proponente">Poponente</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="solicitud/listar-solicitud">Solicitud</a>
-                   
-                    
-                </div>
-            </li>
-            <fa-icon *ngIf="activeSession" class="pt-2 ms-5 text-white" [icon]="faUsers"></fa-icon>
-            <li *ngIf="activeSession" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Usuarios
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="usuario/listar-usuario">Usuario</a>
-                   
-                </div>
-            </li>
-            <fa-icon *ngIf="activeSession"class="pt-2 ms-5 text-white" [icon]="faStickyNote"></fa-icon>
-            <li *ngIf="activeSession" class="nav-item">
-                <a class="nav-link text-white" >Reportes</a>
-            </li>
-            <fa-icon *ngIf="activeSession"class="pt-2 ms-5 text-white" [icon]="faStickyNote"></fa-icon>
-            <li *ngIf="activeSession" class="nav-item">
-                <a class="nav-link text-white" routerLink="seguridad/logout">Cerrar sesión</a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav me-5 justify-content-end">
-            <li *ngIf="!activeSession" class="nav-item dropdown pull-right">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <fa-icon class="pt-2 text-white" size="2x" [icon]="faUser"></fa-icon>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" routerLink="seguridad/login">Login</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" routerLink="seguridad/cambio-clave">Cambio de Clave</a>
-                    
-                </div>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div *ngIf="activeSession" class="collapse navbar-collapse w-100 justify-content-lg-end" id="navbarSupportedContent">
+
+            <ul class="nav navbar-nav w-100 justify-content-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" [icon]="faPencilAlt"></fa-icon>
+                        Evaluación
+                    </a>
+                    <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
+                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item" routerLink="evaluacion/listar-invitacion-evaluar">Invitación a evaluar</a>
+                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item" routerLink="evaluacion/listar-recordatorio">Recordatorio</a>
+                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"routerLink="evaluacion/listar-resultado-evaluacion">Resultado de la Evaluación</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" [icon]="faCog"></fa-icon>
+                        Parametrización
+                    </a>
+                    <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-comite">Comite</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-correos-notificacion">Correos de Notificación</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"routerLink="parametrizacion/listar-departamento">Departamento</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-estado-solicitud">Estado de la Solicitud</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-facultad">Facultad</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-jurado">Jurado</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-linea-investigacion">Linea de Investigación</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"routerLink="parametrizacion/listar-modalidad">Modalidad</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-tipo-solicitud">Tipo de Solicitud</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="parametrizacion/listar-tipo-vinculacion">Tipo de Vinculación</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" [icon]="faGlobe"></fa-icon>
+                        Solicitudes
+                    </a>
+                    <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="solicitud/listar-proponente">Poponente</a>
+                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3" routerLink="solicitud/listar-solicitud">Solicitud</a> 
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" role="button"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" [icon]="faUsers"></fa-icon>
+                        Usuarios
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white">
+                        <fa-icon class="pt-2 text-white" [icon]="faStickyNote"></fa-icon>
+                        Reportes
+                    </a>
+                </li>
+            </ul>
+
+            <hr class="text-white my-1">
+
+            <ul class="nav navbar-nav me-5">
+                <li class="nav-item dropdown pull-right">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" size="1x" [icon]="faUser"></fa-icon>
+                    </a>
+                    <div class="dropdown-menu border-0 dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item cursor-pointer" routerLink="/seguridad/logout">Cerrar sesión</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
     </div>
 </nav>
+

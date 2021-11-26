@@ -10,6 +10,9 @@ import { InternalServerErrorComponent } from './public/errors/internal-server-er
 import { HomeComponent } from './public/general/home/home.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http'; 
+import { CompartidoModule } from './modules/compartido/compartido.module';
+import { ModalContainerDirective } from './directives/compartido/modal-container.directive';
+import { ToastContainerDirective } from './directives/compartido/toast-container.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponent,
     InternalServerErrorComponent,
     HomeComponent,
-   
+    ModalContainerDirective,
+    ToastContainerDirective
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    CompartidoModule
   ],
   providers: [],
   bootstrap: [AppComponent]

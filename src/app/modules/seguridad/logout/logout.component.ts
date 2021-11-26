@@ -20,7 +20,6 @@ export class LogoutComponent implements OnInit {
   ngOnInit(): void {
     this.localStorageService.RemoverDatosSesion();
     this.securityService.RefrescarInfoSesion(new DatosSesionModel());
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/seguridad/login"]);
   }
-
 }

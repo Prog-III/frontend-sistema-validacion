@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { Modal } from 'bootstrap';
@@ -9,6 +9,11 @@ import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.servic
 import { DatosSesionModel } from 'src/app/models/seguridad/datos_sesion';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ObjetoErrorModel } from '../../../models/seguridad/objetoError';
+
+import { ReCaptcha2Component } from 'ngx-captcha';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -16,12 +21,18 @@ import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   formulario: FormGroup = new FormGroup({});
   testModal: Modal | undefined;
   body: string = '';
   title: string = '';
-  key:string =GeneralData.KEY_RECAPTCHA;
+  key:string = GeneralData.KEY_RECAPTCHA;
+
+  @ViewChild('elementoCaptcha') recaptcha?: ReCaptcha2Component;
+
+  mensajeError: string | undefined;
+
+  subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +43,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.crearFormulario();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   crearFormulario() {
@@ -49,37 +64,49 @@ export class LoginComponent implements OnInit {
     })
   }
 
- 
-
   login() {
-    if (!this.formulario.invalid) {
+    if (this.formulario.valid) {
       
       let credenciales = new CredencialesUsuarioModel();
-      credenciales.usuario = this.GetDF["usuario"].value;
-      credenciales.clave = MD5(this.GetDF["clave"].value).toString();
-      this.seguridadService.Login(credenciales).subscribe({
+      credenciales.usuario = this.controlesFormulario["usuario"].value;
+      credenciales.clave = MD5(this.controlesFormulario["clave"].value).toString();
+      this.subscription = this.seguridadService.Login(credenciales).subscribe({
         next: (data: DatosSesionModel) => {
-          console.log(data);
-          let saved = this.localStorageService.GuardarDatosSesion(data);
+          this.localStorageService.GuardarDatosSesion(data);
+          
           data.isLoggedIn = true;
+          
           this.seguridadService.RefrescarInfoSesion(data);
           this.router.navigate(["/home"]);
         },
-        error: (error: any) => {
+        error: (errorResponse: HttpErrorResponse) => {
+          const objetoError: ObjetoErrorModel = errorResponse.error.error;
 
+          this.mensajeError = objetoError.message;
+
+          this.formulario.reset();
+          this.recaptcha?.reloadCaptcha();
         },
-        complete: () => {
-
-        }
+        complete: () => {}
       });
     } else {
       //this.activeModal();
     }
-
   }
 
-  get GetDF() {
+  get controlesFormulario() {
     return this.formulario.controls;
   }
 
+  get usuarioInvalido() {
+    return this.controlesFormulario['usuario'].invalid && this.controlesFormulario['usuario'].touched;
+  }
+
+  get claveInvalida() {
+    return this.controlesFormulario['clave'].invalid && this.controlesFormulario['clave'].touched;
+  }
+
+  get recaptchaInvalido() {
+    return this.controlesFormulario['recaptcha'].invalid && this.controlesFormulario['recaptcha'].touched;
+  }
 }
