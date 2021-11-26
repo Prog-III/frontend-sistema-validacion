@@ -1,13 +1,13 @@
-.icon{
+.icon {
     color: red;
     font-size: 0.5rem;
     vertical-align: text-top;
 }
 
-.btnaceptar{
-    background-color: #66829C;
-}
-
 hr {
     height: 2px;
-  }
+}
+
+.listaLineasInvestigacion {
+    list-style: none;
+}

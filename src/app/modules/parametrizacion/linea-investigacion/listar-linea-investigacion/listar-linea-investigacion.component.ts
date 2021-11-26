@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Linea_InvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
-import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion-service';
+import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
+import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GeneralData } from 'src/app/config/general-data';
 @Component({
@@ -33,7 +33,7 @@ export class ListarLineaInvestigacionComponent implements OnInit {
 
   GetRecordList(){
     this.service.GetRecordList().subscribe({
-      next: (data: Linea_InvestigacionModel[]) =>{
+      next: (data: LineaInvestigacionModel[]) =>{
         this.recordList = data;
         this.total = this.recordList.length
       }
@@ -43,7 +43,7 @@ export class ListarLineaInvestigacionComponent implements OnInit {
   EliminarRegistro(id: number | undefined){
     if(id){
       this.service.EliminarRegistro(id).subscribe({
-        next: (data: Linea_InvestigacionModel) =>{
+        next: (data: LineaInvestigacionModel) =>{
           //aqui va el modal
           console.log("Se elimino el mensaje");
           location.reload();
