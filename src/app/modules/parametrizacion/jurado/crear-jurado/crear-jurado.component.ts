@@ -59,7 +59,6 @@ export class CrearJuradoComponent implements OnInit {
   GetLineasInvestigacion() {
     this.lineaInvestigacionService.GetRecordList().subscribe(lineasInvestigacion => {
       this.lineasInvestigacionOptions = lineasInvestigacion;
-      this.lineasInvestigacionSeleccionadas = lineasInvestigacion;
     });
   }
 

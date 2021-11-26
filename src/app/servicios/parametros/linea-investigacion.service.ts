@@ -26,7 +26,7 @@ export class LineaInvestigacionService {
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<LineaInvestigacionModel[]>(`${this.url}/lineas-investigacion`,httpOptions);
+    return this.http.get<LineaInvestigacionModel[]>(`${this.url}/lineas-investigacion`, httpOptions);
   }
 
   GuardarRegistro(data: LineaInvestigacionModel): Observable<LineaInvestigacionModel>{
