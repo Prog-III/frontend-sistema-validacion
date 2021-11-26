@@ -4,7 +4,7 @@ import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitu
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archivos.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ListarTipoSolicitudComponent implements OnInit {
   faEdit = faEdit;
   faTrash = faTrash;
 
-  id: number= 0;
+  id: number = 0;
 
   constructor(
     private router: Router,
@@ -32,35 +32,30 @@ export class ListarTipoSolicitudComponent implements OnInit {
     this.GetRecordList();
   }
 
-  GetRecordList(){
+  GetRecordList() {
     this.service.GetRecordList().subscribe({
-      next: (data: TipoSolicitudModel[]) =>{
+      next: (data: TipoSolicitudModel[]) => {
         this.recordList = data;
       }
     })
   }
 
-  descarga(id:any){
-    console.log(id);
-    
-    this.cargarService.GetRecordList(id).subscribe({
-      next: (data: any) =>{
-        console.log(data);
-        let url = window.URL.createObjectURL(data);
+  descarga(id: any) {
+
+    let url = 'http://localhost:3000/descargar_archivos_azure/' + id;
+
     window.open(url);
-        
-      }
-    })
+
   }
-  EliminarRegistro(id: number | undefined){
-    if(id){
+  EliminarRegistro(id: number | undefined) {
+    if (id) {
       this.service.EliminarRegistro(id).subscribe({
-        next: (data: TipoSolicitudModel) =>{
+        next: (data: TipoSolicitudModel) => {
           //aqui va el modal
           console.log("Se elimino el mensaje");
           location.reload();
         },
-        error: (err:any)=>{
+        error: (err: any) => {
           //modal de error
           console.log("No se elimino");
         }
