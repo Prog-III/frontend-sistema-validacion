@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
 $main-yellow: #D7B860 !default;
-$main-yellow-rgb-015: rgba(189, 187, 73, 0.3) !default;
+$main-yellow-rgb-015: rgba(189, 187, 73, 0.1) !default;
 $main-blue: #003B70 !default;
-$main-blue-rgb-015: rgba(0, 118, 189, 0.3) !default;
+$main-blue-rgb-015: rgba(0, 118, 189, 0.1) !default;
 
 
 body {
@@ -40,7 +40,7 @@ a, a:hover {
   flex-wrap: wrap;
   display: flex;
   
-  box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+  box-shadow: 0 10px 21px -12px rgba(0, 0, 0, 0.66);
   border-radius: 10px;
   margin: 0 0 2rem 0;
   overflow: hidden;
