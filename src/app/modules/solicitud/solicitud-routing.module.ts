@@ -27,7 +27,7 @@ const routes: Routes = [
     component:ListarProponenteComponent
   },
   {
-    path: "crear-solicitud",
+    path: "crear-solicitud/:id",
     component:CrearSolicitudComponent
   },
   {

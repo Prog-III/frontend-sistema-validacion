@@ -82,7 +82,7 @@ export class CrearProponenteComponent implements OnInit {
       next: (data: ProponenteModel) =>{
         //aqui va el modal
         console.log("Se guardo el mensaje");
-        this.router.navigate(["/parametrizacion/listar-facultad"]);
+        this.router.navigate([`/solicitud/crear-solicitud/${data.id}`]);
       },
       error: (err:any)=>{
         //modal de error

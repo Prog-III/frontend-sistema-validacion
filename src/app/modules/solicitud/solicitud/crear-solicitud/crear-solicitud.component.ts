@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import * as dayjs from 'dayjs';
 import { Dayjs } from 'dayjs';
@@ -16,6 +16,7 @@ import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
 import { ModalidadService } from 'src/app/servicios/parametros/modalidad.service';
 import { SolicitudComiteService } from 'src/app/servicios/parametros/solicitud-comite.service';
+import { SolicitudProponenteService } from 'src/app/servicios/parametros/solicitud-proponente.service';
 import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
 import { ToastService } from 'src/app/servicios/toast/toast.service';
@@ -45,7 +46,9 @@ export class CrearSolicitudComponent implements OnInit {
     private serviceModalidad: ModalidadService,
     private serviceComite: ComiteService,
     private cargaArchivos: CargaArchivosService,
-    private solicitudComiteService: SolicitudComiteService
+    private solicitudComiteService: SolicitudComiteService,
+    private solicitudProponenteService: SolicitudProponenteService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +56,7 @@ export class CrearSolicitudComponent implements OnInit {
     this.GetLineaList();
     this.GetTipoList();
     this.GetModalidadList();
-    this.GetComiteList();
+    this.GetComiteList();  
   }
 
   GetLineaList(){
@@ -124,6 +127,12 @@ export class CrearSolicitudComponent implements OnInit {
             //aqui va el modal
             this.solicitudComiteService.GuardarRegistroSolicitudComite(data.id!, parseInt(this.formulario.controls['id_comite'].value))
             .subscribe(data => console.log(data))
+
+            let id = parseInt(this.route.snapshot.params["id"]);  
+          
+            this.solicitudProponenteService.GuardarRegistroSolicitudProponente(data.id!, id)
+            .subscribe(data => console.log(data))
+
             console.log("Se guardo el mensaje");
             this.router.navigate(["/home"]);
           },
