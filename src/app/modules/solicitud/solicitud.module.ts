@@ -10,6 +10,8 @@ import { CrearProponenteComponent } from './proponente/crear-proponente/crear-pr
 import { EditarProponenteComponent } from './proponente/editar-proponente/editar-proponente.component';
 import { ListarProponenteComponent } from './proponente/listar-proponente/listar-proponente.component';
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -25,7 +27,10 @@ import { EliminarProponenteComponent } from './proponente/eliminar-proponente/el
   ],
   imports: [
     CommonModule,
-    SolicitudRoutingModule
+    SolicitudRoutingModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SolicitudModule { }

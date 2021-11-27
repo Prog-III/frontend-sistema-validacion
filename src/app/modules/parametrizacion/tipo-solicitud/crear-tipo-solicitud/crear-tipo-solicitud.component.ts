@@ -46,7 +46,8 @@ export class CrearTipoSolicitudComponent implements OnInit {
 
     let model = new TipoSolicitudModel();
     model.nombre = this.formulario.controls['nombre'].value;
-     this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
+    
+    this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
       next: (data: any) =>{
       
         model.formato=data.name;
