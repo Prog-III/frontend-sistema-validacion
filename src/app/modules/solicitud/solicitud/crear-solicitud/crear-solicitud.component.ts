@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import * as dayjs from 'dayjs';
+import { Dayjs } from 'dayjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { ToastData } from 'src/app/models/compartido/toast-data';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
@@ -88,7 +90,6 @@ export class CrearSolicitudComponent implements OnInit {
 
   crearFormulario() {
     this.formulario = this.fb.group({
-      fecha: [Date, [Validators.required]],
       nombre_trabajo: ['', [Validators.required]],
       archivo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
@@ -105,7 +106,7 @@ export class CrearSolicitudComponent implements OnInit {
     formData.append('file', this.formulario.get('archivo')?.value);
 
     let model = new SolicitudModel();
-    model.fecha = (this.formulario.controls['fecha'].value).toString();
+    model.fecha = dayjs().format('YYYY-MM-DD HH:mm:ss');
     model.nombre_trabajo = this.formulario.controls['nombre_trabajo'].value;
     model.descripcion = this.formulario.controls['descripcion'].value;
     model.id_linea_investigacion = parseInt(this.formulario.controls['id_linea_investigacion'].value);
