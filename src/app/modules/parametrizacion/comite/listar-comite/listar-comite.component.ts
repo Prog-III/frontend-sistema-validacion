@@ -7,6 +7,8 @@ import { GeneralData } from 'src/app/config/general-data';
 import { ModalService } from '../../../../servicios/modal/modal.service';
 import { ModalData } from '../../../../models/compartido/modal-data';
 import { Subscription } from 'rxjs';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-listar-comite',
@@ -30,7 +32,8 @@ export class ListarComiteComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private modalService: ModalService,
-    private service: ComiteService
+    private service: ComiteService,
+    private toastService: ToastService,
   ) { }
 
   ngOnInit(): void {
@@ -52,8 +55,8 @@ export class ListarComiteComponent implements OnInit, OnDestroy {
 
   EliminarRegistro(id: number | undefined){
     const mensajeModal: ModalData = {
-      header: "Eliminación",
-      body: "¿Seguro que desea eliminar el registro?",
+      header: GeneralData.ARG_ELIMINACION,
+      body: GeneralData.CONFIRMACION_ELIMINACION,
       esModalConfirmacion: true
     };
 
@@ -61,13 +64,19 @@ export class ListarComiteComponent implements OnInit, OnDestroy {
       if(id && confirmacion){
         this.service.EliminarRegistro(id).subscribe({
           next: (data: ComiteModel) =>{
-            //aqui va el modal
-            console.log("Se elimino el mensaje");
             location.reload();
+            const mensajeToast: ToastData = {
+              tipo: 'success',
+              mensaje: GeneralData.TOAST_MENSAJE_ELIMINACION('El comité')
+            }
+            this.toastService.openToast(mensajeToast);
           },
           error: (err:any)=>{
-            //modal de error
-            console.log("No se elimino");
+            const mensajeToast: ToastData = {
+              tipo: 'error',
+              mensaje: GeneralData.TOAST_ERROR_ELIMINACION('El comité')
+            }
+            this.toastService.openToast(mensajeToast);
           }
         });
       }

@@ -51,8 +51,11 @@ export class CrearComiteComponent implements OnInit {
         this.router.navigate(["/parametrizacion/listar-comite"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El comité')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 
