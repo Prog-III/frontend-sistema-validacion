@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { DepartamentoModel } from 'src/app/models/parametros/departamento.model';
 import { FacultadModel } from 'src/app/models/parametros/facultad.model';
 import { DepartamentoService } from 'src/app/servicios/parametros/departamento.service';
 import { FacultadService } from 'src/app/servicios/parametros/facultad.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-crear-departamento',
@@ -22,6 +25,7 @@ export class CrearDepartamentoComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: DepartamentoService,
+    private toastService: ToastService,
     private serviceFacultad: FacultadService
   ) { }
 
@@ -52,13 +56,19 @@ export class CrearDepartamentoComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: DepartamentoModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El departamento')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-departamento"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El departamento')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

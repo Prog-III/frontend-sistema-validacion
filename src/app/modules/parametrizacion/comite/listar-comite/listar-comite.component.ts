@@ -64,12 +64,14 @@ export class ListarComiteComponent implements OnInit, OnDestroy {
       if(id && confirmacion){
         this.service.EliminarRegistro(id).subscribe({
           next: (data: ComiteModel) =>{
-            location.reload();
             const mensajeToast: ToastData = {
               tipo: 'success',
               mensaje: GeneralData.TOAST_MENSAJE_ELIMINACION('El comité')
             }
             this.toastService.openToast(mensajeToast);
+
+            this.router.navigateByUrl('/', {skipLocationChange: true})
+            .then(()=>this.router.navigate(['/parametrizacion/listar-comite']))
           },
           error: (err:any)=>{
             const mensajeToast: ToastData = {

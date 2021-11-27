@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { faPlus,faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
@@ -30,6 +31,7 @@ export class ListarCorreosNotificacionComponent implements OnInit, OnDestroy {
   constructor(
     private service: CorreoNotificacionService,
     private modalService: ModalService,
+    private router: Router,
     private toastService: ToastService
   ) { }
 
@@ -61,12 +63,14 @@ export class ListarCorreosNotificacionComponent implements OnInit, OnDestroy {
       if(id && confirmacion){
         this.service.EliminarRegistro(id).subscribe({
           next: (data: CorreoNotificacionModel) =>{
-            location.reload();
             const mensajeToast: ToastData = {
               tipo: 'success',
               mensaje: GeneralData.TOAST_MENSAJE_ELIMINACION('El correo de notificación')
             }
             this.toastService.openToast(mensajeToast);
+
+            this.router.navigateByUrl('/', {skipLocationChange: true})
+            .then(()=>this.router.navigate(['/parametrizacion/listar-correos-notificacion']))
           },
           error: (err:any)=>{
             const mensajeToast: ToastData = {
