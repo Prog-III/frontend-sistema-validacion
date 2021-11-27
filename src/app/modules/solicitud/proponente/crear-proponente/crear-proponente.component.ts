@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { DepartamentoModel } from 'src/app/models/parametros/departamento.model';
 import { ProponenteModel } from 'src/app/models/parametros/proponente.model';
 import { TipoVinculacionModel } from 'src/app/models/parametros/tipo_Vinculacion.model';
+import { DepartamentoService } from 'src/app/servicios/parametros/departamento.service';
+import { ProponenteDepartamentoService } from 'src/app/servicios/parametros/proponente-departamento.service';
 import { TipoVinculacionService } from 'src/app/servicios/parametros/tipo-vinculacion.service';
 import { ProponenteService } from 'src/app/servicios/seguridad/proponente.service';
 
@@ -16,6 +19,7 @@ export class CrearProponenteComponent implements OnInit {
 
   formulario: FormGroup = new FormGroup({});
   tipoVinculacionList: TipoVinculacionModel[] = [];
+  DepartamentoList: DepartamentoModel[] = [];
   
   
   faAsterisk = faAsterisk;
@@ -26,7 +30,8 @@ export class CrearProponenteComponent implements OnInit {
     private router: Router,
     private proponenteService: ProponenteService,
     private tipoVinculacionService: TipoVinculacionService,
-
+    private departamentoService: DepartamentoService,
+    private departamentoProponenteService: ProponenteDepartamentoService,
   ) { 
 
   }
@@ -35,12 +40,20 @@ export class CrearProponenteComponent implements OnInit {
     
     
     this.GetTipoVinculacion();
+    this.GetDepartamento();
     this.crearFormulario();
   }
   GetTipoVinculacion(){
     this.tipoVinculacionService.GetRecordList().subscribe({
       next: (data: TipoVinculacionModel[]) =>{
         this.tipoVinculacionList = data;
+      }
+    })
+  }
+  GetDepartamento(){
+    this.departamentoService.GetRecordList().subscribe({
+      next: (data: DepartamentoModel[]) =>{
+        this.DepartamentoList = data;
       }
     })
   }
@@ -56,7 +69,8 @@ export class CrearProponenteComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       celular: [''],
       id_tipo_vinculacion: [''],
-      image_file: ['', [Validators.required]]
+      image_file: ['', [Validators.required]],
+      id_departamento: [''],
     });
   }
 
@@ -82,6 +96,8 @@ export class CrearProponenteComponent implements OnInit {
       next: (data: ProponenteModel) =>{
         //aqui va el modal
         console.log("Se guardo el mensaje");
+        this.departamentoProponenteService.GuardarRegistroDepartamentoProponente(parseInt(this.formulario.controls['id_departamento'].value),data.id!)
+            .subscribe(data => console.log(data))
         this.router.navigate([`/solicitud/crear-solicitud/${data.id}`]);
       },
       error: (err:any)=>{

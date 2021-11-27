@@ -70,6 +70,18 @@
                 </option>
               </select>
               </div>
+
+              <div class="mb-3">
+                <label for="id_departamento" required="required" class="form-label fw-bold">Departamento </label>
+                <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                <select formControlName="id_departamento" type="select" class="form-select" >
+    
+                  <option value="" [selected]="true">-- Elegir Departamento --</option>
+    
+                  <option *ngFor="let r of DepartamentoList" value="{{r.id}}">{{ r.nombre }}
+                  </option>
+                </select>
+              </div>
   
             <div class="d-flex align-items-center justify-content-center w-100">
   

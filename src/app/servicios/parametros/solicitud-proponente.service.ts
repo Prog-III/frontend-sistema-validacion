@@ -37,8 +37,8 @@ export class SolicitudProponenteService {
     return this.http.get<SolicitudProponenteModel[]>(`${this.url}/solicitudes/${idSolicitud}/proponentes`, this.httpOptions);
   }
 
-  EliminarSolicitudesProponentes(SolicitudComite: SolicitudProponenteModel) {
-    const { id_solicitud, id_proponente } = SolicitudComite; 
+  EliminarSolicitudesProponentes(SolicitudProponente: SolicitudProponenteModel) {
+    const { id_solicitud, id_proponente } = SolicitudProponente; 
 
     return this.http.delete<SolicitudProponenteModel>(`${this.url}/solicitudes/${id_solicitud}/${id_proponente}`, this.httpOptions);
   }
