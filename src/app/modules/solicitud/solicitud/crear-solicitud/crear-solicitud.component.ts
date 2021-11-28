@@ -57,10 +57,6 @@ export class CrearSolicitudComponent implements OnInit {
     this.GetTipoList();
     this.GetModalidadList();
     this.GetComiteList();  
-    this.formulario.get('id_linea_investigacion')?.setValue("")
-    this.formulario.get('id_tipo_solicitud')?.setValue("")
-    this.formulario.get('id_modalidad')?.setValue("")
-    this.formulario.get('id_comite')?.setValue("")
   }
 
   GetLineaList(){
@@ -106,6 +102,10 @@ export class CrearSolicitudComponent implements OnInit {
       id_estado: [1, [Validators.required]],
       id_comite: [Number, [Validators.required]]
     });
+    this.formulario.get('id_linea_investigacion')?.setValue("")
+    this.formulario.get('id_tipo_solicitud')?.setValue("")
+    this.formulario.get('id_modalidad')?.setValue("")
+    this.formulario.get('id_comite')?.setValue("")
   }
 
   CrearRegistro(){
