@@ -12,6 +12,7 @@ import { ListarProponenteComponent } from './proponente/listar-proponente/listar
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ExisteImagenPipe } from '../../pipes/solicitud/existe-imagen.pipe';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CrearProponenteComponent,
     EditarProponenteComponent,
     ListarProponenteComponent,
-    EliminarProponenteComponent
+    EliminarProponenteComponent,
+    ExisteImagenPipe
   ],
   imports: [
     CommonModule,

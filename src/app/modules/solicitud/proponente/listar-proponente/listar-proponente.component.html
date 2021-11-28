@@ -1,1 +1,38 @@
-<p>listar-proponente works!</p>
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <section>
+
+                </section>
+
+                <section class="grid-section">
+                    <div class="card shadow-sm px-0 pt-3" *ngFor="let proponente of proponentes">
+                        <img src="{{ (proponente.image! | existeImagen) | async }}"
+                            class="img-thumbnail mx-auto rounded-circle" alt="Imagen de proponente">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ proponente.primer_nombre }} {{ proponente.otros_nombres }} {{
+                                proponente.primer_apellido }} {{ proponente.segundo_apellido }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ proponente.email }}</h6>
+                            <ul class="list-unstyled text-center">
+                                <li>
+                                    <fa-icon class="text-primary" [icon]="faIdCard"></fa-icon>
+                                    {{ proponente.documento }}
+                                </li>
+                                <li *ngIf="proponente.celular">
+                                    <fa-icon class="text-primary" [icon]="faMobileAlt"></fa-icon>
+                                    {{ proponente.celular }}
+                                </li>
+                            </ul>
+
+                            <div>
+                                <a card-link routerLink="">Seleccionar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+</section>
