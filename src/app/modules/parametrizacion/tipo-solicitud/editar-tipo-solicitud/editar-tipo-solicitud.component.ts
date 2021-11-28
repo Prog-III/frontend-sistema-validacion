@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { TipoSolicitudModel } from 'src/app/models/parametros/tipoSolicitud.model';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-editar-tipo-solicitud',
@@ -19,7 +22,8 @@ export class EditarTipoSolicitudComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: TipoSolicitudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -56,13 +60,19 @@ export class EditarTipoSolicitudComponent implements OnInit {
   
     this.service.EditarRegistro(model).subscribe({
       next: (data: TipoSolicitudModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_EDICION('El tipo de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('El tipo de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

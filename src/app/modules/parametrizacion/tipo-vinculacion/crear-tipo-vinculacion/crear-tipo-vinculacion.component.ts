@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { TipoVinculacionModel } from 'src/app/models/parametros/tipo_Vinculacion.model';
 import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 import { TipoVinculacionService } from 'src/app/servicios/parametros/tipo-vinculacion.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-crear-tipo-vinculacion',
@@ -20,6 +23,8 @@ export class CrearTipoVinculacionComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
+    
+    private toastService: ToastService,
     private service: TipoVinculacionService
   ) { }
 
@@ -38,13 +43,19 @@ export class CrearTipoVinculacionComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: TipoVinculacionModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El tipo de vinculacion')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-tipo-vinculacion"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se registro");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El tipo de vinculacion')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
 import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-editar-linea-investigacion',
@@ -20,7 +23,8 @@ export class EditarLineaInvestigacionComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: LineaInvestigacionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -51,13 +55,19 @@ export class EditarLineaInvestigacionComponent implements OnInit {
     model.id = this.formulario.controls['id'].value;
     this.service.EditarRegistro(model).subscribe({
       next: (data: LineaInvestigacionModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_EDICION('La linea de investigación')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-linea-investigacion"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('La linea de investigación')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

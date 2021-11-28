@@ -9,6 +9,9 @@ import { LineaInvestigacionService } from '../../../../servicios/parametros/line
 import { existeArregloValidator } from '../../../../validators/existeArreglo.validator';
 import { JuradoLineaInvestigacionService } from '../../../../servicios/parametros/jurado-linea-investigacion.service';
 import { JuradoLineaInvestigacionModel } from '../../../../models/parametros/jurado-linea-investigacion.model';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
 
 @Component({
   selector: 'app-editar-jurado',
@@ -31,7 +34,8 @@ export class EditarJuradoComponent implements OnInit {
     private juradoService: JuradoService,
     private lineaInvestigacionService: LineaInvestigacionService,
     private juradoLineaInvestigacionService: JuradoLineaInvestigacionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -107,15 +111,22 @@ export class EditarJuradoComponent implements OnInit {
 
             this.juradoLineaInvestigacionService.GuardarRegistroLineasInvestigacionJurado(idsLineaInvestigacion, this.juradoId!)
               .subscribe(data => {
-                //aqui va el modal
-                console.log("Se guardo el mensaje");
+                const mensajeToast: ToastData = {
+                  tipo: 'success',
+                  mensaje: GeneralData.TOAST_MENSAJE_EDICION('El jurado')
+                }
+                this.toastService.openToast(mensajeToast);
                 this.router.navigate(["/parametrizacion/listar-jurado"]);
+               
               });
           })
       },
       error: (err: any) => {
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('El jurado')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
   }

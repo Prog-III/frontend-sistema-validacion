@@ -14,6 +14,9 @@ import { LineaInvestigacionModel } from '../../../../models/parametros/linea_inv
 
 import { existeArregloValidator } from '../../../../validators/existeArreglo.validator';
 import { JuradoLineaInvestigacionService } from '../../../../servicios/parametros/jurado-linea-investigacion.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
 
 @Component({
   selector: 'app-crear-jurado',
@@ -32,6 +35,7 @@ export class CrearJuradoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private toastService: ToastService,
     private juradoService: JuradoService,
     private lineaInvestigacionService: LineaInvestigacionService,
     private juradoLineaInvestigacionService: JuradoLineaInvestigacionService
@@ -71,19 +75,20 @@ export class CrearJuradoComponent implements OnInit {
     model.entidad = this.formulario.controls['entidad'].value;
 
     this.juradoService.GuardarRegistro(model).subscribe({
-      next: (data: JuradoModel) => {
-        //aqui va el modal
-        const idsLineasInvestigacion = this.lineasInvestigacionSeleccionadas.map(linea => linea.id as number);
-
-        this.juradoLineaInvestigacionService.GuardarRegistroLineasInvestigacionJurado(idsLineasInvestigacion, data.id!)
-          .subscribe(data => console.log(data))
-
-        console.log("Se guardo el mensaje");
+      next: (data: JuradoModel) =>{
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El jurado')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-jurado"]);
       },
-      error: (err: any) => {
-        //modal de error
-        console.log("No se almaceno");
+      error: (err:any)=>{
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El jurado')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

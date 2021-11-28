@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
 import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-crear-linea-investigacion',
@@ -20,6 +23,7 @@ export class CrearLineaInvestigacionComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
+    private toastService: ToastService,
     private service: LineaInvestigacionService
   ) { }
 
@@ -38,16 +42,23 @@ export class CrearLineaInvestigacionComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: LineaInvestigacionModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('La linea de investigación ')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-linea-investigacion"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se registro");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('La linea de investigación')
+        }
+        this.toastService.openToast(mensajeToast);
       }
-    });
+
+  });
 
   }
-
 }
+

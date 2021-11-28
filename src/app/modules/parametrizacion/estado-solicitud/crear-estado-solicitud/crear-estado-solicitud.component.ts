@@ -42,7 +42,7 @@ export class CrearEstadoSolicitudComponent implements OnInit {
       next: (data: EstadoSolicitudModel) =>{
         const mensajeToast: ToastData = {
           tipo: 'success',
-          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El estado de solicitud')
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El estado de la solicitud')
         }
         this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-estado-solicitud"]);
@@ -50,7 +50,7 @@ export class CrearEstadoSolicitudComponent implements OnInit {
       error: (err:any)=>{
         const mensajeToast: ToastData = {
           tipo: 'error',
-          mensaje: GeneralData.TOAST_ERROR_CREACION('El estado de solicitud')
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El estado de la solicitud')
         }
         this.toastService.openToast(mensajeToast);
       }

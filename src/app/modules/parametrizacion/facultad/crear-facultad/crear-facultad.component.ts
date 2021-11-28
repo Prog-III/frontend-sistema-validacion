@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import { FacultadModel } from 'src/app/models/parametros/facultad.model';
 import { FacultadService } from 'src/app/servicios/parametros/facultad.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
 
 @Component({
   selector: 'app-crear-facultad',
@@ -17,6 +20,7 @@ export class CrearFacultadComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private toastService: ToastService,
     private service: FacultadService
   ) { }
 
@@ -37,13 +41,19 @@ export class CrearFacultadComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: FacultadModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('La facultad')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-facultad"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('La facultad')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

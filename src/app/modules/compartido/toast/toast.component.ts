@@ -26,7 +26,7 @@ export class ToastComponent implements OnInit {
   ngOnInit(): void { }
 
   openToast() {
-    this.toast = new Toast(this.toastTemplate?.nativeElement, { animation: true, autohide: true, delay: 3000 });
+    this.toast = new Toast(this.toastTemplate?.nativeElement, { animation: true, autohide: true, delay: 9000 });
     this.toast.show();
   }
 

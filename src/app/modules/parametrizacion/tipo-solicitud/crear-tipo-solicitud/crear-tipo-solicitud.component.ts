@@ -7,6 +7,9 @@ import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
 import { TipoSolicitudModel } from 'src/app/models/parametros/tipoSolicitud.model';
 import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archivos.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
 
 
 @Component({
@@ -23,6 +26,7 @@ export class CrearTipoSolicitudComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
+    private toastService: ToastService,
     private service: TipoSolicitudService,
     private cargaArchivos: CargaArchivosService
   ) { }
@@ -48,27 +52,20 @@ export class CrearTipoSolicitudComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     
     this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
-      next: (data: any) =>{
-      
-        model.formato=data.name;
-         this.service.GuardarRegistro(model).subscribe({
-          next: (data: TipoSolicitudModel) =>{
-            //aqui va el modal
-            console.log("Se guardo el mensaje");
-            this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
-          },
-          error: (err:any)=>{
-            //modal de error
-            console.log(err);
-            
-            console.log("No se almaceno");
-          }
-        });
+      next: (data: TipoSolicitudModel) =>{
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El tipo de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
+        this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
       },
       error: (err:any)=>{
-       console.log(err);
-       
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El tipo de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
     console.log(model);
