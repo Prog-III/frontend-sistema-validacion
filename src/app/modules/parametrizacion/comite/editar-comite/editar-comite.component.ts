@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-editar-comite',
@@ -19,7 +22,8 @@ export class EditarComiteComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: ComiteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -52,13 +56,19 @@ export class EditarComiteComponent implements OnInit {
   
     this.service.EditarRegistro(model).subscribe({
       next: (data: ComiteModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_EDICION('El comité')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-comite"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('El comité')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

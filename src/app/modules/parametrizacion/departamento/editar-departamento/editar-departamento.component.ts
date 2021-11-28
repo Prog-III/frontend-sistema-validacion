@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { DepartamentoModel } from 'src/app/models/parametros/departamento.model';
 import { FacultadModel } from 'src/app/models/parametros/facultad.model';
 import { DepartamentoService } from 'src/app/servicios/parametros/departamento.service';
 import { FacultadService } from 'src/app/servicios/parametros/facultad.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-editar-departamento',
@@ -23,7 +26,8 @@ export class EditarDepartamentoComponent implements OnInit {
     private router: Router,
     private service: DepartamentoService,
     private route: ActivatedRoute,
-    private serviceFacultad: FacultadService
+    private serviceFacultad: FacultadService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -58,13 +62,19 @@ export class EditarDepartamentoComponent implements OnInit {
     model.id = this.formulario.controls['id'].value;
     this.service.EditarRegistro(model).subscribe({
       next: (data: DepartamentoModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_EDICION('El departamento')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-departamento"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('El departamento')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { EstadoSolicitudModel } from 'src/app/models/parametros/estadosolicitud.model';
 import { EstadoSolicitudService } from 'src/app/servicios/parametros/estado-solicitud.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-editar-estado-solicitud',
@@ -19,7 +22,8 @@ export class EditarEstadoSolicitudComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: EstadoSolicitudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -50,13 +54,19 @@ export class EditarEstadoSolicitudComponent implements OnInit {
     model.id = this.formulario.controls['id'].value;
     this.service.EditarRegistro(model).subscribe({
       next: (data: EstadoSolicitudModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_EDICION('El estado de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-estado-solicitud"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_EDICION('El estado de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

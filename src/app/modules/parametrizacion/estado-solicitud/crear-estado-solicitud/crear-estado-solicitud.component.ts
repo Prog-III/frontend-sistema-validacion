@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { EstadoSolicitudModel } from 'src/app/models/parametros/estadosolicitud.model';
 import { EstadoSolicitudService } from 'src/app/servicios/parametros/estado-solicitud.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-crear-estado-solicitud',
@@ -18,6 +21,7 @@ export class CrearEstadoSolicitudComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private toastService: ToastService,
     private service: EstadoSolicitudService
   ) { }
 
@@ -36,13 +40,19 @@ export class CrearEstadoSolicitudComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: EstadoSolicitudModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El estado de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-estado-solicitud"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El estado de solicitud')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastData } from 'src/app/models/compartido/toast-data';
 import { CorreoNotificacionModel } from 'src/app/models/parametros/correo-notificacion.model';
 import { CorreoNotificacionService } from 'src/app/servicios/parametros/correo-notificacion.service';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-crear-correos-notificacion',
@@ -18,7 +21,8 @@ export class CrearCorreosNotificacionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private service: CorreoNotificacionService
+    private service: CorreoNotificacionService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -40,13 +44,19 @@ export class CrearCorreosNotificacionComponent implements OnInit {
     model.estado = this.formulario.controls['estado'].value;
     this.service.GuardarRegistro(model).subscribe({
       next: (data: CorreoNotificacionModel) =>{
-        //aqui va el modal
-        console.log("Se guardo el mensaje");
+        const mensajeToast: ToastData = {
+          tipo: 'success',
+          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El correo de notificación')
+        }
+        this.toastService.openToast(mensajeToast);
         this.router.navigate(["/parametrizacion/listar-correos-notificacion"]);
       },
       error: (err:any)=>{
-        //modal de error
-        console.log("No se almaceno");
+        const mensajeToast: ToastData = {
+          tipo: 'error',
+          mensaje: GeneralData.TOAST_ERROR_CREACION('El correo de notificación')
+        }
+        this.toastService.openToast(mensajeToast);
       }
     });
 
