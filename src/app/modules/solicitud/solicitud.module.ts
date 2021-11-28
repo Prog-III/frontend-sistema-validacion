@@ -13,7 +13,7 @@ import { EliminarProponenteComponent } from './proponente/eliminar-proponente/el
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ExisteImagenPipe } from '../../pipes/solicitud/existe-imagen.pipe';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { ExisteImagenPipe } from '../../pipes/solicitud/existe-imagen.pipe';
     SolicitudRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SearchPipeModule
   ]
 })
 export class SolicitudModule { }

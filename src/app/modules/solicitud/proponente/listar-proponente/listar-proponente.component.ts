@@ -5,6 +5,7 @@ import { ProponenteService } from '../../../../servicios/seguridad/proponente.se
 import { faIdCard } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-listar-proponente',
@@ -14,9 +15,12 @@ import { faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 export class ListarProponenteComponent implements OnInit {
   proponentes?: ProponenteModel[];
 
+  terminoBusqueda?: string;
+
   faIdCard = faIdCard;
   faEnvelope = faEnvelope;
   faMobileAlt = faMobileAlt;
+  faArrowLeft = faArrowLeft;
 
   constructor(
     private proponenteService: ProponenteService

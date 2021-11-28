@@ -1,12 +1,15 @@
-<section class="w-100 vh-100 d-flex justify-content-center align-items-center">
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
           <form [formGroup]="formulario">
             <input type="hidden" formControlName="id_estado">
-            <p class="fs-2 fw-bold">Crear Solicitud</p>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="fs-2 m-0 fw-bold">Crear Solicitud</p>
+              <a class="text-sm mb-1" routerLink="/solicitud">Elegir solicitud ya existente</a>
+            </div>
   
-            <hr>
+            <hr class="m-1">
   
             <div class="mb-3">
                 <label for="nombre" required="required" class="form-label fw-bold">Nombre del Trabajo </label>
@@ -58,11 +61,11 @@
             </div>
   
             <div class="d-flex align-items-center justify-content-center w-100">
-              <button (click)="CrearRegistro()"  type="submit"
+              <button (click)="CrearRegistro()" type="submit" [disabled]="this.formulario.invalid"
                 class="btn btn-primary text-white w-50 me-2 ">
                 Añadir registro
               </button>
-              <button type="reset" routerLink="/parametrizacion/listar-comite"
+              <button type="reset" routerLink="/solicitud/crear-proponente"
                 class="btn bg-white border border-primary w-50 text-primary">
                 Cancelar
               </button>

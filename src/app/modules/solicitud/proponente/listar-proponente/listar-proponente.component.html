@@ -2,12 +2,18 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
-                <section>
-
+                <div>
+                    <a class="btn btn-primary" routerLink="/solicitud/crear-proponente">
+                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                        Regresar a crear proponente
+                    </a>
+                </div>
+                <section class="form-group my-3"> 
+                    <input type="text" class="form-control" placeholder="Escribe el término de búsqueda..." [(ngModel)]="terminoBusqueda">
                 </section>
 
-                <section class="grid-section">
-                    <div class="card shadow-sm px-0 pt-3" *ngFor="let proponente of proponentes">
+                <section class="grid-section" infinite-scroll>
+                    <div class="card shadow-sm px-0 pt-3" *ngFor="let proponente of proponentes | filter:terminoBusqueda!">
                         <img src="{{ (proponente.image! | existeImagen) | async }}"
                             class="img-thumbnail mx-auto rounded-circle" alt="Imagen de proponente">
                         <div class="card-body text-center">
@@ -26,7 +32,7 @@
                             </ul>
 
                             <div>
-                                <a card-link routerLink="">Seleccionar</a>
+                                <a card-link routerLink="/solicitud/crear-solicitud/{{ proponente.id }}">Seleccionar</a>
                             </div>
                         </div>
                     </div>
