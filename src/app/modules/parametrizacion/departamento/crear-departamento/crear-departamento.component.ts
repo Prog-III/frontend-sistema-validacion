@@ -32,6 +32,7 @@ export class CrearDepartamentoComponent implements OnInit {
   ngOnInit(): void {
     this.crearFormulario();
     this.GetRecordList();
+    this.formulario.get('id_facultad')?.setValue("")
   }
 
   GetRecordList(){

@@ -16,8 +16,8 @@
             <div class="mb-3">
                 <label for="id_facultad" required="required" class="form-label fw-bold">Facultad </label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_facultad" class="form-control">
-                    <option selected>Elegir Facultad</option>
+                <select formControlName="id_facultad" class="form-select" type="select" value="">
+                    <option value="" [selected]="true" >-- Elegir Facultad --</option>
                     <option *ngFor="let r of recordList" value="{{r.id}}">{{r.nombre}}</option>
                 </select>
             </div>
