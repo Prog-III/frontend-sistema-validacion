@@ -30,34 +30,45 @@
             <div class="mb-3">
                 <label for="id_linea_investigacion" required="required" class="form-label fw-bold">Linea de Investigación </label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_linea_investigacion" class="form-control">
-                    <option selected>Elegir Linea de Investigación</option>
+                <select formControlName="id_linea_investigacion" class="form-select">
+                    <option value="" [selected]="true">-- Elegir Linea de Investigación --</option>
                     <option *ngFor="let r of lineaList" value="{{r.id}}">{{r.nombre}}</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="id_tipo_solicitud" required="required" class="form-label fw-bold">Tipo de Solicitud </label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_tipo_solicitud" class="form-control">
-                    <option selected>Elegir Tipo de Solicitud</option>
+                <select formControlName="id_tipo_solicitud" class="form-select">
+                    <option value="" [selected]="true">-- Elegir Tipo de Solicitud --</option>
                     <option *ngFor="let r of tipoList" value="{{r.id}}">{{r.nombre}}</option> 
                 </select>
             </div>
             <div class="mb-3">
                 <label for="id_modalidad" required="required" class="form-label fw-bold">Modalidad</label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_modalidad" class="form-control">
-                    <option selected>Elegir Modalidad</option>
+                <select formControlName="id_modalidad" class="form-select">
+                    <option value="" [selected]="true">-- Elegir Modalidad --</option>
                     <option *ngFor="let r of modalidadList" value="{{r.id}}">{{r.nombre}}</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="id_comite" required="required" class="form-label fw-bold">Comite</label>
+                <label for="comites" required="required" class="form-label fw-bold">Comite</label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_comite" class="form-control">
-                    <option selected>Elegir Comite</option>
-                    <option *ngFor="let r of comiteList" value="{{r.id}}">{{r.nombre}}</option>
+                <select formControlName="comites" class="form-select" (change)="resetearSelect()">
+                    <option value="" [selected]="true">-- Elegir Comite --</option>
+                    <option *ngFor="let r of comiteList" value="{{ r | json }}">{{r.nombre}}</option>
                 </select>
+
+                <div>
+                  <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
+                    <li *ngFor="let comite of comitesSeleccionados; let i = index">
+                      <span class="badge bg-primary">
+                        {{ comite.nombre }}
+                        <fa-icon [icon]="faTimes" class="ms-1" (click)="eliminarElementoArreglo(i)"></fa-icon>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
             </div>
   
             <div class="d-flex align-items-center justify-content-center w-100">
