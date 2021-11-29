@@ -47,6 +47,7 @@ export class CrearDepartamentoComponent implements OnInit {
       nombre: ['', [Validators.required]],
       id_facultad: [Number, [Validators.required]],
     });
+    this.formulario.get('id_facultad')?.setValue("")
   }
 
   CrearRegistro(){
