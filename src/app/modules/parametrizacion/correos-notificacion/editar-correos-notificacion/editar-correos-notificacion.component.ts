@@ -7,6 +7,7 @@ import { ToastData } from 'src/app/models/compartido/toast-data';
 import { CorreoNotificacionModel } from 'src/app/models/parametros/correo-notificacion.model';
 import { CorreoNotificacionService } from 'src/app/servicios/parametros/correo-notificacion.service';
 import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ValidadoresService } from '../../../../servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-editar-correos-notificacion',
@@ -23,7 +24,9 @@ export class EditarCorreosNotificacionComponent implements OnInit {
     private router: Router,
     private service: CorreoNotificacionService,
     private toastService: ToastService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private validadoresService: ValidadoresService
+  ) { }
 
   ngOnInit(): void {
     this.crearFormulario();
@@ -48,6 +51,8 @@ export class EditarCorreosNotificacionComponent implements OnInit {
         this.formulario.controls["nombre"].setValue(data.nombre)
         this.formulario.controls["correo"].setValue(data.correo)
         this.formulario.controls["estado"].setValue(data.estado)
+
+        this.formulario.controls["correo"].setAsyncValidators(this.validadoresService.existeCorreoNotificacion(data.correo));
       }
     });
   }
@@ -87,4 +92,7 @@ export class EditarCorreosNotificacionComponent implements OnInit {
 
   }
 
+  get correoControl() {
+    return this.formulario.get('correo');
+  }
 }

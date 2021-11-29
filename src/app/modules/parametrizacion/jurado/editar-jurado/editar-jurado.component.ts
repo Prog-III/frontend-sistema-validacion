@@ -9,6 +9,7 @@ import { LineaInvestigacionService } from '../../../../servicios/parametros/line
 import { existeArregloValidator } from '../../../../validators/existeArreglo.validator';
 import { JuradoLineaInvestigacionService } from '../../../../servicios/parametros/jurado-linea-investigacion.service';
 import { JuradoLineaInvestigacionModel } from '../../../../models/parametros/jurado-linea-investigacion.model';
+import { ValidadoresService } from '../../../../servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-editar-jurado',
@@ -31,7 +32,8 @@ export class EditarJuradoComponent implements OnInit {
     private juradoService: JuradoService,
     private lineaInvestigacionService: LineaInvestigacionService,
     private juradoLineaInvestigacionService: JuradoLineaInvestigacionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private validadoresService: ValidadoresService
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,9 @@ export class EditarJuradoComponent implements OnInit {
         this.formulario?.controls["email"].setValue(data.email)
         this.formulario?.controls["telefono"].setValue(data.telefono)
         this.formulario?.controls["entidad"].setValue(data.entidad)
+
+        this.formulario?.controls["email"]
+          .setAsyncValidators(this.validadoresService.existeEmailJurado(data.email));
       }
     });
   }
@@ -139,5 +144,7 @@ export class EditarJuradoComponent implements OnInit {
     this.formulario?.get('lineasInvestigacion')?.setValue("");
   }
 
-
+  get emailControl() {
+    return this.formulario?.get('email');
+  }
 }

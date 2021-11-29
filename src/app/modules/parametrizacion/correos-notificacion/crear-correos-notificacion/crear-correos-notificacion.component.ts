@@ -7,6 +7,7 @@ import { ToastData } from 'src/app/models/compartido/toast-data';
 import { CorreoNotificacionModel } from 'src/app/models/parametros/correo-notificacion.model';
 import { CorreoNotificacionService } from 'src/app/servicios/parametros/correo-notificacion.service';
 import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ValidadoresService } from '../../../../servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-crear-correos-notificacion',
@@ -22,7 +23,8 @@ export class CrearCorreosNotificacionComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private service: CorreoNotificacionService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validadoresService: ValidadoresService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class CrearCorreosNotificacionComponent implements OnInit {
   crearFormulario() {
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required]],
-      correo: ['', [Validators.required]],
+      correo: ['', [Validators.required, Validators.email], [this.validadoresService.existeCorreoNotificacion()]],
       estado: [true, [Validators.required]]
     });
   }
@@ -60,6 +62,10 @@ export class CrearCorreosNotificacionComponent implements OnInit {
       }
     });
 
+  }
+
+  get correoControl() {
+    return this.formulario.get('correo');
   }
 
 }

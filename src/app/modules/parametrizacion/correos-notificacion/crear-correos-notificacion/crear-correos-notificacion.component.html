@@ -17,7 +17,16 @@
           <div class="mb-3">
             <label for="correo" required="required" class="form-label fw-bold">Correo </label>
             <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-            <input formControlName="correo" type="email" class="form-control" id="correo">
+
+            <div [ngClass]="{'is-loading': correoControl?.status === 'PENDING'}">
+              <input [ngClass]="{'is-invalid': correoControl?.invalid && correoControl?.touched }" formControlName="correo"
+                type="email" class="form-control" id="correo">
+              <div *ngIf="correoControl?.status === 'PENDING'" class="spinner-border spinner-border-sm"></div>
+            </div>
+
+            <span role="alert" *ngIf="correoControl?.getError('emailNoDisponible')" class="fw-bold text-danger">
+              El correo electrónico no está disponible
+            </span>
           </div>
 
           <div class="d-flex align-items-center justify-content-center w-100">
