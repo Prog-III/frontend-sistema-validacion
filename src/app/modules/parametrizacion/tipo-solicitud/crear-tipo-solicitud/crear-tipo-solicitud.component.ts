@@ -52,21 +52,27 @@ export class CrearTipoSolicitudComponent implements OnInit {
     model.nombre = this.formulario.controls['nombre'].value;
     
     this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
-      next: (data: TipoSolicitudModel) =>{
-        const mensajeToast: ToastData = {
-          tipo: 'success',
-          mensaje: GeneralData.TOAST_MENSAJE_CREACION('El tipo de solicitud')
-        }
-        this.toastService.openToast(mensajeToast);
-        this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
+      next: (data: any) =>{
+        model.formato=data.name;
+         this.service.GuardarRegistro(model).subscribe({
+          next: (data: TipoSolicitudModel) =>{
+            const mensajeToast: ToastData = {
+              tipo: 'success',
+              mensaje: GeneralData.TOAST_MENSAJE_CREACION('El tipo de solicitud')
+            }
+            this.toastService.openToast(mensajeToast);
+            this.router.navigate(["/parametrizacion/listar-tipo-solicitud"]);
+          },
+          error: (err:any)=>{
+            const mensajeToast: ToastData = {
+              tipo: 'error',
+              mensaje: GeneralData.TOAST_ERROR_CREACION('El tipo de solicitud')
+            }
+            this.toastService.openToast(mensajeToast);
+          }
+        });
       },
-      error: (err:any)=>{
-        const mensajeToast: ToastData = {
-          tipo: 'error',
-          mensaje: GeneralData.TOAST_ERROR_CREACION('El tipo de solicitud')
-        }
-        this.toastService.openToast(mensajeToast);
-      }
+     
     });
     console.log(model);
     
