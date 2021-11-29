@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
+import { faAsterisk, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as dayjs from 'dayjs';
 import { Dayjs } from 'dayjs';
 import { GeneralData } from 'src/app/config/general-data';
-import { ToastData } from 'src/app/models/compartido/toast-data';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
 import { ModalidadModel } from 'src/app/models/parametros/modalidad.model';
@@ -20,6 +19,7 @@ import { SolicitudProponenteService } from 'src/app/servicios/parametros/solicit
 import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
 import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { existeArregloValidator } from '../../../../validators/existeArreglo.validator';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -27,14 +27,18 @@ import { ToastService } from 'src/app/servicios/toast/toast.service';
   styleUrls: ['./crear-solicitud.component.css']
 })
 export class CrearSolicitudComponent implements OnInit {
+  idProponente?: number;
 
   lineaList: LineaInvestigacionModel[] = [];
   tipoList: TipoSolicitudModel[] = [];
   modalidadList: ModalidadModel[] = [];
   comiteList: ComiteModel[] = [];
-  
+
+  comitesSeleccionados: ComiteModel[] = [];
+
   formulario: FormGroup = new FormGroup({});
   faAsterisk = faAsterisk;
+  faTimes = faTimes;
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +52,7 @@ export class CrearSolicitudComponent implements OnInit {
     private cargaArchivos: CargaArchivosService,
     private solicitudComiteService: SolicitudComiteService,
     private solicitudProponenteService: SolicitudProponenteService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -56,36 +60,38 @@ export class CrearSolicitudComponent implements OnInit {
     this.GetLineaList();
     this.GetTipoList();
     this.GetModalidadList();
-    this.GetComiteList();  
+    this.GetComiteList();
+
+    this.idProponente = parseInt(this.route.snapshot.params["id"]);
   }
 
-  GetLineaList(){
+  GetLineaList() {
     this.serviceLinea.GetRecordList().subscribe({
-      next: (data: LineaInvestigacionModel[]) =>{
+      next: (data: LineaInvestigacionModel[]) => {
         this.lineaList = data;
       }
     })
   }
 
-  GetTipoList(){
+  GetTipoList() {
     this.serviceTipo.GetRecordList().subscribe({
-      next: (data: TipoSolicitudModel[]) =>{
+      next: (data: TipoSolicitudModel[]) => {
         this.tipoList = data;
       }
     })
   }
 
-  GetModalidadList(){
+  GetModalidadList() {
     this.serviceModalidad.GetRecordList().subscribe({
-      next: (data: ModalidadModel[]) =>{
+      next: (data: ModalidadModel[]) => {
         this.modalidadList = data;
       }
     })
   }
 
-  GetComiteList(){
+  GetComiteList() {
     this.serviceComite.GetRecordList().subscribe({
-      next: (data: ComiteModel[]) =>{
+      next: (data: ComiteModel[]) => {
         this.comiteList = data;
       }
     })
@@ -96,19 +102,15 @@ export class CrearSolicitudComponent implements OnInit {
       nombre_trabajo: ['', [Validators.required]],
       archivo: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
-      id_linea_investigacion: [Number, [Validators.required]],
-      id_tipo_solicitud: [Number, [Validators.required]],
-      id_modalidad: [Number, [Validators.required]],
+      id_linea_investigacion: ['', [Validators.required]],
+      id_tipo_solicitud: ['', [Validators.required]],
+      id_modalidad: ['', [Validators.required]],
       id_estado: [1, [Validators.required]],
-      id_comite: [Number, [Validators.required]]
-    });
-    this.formulario.get('id_linea_investigacion')?.setValue("")
-    this.formulario.get('id_tipo_solicitud')?.setValue("")
-    this.formulario.get('id_modalidad')?.setValue("")
-    this.formulario.get('id_comite')?.setValue("")
+      comites: ['']
+    }, { validators: existeArregloValidator(this.comitesSeleccionados) });
   }
 
-  CrearRegistro(){
+  CrearRegistro() {
     const formData = new FormData();
     formData.append('file', this.formulario.get('archivo')?.value);
 
@@ -117,54 +119,62 @@ export class CrearSolicitudComponent implements OnInit {
     model.nombre_trabajo = this.formulario.controls['nombre_trabajo'].value;
     model.descripcion = this.formulario.controls['descripcion'].value;
     model.id_linea_investigacion = parseInt(this.formulario.controls['id_linea_investigacion'].value);
-    model.id_tipo_solicitud= parseInt(this.formulario.controls['id_tipo_solicitud'].value);
+    model.id_tipo_solicitud = parseInt(this.formulario.controls['id_tipo_solicitud'].value);
     model.id_modalidad = parseInt(this.formulario.controls['id_modalidad'].value);
     model.id_estado = this.formulario.controls['id_estado'].value
-    
-    
+
+
     this.cargaArchivos.GuardarRegistro(this.formulario.get('archivo')?.value).subscribe({
-      next: (data: any) =>{
-      
-        model.archivo=data.name;
-         this.service.GuardarRegistro(model).subscribe({
-          next: (data: SolicitudModel) =>{
-            //aqui va el modal
-            this.solicitudComiteService.GuardarRegistroSolicitudComite(data.id!, parseInt(this.formulario.controls['id_comite'].value))
-            .subscribe(data => console.log(data))
+      next: (data) => {
+        model.archivo = data.name;
+        this.service.GuardarRegistro(model).subscribe({
+          next: (data: SolicitudModel) => {
 
-            let id = parseInt(this.route.snapshot.params["id"]);  
-          
-            this.solicitudProponenteService.GuardarRegistroSolicitudProponente(data.id!, id)
-            .subscribe(data => console.log(data))
+            this.comitesSeleccionados.forEach(comite => {
+              this.solicitudComiteService.GuardarRegistroSolicitudComite(data.id!, comite.id!)
+                .subscribe(data => { });
+            })
 
-            console.log("Se guardo el mensaje");
+            this.solicitudProponenteService.GuardarRegistroSolicitudProponente(data.id!, this.idProponente!)
+              .subscribe(data => { })
+
+            this.toastService.openToast({ tipo: 'success', mensaje: GeneralData.TOAST_MENSAJE_CREACION("La solicitud") })
             this.router.navigate(["/home"]);
           },
-          error: (err:any)=>{
-            //modal de error
-            console.log(err);
-            
-            console.log("No se almaceno");
+          error: () => {
+            this.toastService.openToast({ tipo: 'error', mensaje: GeneralData.TOAST_ERROR_CREACION("La solicitud") })
           }
         });
       },
-      error: (err:any)=>{
-       console.log(err);
-       
-        console.log("No se almaceno");
+      error: () => {
+        this.toastService.openToast({ tipo: 'error', mensaje: "Hubo un error al subir la imagen" });
       }
     });
+  }
 
+  resetearSelect() {
+    let comiteSeleccionado = this.formulario.get('comites')?.value;
+    comiteSeleccionado = JSON.parse(comiteSeleccionado) as ComiteModel;
+
+    const comiteYaSeleccionado = this.comitesSeleccionados.some(comite => comite.id === comiteSeleccionado.id);
+
+    if (!comiteYaSeleccionado) {
+      this.comitesSeleccionados.push(comiteSeleccionado);
+    }
+
+    this.formulario.get('comites')?.setValue("");
+  }
+
+  eliminarElementoArreglo(indice: number) {
+    this.comitesSeleccionados.splice(indice, 1);
+
+    this.formulario.get('comites')?.setValue("");
   }
 
   onChangeImageFile(event: any) {
     if (event.target.value) {
-     
-
       this.formulario.get('archivo')?.setValue(event.target.files[0]);
-      
-      
-    } 
+    }
   }
 
 }

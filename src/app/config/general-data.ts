@@ -11,7 +11,7 @@ export namespace GeneralData {
     export const TOAST_MENSAJE_CREACION = (componente: string) => `${componente} se ha creado correctamente`;
     export const TOAST_MENSAJE_ELIMINACION = (componente: string) => `${componente} se ha eliminado correctamente`;
     export const TOAST_ERROR_ELIMINACION = (componente: string) => `${componente} no se ha eliminado`;
-    export const TOAST_ERROR_CREACION = (componente: string) => `${componente} no se ha eliminado`;
+    export const TOAST_ERROR_CREACION = (componente: string) => `${componente} no se ha creado`;
     export const TOAST_MENSAJE_EDICION = (componente: string) => `${componente} se ha editado correctamente`;
     export const TOAST_ERROR_EDICION = (componente: string) => `${componente} no se ha editado`;
 

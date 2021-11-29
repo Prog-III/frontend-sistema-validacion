@@ -12,7 +12,11 @@ import { ListarProponenteComponent } from './proponente/listar-proponente/listar
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { ExisteImagenPipe } from '../../pipes/solicitud/existe-imagen.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ObtenerEstadoSolicitudPipe } from '../../pipes/solicitud/obtener-estado-solicitud.pipe';
+import { ObtenerLineaInvestigacionPipe } from '../../pipes/solicitud/obtener-linea-investigacion.pipe';
+import { ObtenerTipoSolicitudPipe } from '../../pipes/solicitud/obtener-tipo-solicitud.pipe';
 
 @NgModule({
   declarations: [
@@ -23,14 +27,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CrearProponenteComponent,
     EditarProponenteComponent,
     ListarProponenteComponent,
-    EliminarProponenteComponent
+    EliminarProponenteComponent,
+    ExisteImagenPipe,
+    ObtenerEstadoSolicitudPipe,
+    ObtenerLineaInvestigacionPipe,
+    ObtenerTipoSolicitudPipe
   ],
   imports: [
     CommonModule,
     SolicitudRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SearchPipeModule
   ]
 })
 export class SolicitudModule { }

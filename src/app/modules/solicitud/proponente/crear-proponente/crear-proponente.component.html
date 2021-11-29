@@ -4,8 +4,11 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <form [formGroup]="formulario">
             <input type="hidden">
-            <p class="fs-2 fw-bold">Crear Proponente</p>
-            <hr class="">
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="fs-2 m-0 fw-bold">Crear Proponente</p>
+              <a class="text-sm mb-1" routerLink="/solicitud/listar-proponente">Seleccionar proponente ya existente</a>
+            </div>
+            <hr class="m-1">
             <div class="mb-3">
               <label for="primer_nombre" required="required" class="form-label fw-bold">Primer nombre </label>
               <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
@@ -13,7 +16,6 @@
             </div>
             <div class="mb-3">
                 <label for="otros_nombres"  class="form-label fw-bold">Otros nombres </label>
-                <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
                 <input formControlName="otros_nombres" type="text" class="form-control" id="otros_nombres">
               </div>
               <div class="mb-3">
@@ -23,7 +25,6 @@
               </div>
               <div class="mb-3">
                 <label for="segundo_apellido" required="required" class="form-label fw-bold">Segundo Apellido </label>
-                <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
                 <input formControlName="segundo_apellido" type="text" class="form-control" id="segundo_apellido">
               </div>
 
@@ -72,22 +73,32 @@
               </div>
 
               <div class="mb-3">
-                <label for="id_departamento" required="required" class="form-label fw-bold">Departamento </label>
+                <label for="departamentos" required="required" class="form-label fw-bold">Departamento </label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <select formControlName="id_departamento" type="select" class="form-select" >
+                <select formControlName="departamentos" type="select" class="form-select" (change)="resetearSelect()">
     
                   <option value="" [selected]="true">-- Elegir Departamento --</option>
     
-                  <option *ngFor="let r of DepartamentoList" value="{{r.id}}">{{ r.nombre }}
-                  </option>
+                  <option *ngFor="let r of DepartamentoList" value="{{ r | json }}">{{ r.nombre }}</option>
                 </select>
+
+                <div>
+                  <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
+                    <li *ngFor="let departamento of departamentosSeleccionados; let i = index">
+                      <span class="badge bg-primary">
+                        {{ departamento.nombre }}
+                        <fa-icon [icon]="faTimes" class="ms-1" (click)="eliminarElementoArreglo(i)"></fa-icon>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
   
             <div class="d-flex align-items-center justify-content-center w-100">
-  
+
               <button [disabled]="formulario.invalid" (click)="CrearRegistro()" type="submit" class="btn btn-primary text-white w-50 me-2 ">Crear</button>
   
-              <button type="reset" routerLink="/parametrizacion/listar-tipo-vinculacion"
+              <button type="reset" routerLink="/home"
                 class="btn bg-white border border-primary w-50 text-primary">Cancelar</button>
             </div>
           </form>
