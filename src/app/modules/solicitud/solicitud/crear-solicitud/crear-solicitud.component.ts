@@ -5,7 +5,6 @@ import { faAsterisk } from '@fortawesome/free-solid-svg-icons';
 import * as dayjs from 'dayjs';
 import { Dayjs } from 'dayjs';
 import { GeneralData } from 'src/app/config/general-data';
-import { ToastData } from 'src/app/models/compartido/toast-data';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { LineaInvestigacionModel } from 'src/app/models/parametros/linea_investigacion.model';
 import { ModalidadModel } from 'src/app/models/parametros/modalidad.model';
@@ -27,6 +26,7 @@ import { ToastService } from 'src/app/servicios/toast/toast.service';
   styleUrls: ['./crear-solicitud.component.css']
 })
 export class CrearSolicitudComponent implements OnInit {
+  idProponente?: number;
 
   lineaList: LineaInvestigacionModel[] = [];
   tipoList: TipoSolicitudModel[] = [];
@@ -48,7 +48,7 @@ export class CrearSolicitudComponent implements OnInit {
     private cargaArchivos: CargaArchivosService,
     private solicitudComiteService: SolicitudComiteService,
     private solicitudProponenteService: SolicitudProponenteService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +57,8 @@ export class CrearSolicitudComponent implements OnInit {
     this.GetTipoList();
     this.GetModalidadList();
     this.GetComiteList();  
+
+    this.idProponente = this.route.snapshot.params["id"];
   }
 
   GetLineaList(){
@@ -119,47 +121,34 @@ export class CrearSolicitudComponent implements OnInit {
     
     
     this.cargaArchivos.GuardarRegistro(this.formulario.get('archivo')?.value).subscribe({
-      next: (data: any) =>{
-      
+      next: (data: any) => {
         model.archivo=data.name;
          this.service.GuardarRegistro(model).subscribe({
           next: (data: SolicitudModel) =>{
-            //aqui va el modal
+            
             this.solicitudComiteService.GuardarRegistroSolicitudComite(data.id!, parseInt(this.formulario.controls['id_comite'].value))
-            .subscribe(data => console.log(data))
-
-            let id = parseInt(this.route.snapshot.params["id"]);  
+            .subscribe(data => { });
           
-            this.solicitudProponenteService.GuardarRegistroSolicitudProponente(data.id!, id)
-            .subscribe(data => console.log(data))
+            this.solicitudProponenteService.GuardarRegistroSolicitudProponente(data.id!, this.idProponente!)
+            .subscribe(data => {  })
 
-            console.log("Se guardo el mensaje");
+            this.toastService.openToast({ tipo: 'success', mensaje: GeneralData.TOAST_MENSAJE_CREACION("La solicitud") })
             this.router.navigate(["/home"]);
           },
           error: (err:any)=>{
-            //modal de error
-            console.log(err);
-            
-            console.log("No se almaceno");
+            this.toastService.openToast({ tipo: 'error', mensaje: GeneralData.TOAST_ERROR_CREACION("La solicitud") })
           }
         });
       },
       error: (err:any)=>{
-       console.log(err);
-       
-        console.log("No se almaceno");
+        this.toastService.openToast({ tipo: 'error', mensaje: "Hubo un error al subir la imagen" });
       }
     });
-
   }
 
   onChangeImageFile(event: any) {
     if (event.target.value) {
-     
-
       this.formulario.get('archivo')?.setValue(event.target.files[0]);
-      
-      
     } 
   }
 
