@@ -12,6 +12,7 @@ import { JuradoLineaInvestigacionModel } from '../../../../models/parametros/jur
 import { ToastService } from 'src/app/servicios/toast/toast.service';
 import { ToastData } from 'src/app/models/compartido/toast-data';
 import { GeneralData } from 'src/app/config/general-data';
+import { ValidadoresService } from 'src/app/servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-editar-jurado',
@@ -35,7 +36,8 @@ export class EditarJuradoComponent implements OnInit {
     private lineaInvestigacionService: LineaInvestigacionService,
     private juradoLineaInvestigacionService: JuradoLineaInvestigacionService,
     private route: ActivatedRoute,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validadoresService: ValidadoresService
   ) { }
 
   ngOnInit(): void {
@@ -75,6 +77,9 @@ export class EditarJuradoComponent implements OnInit {
         this.formulario?.controls["email"].setValue(data.email)
         this.formulario?.controls["telefono"].setValue(data.telefono)
         this.formulario?.controls["entidad"].setValue(data.entidad)
+
+        this.formulario?.controls["email"]
+          .setAsyncValidators(this.validadoresService.existeEmailJurado(data.email));
       }
     });
   }
@@ -150,5 +155,7 @@ export class EditarJuradoComponent implements OnInit {
     this.formulario?.get('lineasInvestigacion')?.setValue("");
   }
 
-
+  get emailControl() {
+    return this.formulario?.get('email');
+  }
 }

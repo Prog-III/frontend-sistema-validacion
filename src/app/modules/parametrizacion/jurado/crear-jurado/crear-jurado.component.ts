@@ -17,6 +17,7 @@ import { JuradoLineaInvestigacionService } from '../../../../servicios/parametro
 import { ToastService } from 'src/app/servicios/toast/toast.service';
 import { ToastData } from 'src/app/models/compartido/toast-data';
 import { GeneralData } from 'src/app/config/general-data';
+import { ValidadoresService } from '../../../../servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-crear-jurado',
@@ -38,7 +39,8 @@ export class CrearJuradoComponent implements OnInit {
     private toastService: ToastService,
     private juradoService: JuradoService,
     private lineaInvestigacionService: LineaInvestigacionService,
-    private juradoLineaInvestigacionService: JuradoLineaInvestigacionService
+    private juradoLineaInvestigacionService: JuradoLineaInvestigacionService,
+    private validadoresService: ValidadoresService
   ) { 
 
   }
@@ -53,7 +55,7 @@ export class CrearJuradoComponent implements OnInit {
   crearFormulario() {
     this.formulario = this.fb.group({
       nombre: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], [this.validadoresService.existeEmailJurado()]],
       telefono: [''],
       entidad: ['', [Validators.required]],
       lineasInvestigacion: ['']
@@ -103,6 +105,7 @@ export class CrearJuradoComponent implements OnInit {
     if (!elementoYaExistente) {
       this.lineasInvestigacionSeleccionadas.push(lineaInvestigacion);
     }
+    console.log(this.formulario);
     
     this.formulario.get(controlName)?.setValue("");
   }
@@ -111,5 +114,9 @@ export class CrearJuradoComponent implements OnInit {
     this.lineasInvestigacionSeleccionadas.splice(indice, 1);
 
     this.formulario.get('lineasInvestigacion')?.setValue("");
+  }
+
+  get emailControl() {
+    return this.formulario.get('email');
   }
 }

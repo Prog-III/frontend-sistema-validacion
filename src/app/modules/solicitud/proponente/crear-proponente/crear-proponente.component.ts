@@ -12,6 +12,7 @@ import { ProponenteService } from 'src/app/servicios/seguridad/proponente.servic
 import { existeArregloValidator } from '../../../../validators/existeArreglo.validator';
 import { ToastService } from '../../../../servicios/toast/toast.service';
 import { GeneralData } from 'src/app/config/general-data';
+import { ValidadoresService } from '../../../../servicios/compartidos/validadores.service';
 
 @Component({
   selector: 'app-crear-proponente',
@@ -36,10 +37,9 @@ export class CrearProponenteComponent implements OnInit {
     private tipoVinculacionService: TipoVinculacionService,
     private departamentoService: DepartamentoService,
     private departamentoProponenteService: ProponenteDepartamentoService,
-    private toastService: ToastService
-  ) {
-
-  }
+    private toastService: ToastService,
+    private validadoresService: ValidadoresService
+  ) { }
 
   ngOnInit(): void {
     this.GetTipoVinculacion();
@@ -66,10 +66,10 @@ export class CrearProponenteComponent implements OnInit {
       primer_nombre: ['', [Validators.required]],
       otros_nombres: [''],
       primer_apellido: ['', [Validators.required]],
-      segundo_apellido: [''],
-      documento: ['', [Validators.required]],
+      segundo_apellido: ['', [Validators.required]],
+      documento: ['', [Validators.required], this.validadoresService.existeDocumentoProponente()],
       fecha_nacimiento: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], [this.validadoresService.existeEmailProponente()]],
       celular: [''],
       id_tipo_vinculacion: ['', [Validators.required]],
       image_file: ['', [Validators.required]],
@@ -135,5 +135,11 @@ export class CrearProponenteComponent implements OnInit {
     }
   }
 
+  get emailControl() {
+    return this.formulario.get('email');
+  }
 
+  get documentoControl() {
+    return this.formulario.get('documento');
+  }
 }

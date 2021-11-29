@@ -31,7 +31,16 @@
               <div class="mb-3">
                 <label for="documento" required="required" class="form-label fw-bold">Documento </label>
                 <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                <input formControlName="documento" type="number" class="form-control" id="documento">
+
+                <div [ngClass]="{'is-loading': documentoControl?.status === 'PENDING'}">
+                  <input [ngClass]="{'is-invalid': documentoControl?.invalid && documentoControl?.touched }" formControlName="documento"
+                    type="number" class="form-control" id="documento">
+                  <div *ngIf="documentoControl?.status === 'PENDING'" class="spinner-border spinner-border-sm"></div>
+                </div>
+
+                <span role="alert" *ngIf="documentoControl?.getError('documentoNoDisponible')" class="fw-bold text-danger">
+                  El documento ya se encuentra asignado
+                </span>
               </div>
 
               <div class="mb-3">
@@ -43,7 +52,16 @@
             <div class="mb-3">
               <label for="email" required="required" class="form-label fw-bold">Email </label>
               <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-              <input formControlName="email" type="email" class="form-control" id="email">
+
+              <div [ngClass]="{'is-loading': emailControl?.status === 'PENDING'}">
+                <input [ngClass]="{'is-invalid': emailControl?.invalid && emailControl?.touched }" formControlName="email"
+                  type="email" class="form-control" id="email">
+                <div *ngIf="emailControl?.status === 'PENDING'" class="spinner-border spinner-border-sm"></div>
+              </div>
+  
+              <span role="alert" *ngIf="emailControl?.getError('emailNoDisponible')" class="fw-bold text-danger">
+                El correo electrónico no está disponible
+              </span>
             </div>
   
             
