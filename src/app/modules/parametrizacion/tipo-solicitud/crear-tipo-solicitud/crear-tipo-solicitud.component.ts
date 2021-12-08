@@ -72,13 +72,7 @@ export class CrearTipoSolicitudComponent implements OnInit {
           }
         });
       },
-      error: (err:any)=>{
-        const mensajeToast: ToastData = {
-          tipo: 'error',
-          mensaje: GeneralData.TOAST_ERROR_CREACION('El tipo de solicitud')
-        }
-        this.toastService.openToast(mensajeToast);
-      }
+     
     });
     console.log(model);
     

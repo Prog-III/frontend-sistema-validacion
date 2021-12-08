@@ -11,16 +11,12 @@
             <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
             <input formControlName="nombre" type="text" class="form-control" id="nombre">
           </div>
+          
           <div class="mb-3">
-            <label for="formato" required="required" class="form-label fw-bold">Formato </label>
-            <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-            <input formControlName="formato" type="text" class="form-control" id="formato">
-          </div>
-          <!-- <div class="mb-3">
                   <label for="formato" class="form-label">Formato</label>
                   <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
-                  <input class="form-control" type="file" id="formato">
-                </div> -->
+                  <input (change)="onChangeImageFile($event)" class="form-control" type="file" id="formato">
+                </div>
           <div class="d-flex align-items-center justify-content-center w-100">
             <button (click)="CrearRegistro()" [disabled]="this.formulario.invalid" type="submit"
              class="btn btn-primary text-white w-50 me-2">
