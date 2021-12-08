@@ -23,9 +23,7 @@ export class RecuperarclaveService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
-
-    console.log(data);
-    
-    return this.http.post<RecuperarClaveModel>(`${this.url}/recuperar-clave`, JSON.stringify(data.correo) ,httpOptions);
+        
+    return this.http.post<RecuperarClaveModel>(`${this.url}/recuperar-clave`, JSON.stringify(data) ,httpOptions);
   }
 }

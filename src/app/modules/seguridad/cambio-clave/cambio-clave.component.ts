@@ -66,15 +66,12 @@ export class CambioClaveComponent implements OnInit {
   CrearRegistro(){
     let model = new CambioClaveModel();
     
-  
     if(this.formulario.controls['clave_nueva'].value === this.formulario.controls['clave_confir'].value){
       model.id_usuario = this.idusuario;
       model.clave_actual = MD5(this.formulario.controls['claveactual'].value).toString() ;
       model.nueva_clave = this.formulario.controls['clave_nueva'].value;
       this.service.GuardarRegistro(model).subscribe({
-        next: (data: CambioClaveModel) => {  
-          console.log(data);
-          
+        next: (data: CambioClaveModel) => {            
           const mensajeToast: ToastData = {
             tipo: 'success',
             mensaje: GeneralData.TOAST_MENSAJE_CREACION('La contraseña')
