@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
+import { NoAutenticadoGuard } from 'src/app/guardianes/no-autenticado.guard';
 import { CambioClaveComponent } from './cambio-clave/cambio-clave.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -8,20 +10,24 @@ import { RecuperacionClaveComponent } from './recuperacion-clave/recuperacion-cl
 const routes: Routes = [
   {
     path: "cambio-clave",
-    component:CambioClaveComponent
+    component:CambioClaveComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "login",
-    component:LoginComponent
+    component:LoginComponent,
+    canActivate:[NoAutenticadoGuard]
   },
   {
     path: "recuperacion-clave",
-    component:RecuperacionClaveComponent
+    component:RecuperacionClaveComponent,
+    canActivate:[NoAutenticadoGuard]
   },
   
   {
     path: "logout",
-    component:LogoutComponent 
+    component:LogoutComponent,
+    canActivate:[AutenticadoGuard]
   },
 
 ];

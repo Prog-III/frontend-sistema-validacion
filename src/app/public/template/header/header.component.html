@@ -11,7 +11,7 @@
 
         <div *ngIf="activeSession" class="collapse navbar-collapse w-100 justify-content-lg-end" id="navbarSupportedContent">
 
-            <ul class="nav navbar-nav w-100 justify-content-center">
+            <ul *ngIf="activeSession" class="nav navbar-nav w-100 justify-content-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -71,7 +71,7 @@
 
             <hr class="text-white my-1">
 
-            <ul class="nav navbar-nav me-5">
+            <ul *ngIf="activeSession" class="nav navbar-nav me-5">
                 <li class="nav-item dropdown pull-right">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -84,6 +84,20 @@
                 </li>
             </ul>
 
+        </div>
+        <div *ngIf="!activeSession" class="collapse navbar-collapse w-100 justify-content-lg-end" id="navbarSupportedContent">
+            <ul class="nav navbar-nav me-5">
+                <li class="nav-item dropdown pull-right">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <fa-icon class="pt-2 text-white" size="1x" [icon]="faUser"></fa-icon>
+                    </a>
+                    <div class="dropdown-menu border-0 dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item cursor-pointer" routerLink="/seguridad/login">Iniciar Sesión</a>
+                        
+                    </div>
+                </li>
+            </ul>
         </div>
 
     </div>

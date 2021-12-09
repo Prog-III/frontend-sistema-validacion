@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
 import { CrearInvitacionEvaluarComponent } from './invitacion-evaluar/crear-invitacion-evaluar/crear-invitacion-evaluar.component';
 import { EditarInvitacionEvaluarComponent } from './invitacion-evaluar/editar-invitacion-evaluar/editar-invitacion-evaluar.component';
 import { EliminarInvitacionEvaluarComponent } from './invitacion-evaluar/eliminar-invitacion-evaluar/eliminar-invitacion-evaluar.component';
@@ -16,51 +17,63 @@ import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/lista
 const routes: Routes = [
   {
     path: "crear-invitacion-evaluar",
-    component:CrearInvitacionEvaluarComponent
+    component:CrearInvitacionEvaluarComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-invitacion-evaluar",
-    component:EditarInvitacionEvaluarComponent
+    component:EditarInvitacionEvaluarComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "eliminar-invitacion-evaluar",
-    component:EliminarInvitacionEvaluarComponent
+    component:EliminarInvitacionEvaluarComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-invitacion-evaluar",
-    component:ListarInvitacionEvaluarComponent
+    component:ListarInvitacionEvaluarComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "crear-recordatorio",
-    component:CrearRecordatorioComponent
+    component:CrearRecordatorioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-recordatorio",
-    component:EditarRecordatorioComponent
+    component:EditarRecordatorioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "eliminar-recordatorio",
-    component:EliminarRecordatorioComponent
+    component:EliminarRecordatorioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-recordatorio",
-    component:ListarRecordatorioComponent
+    component:ListarRecordatorioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "crear-resultado-evaluacion",
-    component:CrearResultadoEvaluacionComponent
+    component:CrearResultadoEvaluacionComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-resultado-evaluacion",
-    component:EditarResultadoEvaluacionComponent
+    component:EditarResultadoEvaluacionComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "Eliminar-resultado-evaluacion",
-    component:EliminarResultadoEvaluacionComponent
+    component:EliminarResultadoEvaluacionComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-resultado-evaluacion",
-    component:ListarResultadoEvaluacionComponent
+    component:ListarResultadoEvaluacionComponent,
+    canActivate:[AutenticadoGuard]
   }
 
 ];

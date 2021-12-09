@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
 import { CrearProponenteComponent } from './proponente/crear-proponente/crear-proponente.component';
 import { EditarProponenteComponent } from './proponente/editar-proponente/editar-proponente.component';
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
@@ -12,35 +13,43 @@ import { ListarSolicitudComponent } from './solicitud/listar-solicitud/listar-so
 const routes: Routes = [
   {
     path: "crear-proponente",
-    component:CrearProponenteComponent
+    component:CrearProponenteComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-proponente",
-    component:EditarProponenteComponent
+    component:EditarProponenteComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "eliminar-proponente",
-    component:EliminarProponenteComponent
+    component:EliminarProponenteComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-proponente",
-    component:ListarProponenteComponent
+    component:ListarProponenteComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "crear-solicitud/:id",
-    component:CrearSolicitudComponent
+    component:CrearSolicitudComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-solicitud",
-    component:EditarSolicitudComponent
+    component:EditarSolicitudComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "eliminar-solicitud",
-    component:EliminarSolicitudComponent
+    component:EliminarSolicitudComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-solicitud/:id",
-    component:ListarSolicitudComponent
+    component:ListarSolicitudComponent,
+    canActivate:[AutenticadoGuard]
   }
 ];
 

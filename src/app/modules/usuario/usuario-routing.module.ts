@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
 import { CrearUsuarioComponent } from './usuario/crear-usuario/crear-usuario.component';
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { EliminarUsuarioComponent } from './usuario/eliminar-usuario/eliminar-usuario.component';
@@ -8,19 +9,23 @@ import { ListarUsuarioComponent } from './usuario/listar-usuario/listar-usuario.
 const routes: Routes = [
   {
     path: "crear-usuario",
-    component:CrearUsuarioComponent
+    component:CrearUsuarioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "editar-usuario",
-    component:EditarUsuarioComponent
+    component:EditarUsuarioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "eliminar-usuario",
-    component:EliminarUsuarioComponent
+    component:EliminarUsuarioComponent,
+    canActivate:[AutenticadoGuard]
   },
   {
     path: "listar-usuario",
-    component:ListarUsuarioComponent
+    component:ListarUsuarioComponent,
+    canActivate:[AutenticadoGuard]
   }
 ];
 
