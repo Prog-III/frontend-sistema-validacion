@@ -14,7 +14,7 @@ import { ToastService } from 'src/app/servicios/toast/toast.service';
 @Component({
   selector: 'app-listar-jurado',
   templateUrl: './listar-jurado.component.html',
-  styleUrls: ['./listar-jurado.component.css']
+  styleUrls: ['./listar-jurado.component.scss']
 })
 export class ListarJuradoComponent implements OnInit, OnDestroy {
 
