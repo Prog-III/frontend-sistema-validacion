@@ -45,6 +45,7 @@ import { ListarJuradoComponent } from './jurado/listar-jurado/listar-jurado.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxCsvParserModule } from 'ngx-csv-parser'
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ParametrizacionRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxCsvParserModule
   ]})
 export class ParametrizacionModule { }
