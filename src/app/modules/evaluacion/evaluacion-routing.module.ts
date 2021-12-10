@@ -12,6 +12,7 @@ import { CrearResultadoEvaluacionComponent } from './resultado-evaluacion/crear-
 import { EditarResultadoEvaluacionComponent } from './resultado-evaluacion/editar-resultado-evaluacion/editar-resultado-evaluacion.component';
 import { EliminarResultadoEvaluacionComponent } from './resultado-evaluacion/eliminar-resultado-evaluacion/eliminar-resultado-evaluacion.component';
 import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/listar-resultado-evaluacion/listar-resultado-evaluacion.component';
+import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-evaluar-solicitud/listar-evaluar-solicitud.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: "listar-resultado-evaluacion",
     component:ListarResultadoEvaluacionComponent
+  },
+  {
+    path: "listar-evaluar-solicitud/:id",
+    component:ListarEvaluarSolicitudComponent
   }
 
 ];
