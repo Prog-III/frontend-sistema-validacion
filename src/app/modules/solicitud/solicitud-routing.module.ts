@@ -39,6 +39,10 @@ const routes: Routes = [
     component:EliminarSolicitudComponent
   },
   {
+    path: "listar-solicitud",
+    component:ListarSolicitudComponent
+  },
+  {
     path: "listar-solicitud/:id",
     component:ListarSolicitudComponent
   }

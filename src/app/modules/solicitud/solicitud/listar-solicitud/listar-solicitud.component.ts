@@ -8,7 +8,7 @@ import { ToastService } from '../../../../servicios/toast/toast.service';
 import { GeneralData } from 'src/app/config/general-data';
 import { ModalService } from '../../../../servicios/modal/modal.service';
 import { ModalData } from '../../../../models/compartido/modal-data';
-import { Subscription } from 'rxjs';
+import { filter, Subscription, map } from 'rxjs';
 @Component({
   selector: 'app-listar-solicitud',
   templateUrl: './listar-solicitud.component.html',
@@ -18,6 +18,8 @@ export class ListarSolicitudComponent implements OnInit {
   private subscription = new Subscription();
 
   idProponente?: number;
+
+  filtro?: number;
 
   solicitudes: SolicitudModel[] = [];
 
@@ -37,9 +39,23 @@ export class ListarSolicitudComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerSolicitudes();
+    const querySubscription = this.route.queryParams
+      .pipe(
+        map(params => params['filtro'])
+      )
+      .subscribe(filtroParam => {
+        if (filtroParam === 'registradas') {
+          this.filtro = 1;
+        } else if (filtroParam === 'evaluacion') {
+          this.filtro = 2;
+        }
+      })
 
+      
+    this.obtenerSolicitudes();
     this.idProponente = parseInt(this.route.snapshot.params["id"]);
+
+    this.subscription.add(querySubscription);
   }
 
   ngOnDestroy(): void {
@@ -47,7 +63,7 @@ export class ListarSolicitudComponent implements OnInit {
   }
 
   obtenerSolicitudes() {
-    this.solicitudService.GetRecordList().subscribe(solicitudes => {
+    this.solicitudService.GetRecordList(this.filtro).subscribe(solicitudes => {
       this.solicitudes = solicitudes;
     })
   }

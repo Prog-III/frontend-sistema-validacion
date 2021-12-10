@@ -3,10 +3,18 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
                 <div>
-                    <a class="btn btn-primary" routerLink="/solicitud/crear-solicitud/{{ idProponente }}">
-                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
-                        Regresar a crear solicitud
-                    </a>
+                    <ng-container *ngIf="idProponente; else elseTemplate">
+                        <a class="btn btn-primary" routerLink="/solicitud/crear-solicitud/{{ idProponente }}">
+                            <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                            Regresar a crear solicitud
+                        </a>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <a class="btn btn-primary" routerLink="/home">
+                            <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                            Regresar a home
+                        </a>
+                    </ng-template>
                 </div>
                 <section class="form-group my-3"> 
                     <input type="text" class="form-control" placeholder="Escribe el término de búsqueda..." [(ngModel)]="terminoBusqueda">
@@ -28,9 +36,23 @@
                                 </li>
                             </ul>
 
-                            <div>
-                                <a class="card-link pe-auto" (click)="crearSolicitudProponente(solicitud.id)">Seleccionar</a>
-                            </div>
+                            <ng-container *ngIf="idProponente; else seleccionarPorfiltro">
+                                <div>
+                                    <a class="card-link pe-auto" (click)="crearSolicitudProponente(solicitud.id)">Seleccionar</a>
+                                </div>
+                            </ng-container>
+                            <ng-template #seleccionarPorfiltro>
+                                <ng-container *ngIf="filtro === 1; then seleccionarRegistradas; else seleccionarEnEvaluacion"></ng-container>
+                                <ng-template #seleccionarRegistradas>
+                                    <div>
+                                        <a class="card-link pe-auto" routerLink="/evaluacion/crear-invitacion-evaluar/{{ solicitud.id }}">Seleccionar</a>
+                                    </div>
+                                </ng-template>
+                                <ng-template #seleccionarEnEvaluacion>
+                                    
+                                </ng-template>
+                            </ng-template>
+                            
                         </div>
                     </div>
                 </section>
