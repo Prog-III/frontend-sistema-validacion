@@ -12,11 +12,9 @@ import { ListarProponenteComponent } from './proponente/listar-proponente/listar
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ExisteImagenPipe } from '../../pipes/solicitud/existe-imagen.pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ObtenerEstadoSolicitudPipe } from '../../pipes/solicitud/obtener-estado-solicitud.pipe';
-import { ObtenerLineaInvestigacionPipe } from '../../pipes/solicitud/obtener-linea-investigacion.pipe';
-import { ObtenerTipoSolicitudPipe } from '../../pipes/solicitud/obtener-tipo-solicitud.pipe';
+import { CompartidoModule } from '../compartido/compartido.module';
+
 
 @NgModule({
   declarations: [
@@ -27,11 +25,7 @@ import { ObtenerTipoSolicitudPipe } from '../../pipes/solicitud/obtener-tipo-sol
     CrearProponenteComponent,
     EditarProponenteComponent,
     ListarProponenteComponent,
-    EliminarProponenteComponent,
-    ExisteImagenPipe,
-    ObtenerEstadoSolicitudPipe,
-    ObtenerLineaInvestigacionPipe,
-    ObtenerTipoSolicitudPipe
+    EliminarProponenteComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +33,8 @@ import { ObtenerTipoSolicitudPipe } from '../../pipes/solicitud/obtener-tipo-sol
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    CompartidoModule
   ]
 })
 export class SolicitudModule { }

@@ -38,7 +38,8 @@ export class ListarSolicitudComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerSolicitudes();
-
+    
+  
     this.idProponente = parseInt(this.route.snapshot.params["id"]);
   }
 

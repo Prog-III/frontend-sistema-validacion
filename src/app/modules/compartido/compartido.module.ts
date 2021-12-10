@@ -3,12 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal/modal.component';
 import { ToastComponent } from './toast/toast.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ExisteImagenPipe } from './pipes/solicitud/existe-imagen.pipe';
+import { ObtenerEstadoSolicitudPipe } from './pipes/solicitud/obtener-estado-solicitud.pipe';
+import { ObtenerLineaInvestigacionPipe } from './pipes/solicitud/obtener-linea-investigacion.pipe';
+import { ObtenerTipoSolicitudPipe } from './pipes/solicitud/obtener-tipo-solicitud.pipe';
 
 
 @NgModule({
   declarations: [
     ModalComponent,
-    ToastComponent
+    ToastComponent,
+    ExisteImagenPipe,
+    ObtenerEstadoSolicitudPipe,
+    ObtenerLineaInvestigacionPipe,
+    ObtenerTipoSolicitudPipe
   ],
   imports: [
     CommonModule,
@@ -16,7 +24,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   exports: [
     ModalComponent,
-    ToastComponent
+    ToastComponent,
+    ExisteImagenPipe,
+    ObtenerEstadoSolicitudPipe,
+    ObtenerLineaInvestigacionPipe,
+    ObtenerTipoSolicitudPipe
   ]
 })
 export class CompartidoModule { }
