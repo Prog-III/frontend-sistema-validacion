@@ -15,7 +15,7 @@ import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/lista
 
 const routes: Routes = [
   {
-    path: "crear-invitacion-evaluar",
+    path: "crear-invitacion-evaluar/:id",
     component:CrearInvitacionEvaluarComponent
   },
   {

@@ -14,6 +14,9 @@ import { CrearRecordatorioComponent } from './recordatorio/crear-recordatorio/cr
 import { EditarRecordatorioComponent } from './recordatorio/editar-recordatorio/editar-recordatorio.component';
 import { EliminarRecordatorioComponent } from './recordatorio/eliminar-recordatorio/eliminar-recordatorio.component';
 import { ListarRecordatorioComponent } from './recordatorio/listar-recordatorio/listar-recordatorio.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { ListarRecordatorioComponent } from './recordatorio/listar-recordatorio/
   ],
   imports: [
     CommonModule,
-    EvaluacionRoutingModule
+    EvaluacionRoutingModule,
+    FontAwesomeModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ]
 })
 export class EvaluacionModule { }

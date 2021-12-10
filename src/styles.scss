@@ -13,6 +13,16 @@ hr {
     height: 2px;
 }
 
+.card-link {
+    cursor: pointer;
+}
+
 .text-sm {
     font-size: .875rem;
+}
+
+.grid-section {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 }
