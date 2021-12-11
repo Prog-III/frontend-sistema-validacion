@@ -37,6 +37,10 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.obtenerSolicitudes()
+  }
+
+  obtenerSolicitudes(){
     let id = parseInt(this.route.snapshot.params["id"])
     this.serviceInvitacionEvaluar.BuscarRegistrosPorIdJurado(id).subscribe({
       next: (data: InvitacionEvaluarModel[]) => {
@@ -63,8 +67,6 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   }
 
-
-
   ObjetoToken(token: string): Observable<TokenModel> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -73,6 +75,14 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
     }
 
     return this.http.post<TokenModel>(`http://localhost:3002/verificar-token`, JSON.stringify(token), httpOptions);
+
+  }
+
+  descarga(id: any) {
+
+    let url = 'http://localhost:3000/descargar_archivos_azure/' + id;
+
+    window.open(url);
 
   }
 }

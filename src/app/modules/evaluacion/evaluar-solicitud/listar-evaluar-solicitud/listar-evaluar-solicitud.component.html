@@ -19,6 +19,15 @@
                                     <fa-icon class="text-primary" [icon]="faPaste"></fa-icon>
                                     {{ (solicitud.id_tipo_solicitud | obtenerTipoSolicitud) | async }}
                                 </li>
+                                <li>
+                                    <p class="mb-0 mt-2 fw-bolder">Descripción:</p>
+                                    {{ solicitud.descripcion }}
+                                </li>
+                                <li>
+                                    <a  class="btn" (click)="descarga(solicitud.archivo)" download>
+                                        <u>Descargar</u>
+                                    </a>
+                                </li>
                             </ul>
 
                             <div>
