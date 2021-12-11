@@ -7,6 +7,7 @@ import { ExisteImagenPipe } from './pipes/solicitud/existe-imagen.pipe';
 import { ObtenerEstadoSolicitudPipe } from './pipes/solicitud/obtener-estado-solicitud.pipe';
 import { ObtenerLineaInvestigacionPipe } from './pipes/solicitud/obtener-linea-investigacion.pipe';
 import { ObtenerTipoSolicitudPipe } from './pipes/solicitud/obtener-tipo-solicitud.pipe';
+import { ObtenerModalidadPipe } from './pipes/solicitud/obtener-modalidad.pipe';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ObtenerTipoSolicitudPipe } from './pipes/solicitud/obtener-tipo-solicit
     ExisteImagenPipe,
     ObtenerEstadoSolicitudPipe,
     ObtenerLineaInvestigacionPipe,
-    ObtenerTipoSolicitudPipe
+    ObtenerTipoSolicitudPipe,
+    ObtenerModalidadPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { ObtenerTipoSolicitudPipe } from './pipes/solicitud/obtener-tipo-solicit
     ExisteImagenPipe,
     ObtenerEstadoSolicitudPipe,
     ObtenerLineaInvestigacionPipe,
-    ObtenerTipoSolicitudPipe
+    ObtenerTipoSolicitudPipe,
+    ObtenerModalidadPipe
   ]
 })
 export class CompartidoModule { }

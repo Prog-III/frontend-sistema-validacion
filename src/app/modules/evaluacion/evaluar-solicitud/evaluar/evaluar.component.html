@@ -1,1 +1,81 @@
-<p>evaluar works!</p>
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div>
+                <a class="btn btn-primary" routerLink="/evaluacion/listar-evaluar-solicitud/{{idjurado}}">
+                    <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                    Regresar a solicitudes para evaluar
+                </a>
+            </div>
+            <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-end">
+                    <h1 class="m-0 fw-bold">Información de la Solicitud</h1>
+                </div>
+                <hr class="m-1">
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Nombre del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{solicitud.nombre_trabajo}}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Descripción del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{solicitud.descripcion}}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Linea de Investigación del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_linea_investigacion | obtenerLineaInvestigacion) | async
+                        }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Tipo de Solicitud:</h2>
+                    <p class="mt-2 fs-7">{{ (solicitud.id_tipo_solicitud | obtenerTipoSolicitud) | async }}</p>
+
+                    <a class="btn m-0 p-0" (click)="descarga(tiposolicitud.formato)" download>
+                        <u class="m-0 p-0">Formato</u>
+                    </a>
+
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Modalidad de la Solicitud:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_modalidad | obtenerModalidad) | async }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Estado de Solicitud:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_estado | obtenerEstadoSolicitud) | async }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Comites de la Solicitud:</h2>
+                    <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
+                        <li *ngFor="let comite of comitesSolicitud">
+                            <span class="badge rounded-pill bg-primary">{{ comite.nombre}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Archivo de la Solicitud:</h2>
+
+                    <a class="btn " (click)="descarga(solicitud.archivo)" download>
+                        <u>{{ solicitud.archivo }}</u>
+                    </a>
+
+                </div>
+            </div>
+            <hr class="m-1">
+            <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-end">
+                    <h1 class="m-0 fw-bold">Evaluación de la Solicitud</h1>
+                </div>
+                <hr class="m-1">
+
+            </div>
+        </div>
+
+    </div>
+</section>

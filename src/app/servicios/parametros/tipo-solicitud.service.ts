@@ -41,7 +41,7 @@ console.log(data);
     },httpOptions);
   }
 
-  BuscarRegistro(id: number): Observable<TipoSolicitudModel>{
+  BuscarRegistro(id?: number): Observable<TipoSolicitudModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',

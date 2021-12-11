@@ -37,7 +37,6 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerSolicitudes()
-    console.log(this.idjurado);
     
   }
 
