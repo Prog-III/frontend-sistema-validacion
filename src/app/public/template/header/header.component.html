@@ -23,6 +23,8 @@
                          [routerLink]="['/solicitud', 'listar-solicitud']" [queryParams]="{ filtro: 'registradas' }">
                             Crear invitación a evaluar
                         </a>
+                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item" [routerLink]="['evaluacion/listar-evaluar-solicitud',idjurado]">Evaluar Solicitud</a>
+                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item" routerLink="evaluacion/listar-invitacion-evaluar">Invitaciones a evaluar</a>
                         <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item" routerLink="evaluacion/listar-recordatorio">Recordatorio</a>
                         <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"routerLink="evaluacion/listar-resultado-evaluacion">Resultado de la Evaluación</a>
                     </div>

@@ -53,7 +53,7 @@ export class SolicitudService {
     },httpOptions);
   }
 
-  BuscarRegistro(id: number): Observable<SolicitudModel>{
+  BuscarRegistro(id?: number ): Observable<SolicitudModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',

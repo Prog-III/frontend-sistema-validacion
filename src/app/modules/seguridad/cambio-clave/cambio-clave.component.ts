@@ -22,7 +22,7 @@ export class CambioClaveComponent implements OnInit {
 
   formulario: FormGroup = new FormGroup({});
   faAsterisk = faAsterisk;
-  idusuario: string = "";
+  public idusuario: string = "";
  
   constructor(
     private http: HttpClient,
