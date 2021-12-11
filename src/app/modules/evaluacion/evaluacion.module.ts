@@ -19,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CompartidoModule } from '../compartido/compartido.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EditarRecordatorioComponent,
     EliminarRecordatorioComponent,
     ListarRecordatorioComponent,
-    ListarEvaluarSolicitudComponent
+    ListarEvaluarSolicitudComponent,
+    EvaluarComponent
   ],
   imports: [
     CommonModule,

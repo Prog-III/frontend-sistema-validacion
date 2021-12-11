@@ -37,10 +37,13 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerSolicitudes()
+    console.log(this.idjurado);
+    
   }
 
   obtenerSolicitudes(){
     let id = parseInt(this.route.snapshot.params["id"])
+    this.idjurado = id
     this.serviceInvitacionEvaluar.BuscarRegistrosPorIdJurado(id).subscribe({
       next: (data: InvitacionEvaluarModel[]) => {
         this.invitaciones = data
@@ -49,7 +52,6 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
             next: (data: SolicitudModel) => {
               if(data)
               this.solicitudes.push(data)
-              console.log(this.solicitudes);
 
             },
             error: (err: any) => {

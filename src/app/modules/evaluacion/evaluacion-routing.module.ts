@@ -13,6 +13,7 @@ import { EditarResultadoEvaluacionComponent } from './resultado-evaluacion/edita
 import { EliminarResultadoEvaluacionComponent } from './resultado-evaluacion/eliminar-resultado-evaluacion/eliminar-resultado-evaluacion.component';
 import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/listar-resultado-evaluacion/listar-resultado-evaluacion.component';
 import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-evaluar-solicitud/listar-evaluar-solicitud.component';
+import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
   {
     path: "listar-evaluar-solicitud/:id",
     component:ListarEvaluarSolicitudComponent
+  },
+  {
+    path: "evaluar/:idjurado/:idsolicitud",
+    component:EvaluarComponent
   }
 
 ];

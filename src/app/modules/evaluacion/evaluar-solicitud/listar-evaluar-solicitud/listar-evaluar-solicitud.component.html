@@ -2,6 +2,12 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
+                <div>
+                    <a class="btn btn-primary" routerLink="/home">
+                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                        Regresar a home
+                    </a>
+                </div>
                 <section class="form-group my-3"> 
                     <input type="text" class="form-control" placeholder="Escribe el término de búsqueda..." [(ngModel)]="terminoBusqueda" >
                 </section>
@@ -31,7 +37,7 @@
                             </ul>
 
                             <div>
-                                <a class="card-link pe-auto" >Evaluar</a>
+                                <a class="card-link pe-auto" [routerLink]="['/evaluacion/evaluar',idjurado,solicitud.id]">Evaluar</a>
                             </div>
                         </div>
                     </div>
