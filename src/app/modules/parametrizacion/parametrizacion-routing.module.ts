@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdministradorGuard } from 'src/app/guardianes/administrador.guard';
 import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
+import { AuxiliarDirectorGuard } from 'src/app/guardianes/auxiliar-director.guard';
+import { AuxiliarEvaluadorGuard } from 'src/app/guardianes/auxiliar-evaluador.guard';
+import { AuxiliarGuard } from 'src/app/guardianes/auxiliar.guard';
 import { CrearComiteComponent } from './comite/crear-comite/crear-comite.component';
 import { EditarComiteComponent } from './comite/editar-comite/editar-comite.component';
 import { EliminarComiteComponent } from './comite/eliminar-comite/eliminar-comite.component';
@@ -46,202 +50,202 @@ const routes: Routes = [
   {
     path: "crear-comite",
     component: CrearComiteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-comite/:id",
     component:EditarComiteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-comite/:id",
     component:EliminarComiteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-comite",
     component:ListarComiteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-correos-notificacion",
     component:CrearCorreosNotificacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-correos-notificacion/:id",
     component:EditarCorreosNotificacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-correos-notificacion",
     component:EliminarCorreosNotificacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-correos-notificacion",
     component:ListarCorreosNotificacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "crear-departamento",
     component:CrearDepartamentoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-departamento/:id",
     component:EditarDepartamentoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-departamento",
     component:EliminarDepartamentoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-departamento",
     component:ListarDepartamentoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-estado-solicitud",
     component:CrearEstadoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-estado-solicitud/:id",
     component:EditarEstadoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-estado-solicitud",
     component:EliminarEstadoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-estado-solicitud",
     component:ListarEstadoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-facultad",
     component:CrearFacultadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-facultad/:id",
     component:EditarFacultadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-facultad",
     component:EliminarFacultadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-facultad",
     component:ListarFacultadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-jurado",
     component:CrearJuradoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-jurado/:id",
     component:EditarJuradoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-jurado",
     component:EliminarJuradoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-jurado",
     component:ListarJuradoComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard], 
   },
   {
     path: "crear-linea-investigacion",
     component:CrearLineaInvestigacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-linea-investigacion/:id",
     component:EditarLineaInvestigacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-linea-investigacion",
     component:EliminarLineaInvestigacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-linea-investigacion",
     component:ListarLineaInvestigacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarEvaluadorGuard]
   },
   {
     path: "crear-modalidad",
     component:CrearModalidadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-modalidad/:id",
     component:EditarModalidadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-modalidad",
     component:EliminarModalidadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-modalidad",
     component:ListarModalidadComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-tipo-solicitud",
     component:CrearTipoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-tipo-solicitud/:id",
     component:EditarTipoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-tipo-solicitud",
     component:EliminarTipoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-tipo-solicitud",
     component:ListarTipoSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-tipo-vinculacion",
     component:CrearTipoVinculacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "editar-tipo-vinculacion/:id",
     component:EditarTipoVinculacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "eliminar-tipo-vinculacion",
     component:EliminarTipoVinculacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-tipo-vinculacion",
     component:ListarTipoVinculacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   }
 
 ];

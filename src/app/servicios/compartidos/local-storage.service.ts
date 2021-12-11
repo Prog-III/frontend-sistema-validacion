@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DatosSesionModel } from 'src/app/models/seguridad/datos_sesion';
+import { RolModel } from 'src/app/models/seguridad/role.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class LocalStorageService {
     } else {
       let datosSesionString = JSON.stringify(data);
       localStorage.setItem("session-info", datosSesionString);
+      console.log(data);
+      
       return true;
     }
   }
@@ -46,6 +49,16 @@ export class LocalStorageService {
       return datosSesionJson;
     }else{
       return new DatosSesionModel();
+    }
+  }
+
+  GetRolActivo():Array<RolModel>  {
+    let datos_actuales = localStorage.getItem("session-info");
+    if (datos_actuales) {
+      let datosSesionJson = JSON.parse(datos_actuales);
+      return datosSesionJson.roles;
+    }else{
+      return new Array<RolModel>();
     }
   }
 }

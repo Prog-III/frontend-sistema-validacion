@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdministradorGuard } from 'src/app/guardianes/administrador.guard';
 import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
+import { AuxiliarDirectorGuard } from 'src/app/guardianes/auxiliar-director.guard';
+import { AuxiliarGuard } from 'src/app/guardianes/auxiliar.guard';
+import { DirectorGuard } from 'src/app/guardianes/director.guard';
 import { CrearProponenteComponent } from './proponente/crear-proponente/crear-proponente.component';
 import { EditarProponenteComponent } from './proponente/editar-proponente/editar-proponente.component';
 import { EliminarProponenteComponent } from './proponente/eliminar-proponente/eliminar-proponente.component';
@@ -14,42 +18,42 @@ const routes: Routes = [
   {
     path: "crear-proponente",
     component:CrearProponenteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "editar-proponente",
     component:EditarProponenteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "eliminar-proponente",
     component:EliminarProponenteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "listar-proponente",
     component:ListarProponenteComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-solicitud/:id",
     component:CrearSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "editar-solicitud",
     component:EditarSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   },
   {
     path: "eliminar-solicitud",
     component:EliminarSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-solicitud/:id",
     component:ListarSolicitudComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard,AuxiliarDirectorGuard ]
   }
 ];
 

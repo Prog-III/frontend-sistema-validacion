@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdministradorGuard } from 'src/app/guardianes/administrador.guard';
 import { AutenticadoGuard } from 'src/app/guardianes/autenticado.guard';
+import { AuxiliarDirectorGuard } from 'src/app/guardianes/auxiliar-director.guard';
+import { AuxiliarGuard } from 'src/app/guardianes/auxiliar.guard';
+import { EvaluadorGuard } from 'src/app/guardianes/evaluador.guard';
 import { CrearInvitacionEvaluarComponent } from './invitacion-evaluar/crear-invitacion-evaluar/crear-invitacion-evaluar.component';
 import { EditarInvitacionEvaluarComponent } from './invitacion-evaluar/editar-invitacion-evaluar/editar-invitacion-evaluar.component';
 import { EliminarInvitacionEvaluarComponent } from './invitacion-evaluar/eliminar-invitacion-evaluar/eliminar-invitacion-evaluar.component';
@@ -18,62 +22,62 @@ const routes: Routes = [
   {
     path: "crear-invitacion-evaluar",
     component:CrearInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard,  AuxiliarDirectorGuard]
   },
   {
     path: "editar-invitacion-evaluar",
     component:EditarInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard,AuxiliarGuard]
   },
   {
     path: "eliminar-invitacion-evaluar",
     component:EliminarInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-invitacion-evaluar",
     component:ListarInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-recordatorio",
     component:CrearRecordatorioComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   },
   {
     path: "editar-recordatorio",
     component:EditarRecordatorioComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   },
   {
     path: "eliminar-recordatorio",
     component:EliminarRecordatorioComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-recordatorio",
     component:ListarRecordatorioComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "crear-resultado-evaluacion",
     component:CrearResultadoEvaluacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, EvaluadorGuard]
   },
   {
     path: "editar-resultado-evaluacion",
     component:EditarResultadoEvaluacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "Eliminar-resultado-evaluacion",
     component:EliminarResultadoEvaluacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-resultado-evaluacion",
     component:ListarResultadoEvaluacionComponent,
-    canActivate:[AutenticadoGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   }
 
 ];
