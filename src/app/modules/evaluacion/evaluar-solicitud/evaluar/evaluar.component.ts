@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { SolicitudModel } from 'src/app/models/parametros/solicitud.model';
 import { SolicitudComiteService } from 'src/app/servicios/parametros/solicitud-comite.service';
@@ -14,6 +14,9 @@ import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archiv
 import { InvitacionEvaluarService } from 'src/app/servicios/evaluacion/invitacion-evaluar.service';
 import { InvitacionEvaluarModel } from 'src/app/models/evaluacion/invitacion-evaluar.model';
 import { ResultadoEvaluacionService } from 'src/app/servicios/evaluacion/resultado-evaluacion.service';
+import { ToastData } from 'src/app/models/compartido/toast-data';
+import { GeneralData } from 'src/app/config/general-data';
+import { ToastService } from 'src/app/servicios/toast/toast.service';
 
 @Component({
   selector: 'app-evaluar',
@@ -39,7 +42,9 @@ export class EvaluarComponent implements OnInit {
     private serviceResultadoEvaluacion: ResultadoEvaluacionService,
     private route: ActivatedRoute,
     private cargaArchivos: CargaArchivosService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,11 +79,19 @@ export class EvaluarComponent implements OnInit {
             model.formato_diligenciado=data.name;
              this.serviceResultadoEvaluacion.GuardarRegistro(model).subscribe({
               next: (data: ResultadoEvaluacionModel) =>{
-                  console.log(data);
-                  
+                  const mensajeToast: ToastData = {
+                    tipo: 'success',
+                    mensaje: GeneralData.TOAST_MENSAJE_CREACION('El resultado de la evaluación')
+                  }
+                  this.toastService.openToast(mensajeToast);
+                  this.router.navigate(["/home"]);
               },
               error: (err:any)=>{
-                
+                const mensajeToast: ToastData = {
+                  tipo: 'error',
+                  mensaje: GeneralData.TOAST_ERROR_CREACION('El resultado de la evaluación')
+                }
+                this.toastService.openToast(mensajeToast);
               }
             });
           },
