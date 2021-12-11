@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { InvitacionEvaluarModel } from '../../models/evaluacion/invitacion-evaluar.model';
+import { RespuestaInvitacionModel } from '../../models/evaluacion/respuesta-invitacion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,18 @@ export class InvitacionEvaluarService {
     return this.http.get<InvitacionEvaluarModel[]>(`${this.url}/invitaciones-evaluar?filter={
       "where": {"id_jurado": ${idjurado}, "estado_evaluacion": 1}
     }`, httpOptions)
+  }
+
+  ActualizarInvitacionPorHash(hash: string, repuestaInvitacion: RespuestaInvitacionModel) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+
+    return this.http.patch<InvitacionEvaluarModel>(`${this.url}/invitaciones-evaluar/actualizar-estado/${hash}`,
+      JSON.stringify(repuestaInvitacion),
+      httpOptions
+    );
   }
 }

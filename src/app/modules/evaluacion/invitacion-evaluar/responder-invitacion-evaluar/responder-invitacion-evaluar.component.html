@@ -1,0 +1,36 @@
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+
+                <form [formGroup]="formularioRespuesta" (submit)="subirRespuesta()">
+                    <div class="mb-3">
+                        <label for="respuestaInvitacion" class="form-label fw-bold">Respuesta a invitación</label>
+                        <select formControlName="respuesta_invitacion" name="respuestaInvitacion" id="respuestaInvitacion" class="form-select">
+                            <option value="">-- Seleccionar respuesta</option>
+                            <option value="1">Aceptar invitación</option>
+                            <option value="2">Rechazar invitación</option>
+                        </select>
+                    </div>
+                
+                    <div class="mb-3">
+                        <label for="observaciones" class="form-label fw-bold">Observaciones</label>
+                        <textarea formControlName="observaciones" name="observaciones" id="observaciones" class="form-control"></textarea>
+                    </div>
+                
+                    <div class="d-flex align-items-center justify-content-center w-100">
+                        <button [disabled]="formularioRespuesta.invalid" type="submit" class="btn btn-primary text-white w-50 me-2">
+                            Enviar respuesta
+                        </button>
+                        <button type="reset" class="btn bg-white border border-primary w-50 text-primary">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+

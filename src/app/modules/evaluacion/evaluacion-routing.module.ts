@@ -13,6 +13,7 @@ import { EditarResultadoEvaluacionComponent } from './resultado-evaluacion/edita
 import { EliminarResultadoEvaluacionComponent } from './resultado-evaluacion/eliminar-resultado-evaluacion/eliminar-resultado-evaluacion.component';
 import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/listar-resultado-evaluacion/listar-resultado-evaluacion.component';
 import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-evaluar-solicitud/listar-evaluar-solicitud.component';
+import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,11 @@ const routes: Routes = [
   },
   {
     path: "listar-invitacion-evaluar",
-    component:ListarInvitacionEvaluarComponent
+    component: ListarInvitacionEvaluarComponent
+  },
+  {
+    path: "responder-invitacion-evaluar/:hash",
+    component: ResponderInvitacionEvaluarComponent
   },
   {
     path: "crear-recordatorio",
