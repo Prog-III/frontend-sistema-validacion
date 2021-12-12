@@ -14,6 +14,7 @@ export namespace GeneralData {
     export const TOAST_ERROR_CREACION = (componente: string) => `${componente} no se ha creado`;
     export const TOAST_MENSAJE_EDICION = (componente: string) => `${componente} se ha editado correctamente`;
     export const TOAST_ERROR_EDICION = (componente: string) => `${componente} no se ha editado`;
+    export const TOAST_ERROR_CARGA = (componente: string) => `Error inesperado al cargar ${componente}`;
 
     export const MS_SEGUIRIDAD_URL = "http://localhost:3002";
     export const MS_NEGOCIO_URL = "http://localhost:3000";

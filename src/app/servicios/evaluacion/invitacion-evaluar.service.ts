@@ -19,14 +19,19 @@ export class InvitacionEvaluarService {
     this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
   }
 
-  GetRecordList(): Observable<InvitacionEvaluarModel[]>{
+  GetRecordList(filtro?: string): Observable<InvitacionEvaluarModel[]>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<InvitacionEvaluarModel[]>(`${this.url}/invitaciones-evaluar`, httpOptions);
+    let urlEndpoint = `${this.url}/invitaciones-evaluar`;
+    if (filtro) {
+      urlEndpoint = `${this.url}/invitaciones-evaluar?filter={${filtro}}`      
+    }
+
+    return this.http.get<InvitacionEvaluarModel[]>(urlEndpoint, httpOptions);
   }
 
   GuardarRegistro(data: InvitacionEvaluarModel): Observable<InvitacionEvaluarModel> {

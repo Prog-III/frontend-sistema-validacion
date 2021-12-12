@@ -8,6 +8,10 @@ import { ObtenerEstadoSolicitudPipe } from './pipes/solicitud/obtener-estado-sol
 import { ObtenerLineaInvestigacionPipe } from './pipes/solicitud/obtener-linea-investigacion.pipe';
 import { ObtenerTipoSolicitudPipe } from './pipes/solicitud/obtener-tipo-solicitud.pipe';
 import { ObtenerModalidadPipe } from './pipes/solicitud/obtener-modalidad.pipe';
+import { ObtenerNombreJuradoPipe } from './pipes/evaluacion/obtener-nombre-jurado.pipe';
+import { ObtenerNombreTrabajoPipe } from './pipes/evaluacion/obtener-nombre-trabajo.pipe';
+import { ObtenerFechaPipe } from './pipes/evaluacion/obtener-fecha.pipe';
+import { ObtenerEstadoInvitacionPipe } from './pipes/evaluacion/obtener-estado-invitacion.pipe';
 
 
 @NgModule({
@@ -18,7 +22,11 @@ import { ObtenerModalidadPipe } from './pipes/solicitud/obtener-modalidad.pipe';
     ObtenerEstadoSolicitudPipe,
     ObtenerLineaInvestigacionPipe,
     ObtenerTipoSolicitudPipe,
-    ObtenerModalidadPipe
+    ObtenerModalidadPipe,
+    ObtenerNombreJuradoPipe,
+    ObtenerNombreTrabajoPipe,
+    ObtenerFechaPipe,
+    ObtenerEstadoInvitacionPipe
   ],
   imports: [
     CommonModule,
@@ -31,7 +39,11 @@ import { ObtenerModalidadPipe } from './pipes/solicitud/obtener-modalidad.pipe';
     ObtenerEstadoSolicitudPipe,
     ObtenerLineaInvestigacionPipe,
     ObtenerTipoSolicitudPipe,
-    ObtenerModalidadPipe
+    ObtenerModalidadPipe,
+    ObtenerNombreJuradoPipe,
+    ObtenerNombreTrabajoPipe,
+    ObtenerFechaPipe,
+    ObtenerEstadoInvitacionPipe
   ]
 })
 export class CompartidoModule { }

@@ -15,9 +15,7 @@ export class LocalStorageService {
       return false;
     } else {
       let datosSesionString = JSON.stringify(data);
-      localStorage.setItem("session-info", datosSesionString);
-      console.log(data);
-      
+      localStorage.setItem("session-info", datosSesionString);      
       return true;
     }
   }
