@@ -49,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.add(seguridadSubscription);
 
     this.IdJurado();
+    
+    
       
   }
 
@@ -64,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           next: (data: JuradoModel[]) => {  
             
             if(data[0].id) this.idjurado = data[0].id
-            
+            console.log(this.idjurado);
           },
           error: (err:any)=>{
             

@@ -20,6 +20,7 @@ import { CompartidoModule } from '../compartido/compartido.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
+import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/respon
     EliminarRecordatorioComponent,
     ListarRecordatorioComponent,
     ListarEvaluarSolicitudComponent,
-    ResponderInvitacionEvaluarComponent
+    ResponderInvitacionEvaluarComponent,
+    EvaluarComponent
   ],
   imports: [
     CommonModule,

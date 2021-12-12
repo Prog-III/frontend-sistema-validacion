@@ -1,0 +1,105 @@
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div>
+                <a class="btn btn-primary" routerLink="/evaluacion/listar-evaluar-solicitud/{{idjurado}}">
+                    <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                    Regresar a solicitudes para evaluar
+                </a>
+            </div>
+            <div class="mt-3">
+                <div class="d-flex justify-content-between align-items-end">
+                    <h1 class="m-0 fw-bold">Información de la Solicitud</h1>
+                </div>
+                <hr class="m-1">
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Nombre del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{solicitud.nombre_trabajo}}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Descripción del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{solicitud.descripcion}}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Linea de Investigación del trabajo:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_linea_investigacion | obtenerLineaInvestigacion) | async
+                        }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Tipo de Solicitud:</h2>
+                    <p class="mt-2 mb-0 fs-7">{{ (solicitud.id_tipo_solicitud | obtenerTipoSolicitud) | async }}</p>
+
+                    <a class="btn m-0 p-0" (click)="descarga(tiposolicitud.formato)" download>
+                        <u class="m-0 p-0">Formato</u>
+                    </a>
+
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Modalidad de la Solicitud:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_modalidad | obtenerModalidad) | async }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Estado de Solicitud:</h2>
+                    <p class="mt-2 mb-3 fs-7">{{ (solicitud.id_estado | obtenerEstadoSolicitud) | async }}</p>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Comites de la Solicitud:</h2>
+                    <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
+                        <li *ngFor="let comite of comitesSolicitud">
+                            <span class="badge rounded-pill bg-primary">{{ comite.nombre}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="my-3">
+                    <h2 class="m-0 fw-bold fs-4">Archivo de la Solicitud:</h2>
+
+                    <a class="btn " (click)="descarga(solicitud.archivo)" download>
+                        <u>{{ solicitud.archivo }}</u>
+                    </a>
+
+                </div>
+            </div>
+            <hr class="m-1">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                <div class="mt-3">
+                    <form [formGroup]="formulario">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <h1 class="m-0 fw-bold">Evaluación de la Solicitud</h1>
+                        </div>
+                        <hr class="m-1">
+
+                        <div class="my-3">
+                            <label for="descripcion" required="required" class="form-label  fw-bold">Consideraciones </label>
+                            <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                            <textarea formControlName="descripcion" class="form-control" name="descripcion" id="descripcion" cols="30" rows="5"></textarea>
+                        
+                        </div>
+                        <div class="mb-3">
+                            <label for="formato" class="form-label fw-bold">Formato Diligenciado</label>
+                            <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                            <input (change)="onChangeImageFile($event)" class="form-control" type="file" id="formato">
+                          </div>
+
+                        <div class="d-flex align-items-center justify-content-center w-100">
+                          <button (click)="CrearRegistro()" type="submit" 
+                            class="btn btn-primary text-white w-50 me-2 ">
+                            Evaluar solicitud
+                          </button>
+            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+</section>

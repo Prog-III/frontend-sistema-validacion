@@ -1,5 +1,5 @@
 export class InvitacionEvaluarModel {
-    id?: string;
+    id?: number;
     id_solicitud?: number;
     id_jurado?: number;
     fecha_invitacion?: string;
