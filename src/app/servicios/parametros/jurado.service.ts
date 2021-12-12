@@ -52,6 +52,19 @@ export class JuradoService {
     return this.http.get<JuradoModel>(`${this.url}/jurados/${id}`,httpOptions)
   }
 
+  BuscarRegistrosPorEmail(email: string): Observable<JuradoModel[]> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+
+    return this.http.get<JuradoModel[]>(`${this.url}/jurados?filter={
+      "where": {"email": "${email}"}
+    }`, httpOptions)
+  }
+
   EditarRegistro(data: JuradoModel): Observable<JuradoModel>{
     const httpOptions = {
       headers: new HttpHeaders({

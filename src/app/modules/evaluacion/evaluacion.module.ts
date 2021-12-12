@@ -14,6 +14,12 @@ import { CrearRecordatorioComponent } from './recordatorio/crear-recordatorio/cr
 import { EditarRecordatorioComponent } from './recordatorio/editar-recordatorio/editar-recordatorio.component';
 import { EliminarRecordatorioComponent } from './recordatorio/eliminar-recordatorio/eliminar-recordatorio.component';
 import { ListarRecordatorioComponent } from './recordatorio/listar-recordatorio/listar-recordatorio.component';
+import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-evaluar-solicitud/listar-evaluar-solicitud.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CompartidoModule } from '../compartido/compartido.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
 
 
 @NgModule({
@@ -29,11 +35,18 @@ import { ListarRecordatorioComponent } from './recordatorio/listar-recordatorio/
     CrearRecordatorioComponent,
     EditarRecordatorioComponent,
     EliminarRecordatorioComponent,
-    ListarRecordatorioComponent
+    ListarRecordatorioComponent,
+    ListarEvaluarSolicitudComponent,
+    ResponderInvitacionEvaluarComponent
   ],
   imports: [
     CommonModule,
-    EvaluacionRoutingModule
+    EvaluacionRoutingModule,
+    FontAwesomeModule,
+    CompartidoModule,
+    Ng2SearchPipeModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class EvaluacionModule { }

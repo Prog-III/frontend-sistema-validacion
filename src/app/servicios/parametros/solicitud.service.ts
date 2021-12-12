@@ -17,14 +17,21 @@ export class SolicitudService {
     this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
    }
 
-  GetRecordList(): Observable<SolicitudModel[]>{
+  GetRecordList(filtroEstadoSolicitud?: number): Observable<SolicitudModel[]>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<SolicitudModel[]>(`${this.url}/solicitudes`,httpOptions);
+    let urlGet = `${this.url}/solicitudes`;
+
+    if (filtroEstadoSolicitud) {
+      urlGet = `${this.url}/solicitudes?filter={"where":{"id_estado":${filtroEstadoSolicitud}}}`
+    }
+
+
+    return this.http.get<SolicitudModel[]>(urlGet,httpOptions);
   }
 
   GuardarRegistro(data: SolicitudModel): Observable<SolicitudModel>{
@@ -46,7 +53,7 @@ export class SolicitudService {
     },httpOptions);
   }
 
-  BuscarRegistro(id: number): Observable<SolicitudModel>{
+  BuscarRegistro(id?: number ): Observable<SolicitudModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',

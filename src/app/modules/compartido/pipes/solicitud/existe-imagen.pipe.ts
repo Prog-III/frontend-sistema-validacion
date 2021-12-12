@@ -12,7 +12,7 @@ export class ExisteImagenPipe implements PipeTransform {
       return imageSrc;
     }
     
-    return "../../../../../assets/images/usuario-de-perfil.png";
+    return "../../../../../../../assets/images/usuario-de-perfil.png";
   }
 
 }
