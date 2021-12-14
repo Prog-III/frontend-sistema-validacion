@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GeneralData } from '../../config/general-data';
 import { CredencialesUsuarioModel } from 'src/app/models/seguridad/credenciales-usuario';
 import { DatosSesionModel } from '../../models/seguridad/datos_sesion';
 import { LocalStorageService } from './local-storage.service';
+import { CountModel } from 'src/app/models/reportes/count.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,6 +48,8 @@ export class SeguridadService {
     });
   }
 
+
+ 
   
 }
 
