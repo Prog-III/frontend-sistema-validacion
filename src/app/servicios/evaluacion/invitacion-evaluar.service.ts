@@ -75,6 +75,16 @@ export class InvitacionEvaluarService {
       httpOptions
     );
   }
+
+  BuscarInvitacionPorId(idInvitacion: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+    
+    return this.http.get<InvitacionEvaluarModel>(`${this.url}/invitaciones-evaluar/${idInvitacion}`, httpOptions);
+  }
   
   BuscarRegistroPorIdJuradoIdSolicitud(idjurado: number, idsolicitud:number): Observable<InvitacionEvaluarModel[]> { 
     const httpOptions = {

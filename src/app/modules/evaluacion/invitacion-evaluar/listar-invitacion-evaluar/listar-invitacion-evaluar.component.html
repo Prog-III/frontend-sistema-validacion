@@ -3,7 +3,7 @@
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12">
                 <div>
-                    <a class="btn btn-primary" routerLink="['/solicitud', 'listar-solicitud">
+                    <a class="btn btn-primary" routerLink="/home">
                         <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
                         Regresar a home
                     </a>
@@ -43,7 +43,7 @@
 
                                 <div
                                     *ngIf="invitacionEvaluar.estado_invitacion === 1 && invitacionEvaluar.estado_evaluacion === 1">
-                                    <a class="card-link">Recordatorio</a>
+                                    <a class="card-link" (click)="crearRecordatorio(invitacionEvaluar.id!)">Recordatorio</a>
                                 </div>
                             </div>
                         </div>

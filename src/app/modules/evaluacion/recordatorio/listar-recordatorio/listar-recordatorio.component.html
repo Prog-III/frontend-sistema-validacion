@@ -1,1 +1,59 @@
-<p>listar-recordatorio works!</p>
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div>
+                    <a class="btn btn-primary" routerLink="/evaluacion/listar-invitacion-evaluar">
+                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                        Regresar a invitaciones a evaluar
+                    </a>
+                </div>
+
+                <ng-container *ngIf="recordatorios; else loadingTemplate">
+                    <section class="grid-section mt-3">
+                        <div class="card shadow-sm px-0 pt-3" *ngFor="let recordatorio of recordatorios">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    Recordatorio a {{ recordatorio.id_invitacion_evaluar! | obtenerJuradoPorInvitacion | async  }}
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-primary">
+                                    {{ recordatorio.id_invitacion_evaluar! | obtenerTrabajoPorInvitacion | async }}
+                                </h6>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    Recordatorio hecho {{ recordatorio.cantidad_recordatorios }} veces
+                                </h6>
+                                <ul class="list-unstyled text-center">
+                                    <li>
+                                        <fa-icon class="text-primary" [icon]="faCalendar"></fa-icon>
+                                        {{ recordatorio.ultima_fecha!.toString() | obtenerFecha }}
+                                    </li>
+                                    <li>
+                                        <fa-icon class="text-primary" [icon]="faClock"></fa-icon>
+                                        {{ recordatorio.ultima_hora }}
+                                    </li>
+                                </ul>
+
+                                <!-- <div
+                                    *ngIf="invitacionEvaluar.estado_invitacion === 1 && invitacionEvaluar.estado_evaluacion === 1">
+                                    <a class="card-link" (click)="crearRecordatorio(invitacionEvaluar.id!)">Recordatorio</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </section>
+                </ng-container>
+
+                <ng-template #loadingTemplate>
+
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+
+                </ng-template>
+
+            </div>
+
+        </div>
+    </div>
+</section>

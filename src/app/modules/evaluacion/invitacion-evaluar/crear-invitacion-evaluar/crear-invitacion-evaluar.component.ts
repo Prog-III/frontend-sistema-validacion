@@ -54,6 +54,9 @@ export class CrearInvitacionEvaluarComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * 
+   */
   obtenerJurados() : void {
     this.juradoService.GetRecordList().subscribe(jurados => {
       this.invitacionEvaluarService.GetRecordList().subscribe(invitacionesEvaluar => {
@@ -78,7 +81,6 @@ export class CrearInvitacionEvaluarComponent implements OnInit, OnDestroy {
           const nuevaInvitacionEvaluar: InvitacionEvaluarModel = {
             id_solicitud: this.idSolicitud,
             id_jurado: idJurado,
-            fecha_invitacion: `${new Date}`,
             estado_invitacion: 0,
             estado_evaluacion: 0
           }
