@@ -87,7 +87,7 @@ export class CrearInvitacionEvaluarComponent implements OnInit, OnDestroy {
             .subscribe({
               next: (invitacionCreada) => {
                 this.toastService.openToast({ tipo: 'success', mensaje: GeneralData.TOAST_MENSAJE_CREACION("La invitación") })
-                this.router.navigateByUrl('/evaluacion/listar-invitacion-evaluar')
+                this.router.navigateByUrl('/home')
               },
               error: (error) => {
                 console.error(error);

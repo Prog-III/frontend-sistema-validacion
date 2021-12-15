@@ -10,6 +10,7 @@ import { faUsers, faUsersSlash, faUserTie } from '@fortawesome/free-solid-svg-ic
 import { UsuarioService } from 'src/app/servicios/usuarios/usuario.service';
 import { UsuarioRolService } from 'src/app/servicios/usuarios/usuario-rol.service';
 
+
 @Component({
   selector: 'app-lista-reportes',
   templateUrl: './lista-reportes.component.html',
@@ -29,7 +30,6 @@ export class ListaReportesComponent implements OnInit {
 
   estadosolicitudes: EstadoSolicitudModel[] = [];
 
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   //Line Chart
   public lineChartData: ChartConfiguration['data'] = {
@@ -53,7 +53,7 @@ export class ListaReportesComponent implements OnInit {
 
   public lineChartType: ChartType = 'line';
 
-  
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   // Pie
 
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
@@ -72,18 +72,17 @@ export class ListaReportesComponent implements OnInit {
     ) {
     
     dayjs.locale("es")
+    
+  }
+    
+
+  async ngOnInit(): Promise<void> {
+    
     this.obtenerEstadoSolicitudes()
     this.CrearGrafica();
     this.obtenerActivos()
     this.obtenerInactivos()
     this.obtenerJurados()
-  }
-    
-
-  ngOnInit(): void {
-    
-    
-    
     
   }
 
@@ -104,18 +103,19 @@ export class ListaReportesComponent implements OnInit {
     
     this.lineChartData.labels?.push(dayjs().subtract(4, 'month').format('MMMM').toUpperCase(),dayjs().subtract(3, 'month').format('MMMM').toUpperCase(), dayjs().subtract(2, 'month').format('MMMM').toUpperCase(), dayjs().subtract(1, 'month').format('MMMM').toUpperCase(), dayjs().format('MMMM').toUpperCase() )
 
-    console.log(this.registromes);
-
     this.lineChartData.datasets[0].data = this.registromes
+
+
   }
 
   async Getcantidad(mes:string) {
-    
+
     this.service.ObtenerCantidadPorMes(mes).subscribe(async res => {
       if(res.count || res.count == 0){  
+          
           this.registromes.push(res.count)
       }
-
+      
   })
   }
 
@@ -150,7 +150,6 @@ export class ListaReportesComponent implements OnInit {
     this.usuarioService.ObtenerCantidadActivos().subscribe(activos => {
       if(activos.count || activos.count === 0){
         this.usuariosactivos = activos.count
-        console.log(activos.count);
         
       }
     })
@@ -160,7 +159,7 @@ export class ListaReportesComponent implements OnInit {
     this.usuarioService.ObtenerCantidadInactivos().subscribe(inactivos => {
       if(inactivos.count || inactivos.count === 0){
         this.usuariosinactivos = inactivos.count
-        console.log(inactivos.count);
+        
         
       }
     })
@@ -170,7 +169,7 @@ export class ListaReportesComponent implements OnInit {
     this.usuariorolService.ObtenerCantidadJurados().subscribe(jurados => {
       if(jurados.count || jurados.count === 0){
         this.usuariosjurados = jurados.count
-        console.log(jurados.count);
+        
         
       }
     })
