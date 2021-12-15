@@ -1,0 +1,85 @@
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div>
+                    <a class="btn btn-primary" routerLink="/evaluacion/listar-recordatorio">
+                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                        Regresar a listado de recordatorios
+                    </a>
+                </div>
+                
+                <ng-container *ngIf="recordatorios; else elseTemplate">
+
+                    <section class="mt-3">
+                        <article class="card shadow-sm px-0" *ngFor="let recordatorio of recordatorios! | paginate: { itemsPerPage: 3, currentPage: paginaActual, totalItems: totalRecordatorios }">
+                            <body class="card-body gap-4 d-flex justify-content-between align-items-center">
+                                <h5 class="card-title m-0">Recordatorio {{ recordatorio.tipo_recordatorio!.toLowerCase() }}</h5>
+                                <div class="d-flex flex-column flex-md-row gap-2 justify-content-center align-items-center">
+                                    <span class="d-flex gap-1">
+                                        <fa-icon class="text-primary" [icon]="faCalendar"></fa-icon>
+                                            {{ recordatorio.fecha!.toString() | obtenerFecha }}
+                                    </span>
+                                    <span class="d-flex gap-1">
+                                        <fa-icon class="text-primary" [icon]="faClock"></fa-icon>
+                                            {{ recordatorio.hora }}
+                                    </span>
+                                </div>
+                                <div *ngIf="recordatorio.descripcion">
+                                    <a class="card-link" (click)="mostrarDescripcion(recordatorio.descripcion)">Ver información</a>
+                                </div>
+                            </body>
+                        </article>
+                        <div class="my-2">
+                            <pagination-controls (pageChange)="paginaActual = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </section>
+
+                </ng-container>
+                <ng-template #elseTemplate>
+                    
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+
+                </ng-template>
+                
+                <div class="row my-5">
+                    <section class="col-12 col-md-6 mx-auto">
+                        <h5>Registrar llamada</h5>
+                        <hr>
+                        <form class="form" (submit)="crearRecordatorio()" [formGroup]="formularioDeRecordatorio">
+                            <label for="fechaLlamada" class="form-label">
+                                Fecha de llamada <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                            </label>
+                            <input formControlName="fechaLlamada" class="form-control" type="date" id="fechaLlamada">
+
+                            <div class="my-3">
+                                <label for="horaLlamada" class="form-label">
+                                    Hora de la llamada <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                                </label>
+                                <input formControlName="horaLlamada" class="form-control" type="time" id="horaLlamada">
+                            </div>
+
+                            <div>
+                                <label for="motivoLlamada" class="form-label">
+                                    Motivo de la llamada <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                                </label>
+                                <textarea formControlName="motivoLlamada" class="form-control" id="motivoLlamada"></textarea>
+                            </div>
+                            
+                            <div class="my-3 d-flex justify-content-center gap-3">
+                                <button [disabled]="this.formularioDeRecordatorio.invalid" type="submit" class="btn btn-primary">Registrar llamada</button>
+                                <button type="reset" class="btn btn-outline-primary">Cancelar</button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+</section>

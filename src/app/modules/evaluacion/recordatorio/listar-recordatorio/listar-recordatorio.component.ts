@@ -37,9 +37,6 @@ export class ListarRecordatorioComponent implements OnInit {
     this.recordatorioService.GetRecordList()
       .pipe(
         map(recordatorios => {
-          return recordatorios.filter(recordatorio => recordatorio.tipo_recordatorio?.toUpperCase() === 'SENCILLO')
-        }),
-        map(recordatorios => {
           const recordatoriosOrdenados = recordatorios.sort((recordatorioUno, recordatorioDos) => {
             return new Date(recordatorioDos.fecha!).getTime() - new Date(recordatorioUno.fecha!).getTime()
           })

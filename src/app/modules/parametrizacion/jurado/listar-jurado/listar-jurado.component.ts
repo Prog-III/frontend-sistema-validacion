@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { ToastService } from 'src/app/servicios/toast/toast.service';
   templateUrl: './listar-jurado.component.html',
   styleUrls: ['./listar-jurado.component.css']
 })
-export class ListarJuradoComponent implements OnInit {
+export class ListarJuradoComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   pageSize: number = GeneralData.RECORDS_BY_PAGE;
@@ -83,6 +83,8 @@ export class ListarJuradoComponent implements OnInit {
         });
       }
     })
+
+    this.subscription.add(modalSubscription);
   }
 
 

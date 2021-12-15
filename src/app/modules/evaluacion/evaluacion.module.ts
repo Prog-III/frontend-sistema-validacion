@@ -21,6 +21,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
 import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
+import { ResumenRecordatorioComponent } from './recordatorio/resumen-recordatorio/resumen-recordatorio.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component'
     ListarRecordatorioComponent,
     ListarEvaluarSolicitudComponent,
     ResponderInvitacionEvaluarComponent,
-    EvaluarComponent
+    EvaluarComponent,
+    ResumenRecordatorioComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component'
     Ng2SearchPipeModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class EvaluacionModule { }

@@ -41,12 +41,13 @@ export class RecordatorioService {
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    const { id_invitacion_evaluar, fecha, hora, tipo_recordatorio } = data;
+    const { id_invitacion_evaluar, fecha, hora, tipo_recordatorio, descripcion } = data;
     return this.http.post<RecordatorioModel>(`${this.url}/recordatorios`, {
       id_invitacion_evaluar,
       fecha,
       hora,
-      tipo_recordatorio
+      tipo_recordatorio,
+      descripcion
     }, httpOptions);
   }
 }

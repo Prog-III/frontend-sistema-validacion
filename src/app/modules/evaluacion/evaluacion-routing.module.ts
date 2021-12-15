@@ -20,6 +20,7 @@ import { ListarResultadoEvaluacionComponent } from './resultado-evaluacion/lista
 import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-evaluar-solicitud/listar-evaluar-solicitud.component';
 import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
 import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
+import { ResumenRecordatorioComponent } from './recordatorio/resumen-recordatorio/resumen-recordatorio.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
     path: "crear-recordatorio",
     component:CrearRecordatorioComponent,
     canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
+  },
+  {
+    path: "resumen-recordatorio/:idInvitacionEvaluar",
+    component: ResumenRecordatorioComponent
   },
   {
     path: "editar-recordatorio",

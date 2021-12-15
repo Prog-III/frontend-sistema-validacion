@@ -4,4 +4,5 @@ export class RecordatorioModel {
     fecha?: Date;
     hora?: string;
     tipo_recordatorio?: string;
+    descripcion?: string;
 }

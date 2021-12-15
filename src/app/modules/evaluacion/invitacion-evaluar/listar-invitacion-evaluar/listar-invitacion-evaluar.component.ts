@@ -86,9 +86,9 @@ export class ListarInvitacionEvaluarComponent implements OnInit, OnDestroy {
     const recordatorio: RecordatorioModel = {
       id_invitacion_evaluar: idInvitacionEvaluar,
       fecha: new Date,
-      hora: `${dayjs(new Date).get('hour') < 10 ? `0${dayjs(new Date).get('hour')}`: dayjs(new Date).get('hour')}:${dayjs(new Date).get('minute')}`,
+      hora: `${dayjs(new Date).get('hour') < 10 ? `0${dayjs(new Date).get('hour')}`: dayjs(new Date).get('hour')}:${dayjs(new Date).get('minute') < 10 ? `0${dayjs(new Date).get('minute')}`: dayjs(new Date).get('minute')}`,
       tipo_recordatorio: "Sencillo"
-    }
+    }    
 
     const modalData: ModalData = {
       header: "Creación de recordatorio",
@@ -102,7 +102,6 @@ export class ListarInvitacionEvaluarComponent implements OnInit, OnDestroy {
           this.recordatorioService.GuardarRegistro(recordatorio)
             .subscribe({
               next: (recordatorio) => {
-                console.log(recordatorio);
                 this.toastService.openToast({ tipo: 'success', mensaje: GeneralData.TOAST_MENSAJE_CREACION("El recordatorio") })
               },
               error: (error: any) => {
