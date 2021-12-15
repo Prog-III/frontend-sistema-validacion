@@ -10,6 +10,7 @@ import { JuradoModel } from 'src/app/models/parametros/jurado.model';
 export class JuradoService {
 
   url: string = GeneralData.MS_NEGOCIO_URL;
+  url2: string = GeneralData.MS_SEGUIRIDAD_URL;
   token: any
   constructor(
     private http: HttpClient
@@ -89,4 +90,15 @@ export class JuradoService {
 
     return this.http.delete(`${this.url}/jurados/${id}`,httpOptions);
   }
+
+  validarJuradoPorEmail(id:number): Observable<boolean>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+    return this.http.post<boolean>(`${this.url2}/verificar-token-id/${id}`, {'token':this.token.token},httpOptions);
+  }
+
+
 }
