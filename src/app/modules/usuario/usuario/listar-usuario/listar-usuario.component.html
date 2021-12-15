@@ -1,1 +1,57 @@
-<p>listar-usuario works!</p>
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-end">
+                    <a class="btn btn-primary" routerLink="/home">
+                        <fa-icon class="text-white" [icon]="faArrowLeft"></fa-icon>
+                        Regresar a home
+                    </a>
+                    <a routerLink="/usuario/crear-usuario">
+                        Crear un nuevo usuario
+                    </a>
+                </div>
+                <section class="form-group my-3 d-flex gap-2 flex-column flex-md-row"> 
+                    <input type="text" class="form-control" placeholder="Escribe el término de búsqueda..." [(ngModel)]="terminoBusqueda">
+                    <select class="form-select" name="filtroRol" id="filtroRol" (change)="filtrarRol()" [(ngModel)]="terminoFiltro">
+                        <option value="">Todos los roles</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Auxiliar">Auxiliar</option>
+                        <option value="Director(a)">Director(a)</option>
+                        <option value="Evaluador">Evaluador</option>
+                    </select>
+                </section>
+
+                <ng-container *ngIf="usuarios; else elseTemplate">
+                    <section class="grid-section">
+                        <div class="card shadow-sm px-0 pt-3" *ngFor="let usuario of usuarios | filter: terminoBusqueda!">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ usuario.nombres }} {{ usuario.apellidos.toUpperCase() == "NO APLICA" ? '' : usuario.apellidos }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ usuario.correo }}</h6>
+                                <div class="d-flex justify-content-center gap-2" >
+                                    <span *ngFor="let rol of usuario.roles" class="badge bg-primary">{{ rol.nombre }}</span>
+                                </div>
+                                <p class="fw-bold m-2">{{ usuario.estado ? "Habilitado" : "Inhabilitado" }}</p>
+    
+                                <div>
+                                    <a class="card-link fw-bold">Editar</a>
+                                    <a class="card-link text-danger fw-bold">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </ng-container>
+                <ng-template #elseTemplate>
+                    
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</section>
