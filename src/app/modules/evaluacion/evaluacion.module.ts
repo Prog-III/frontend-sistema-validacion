@@ -23,6 +23,7 @@ import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/respon
 import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 import { ResumenRecordatorioComponent } from './recordatorio/resumen-recordatorio/resumen-recordatorio.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DetallesEvaluacionComponent } from './resultado-evaluacion/detalles-evaluacion/detalles-evaluacion.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ListarEvaluarSolicitudComponent,
     ResponderInvitacionEvaluarComponent,
     EvaluarComponent,
-    ResumenRecordatorioComponent
+    ResumenRecordatorioComponent,
+    DetallesEvaluacionComponent
   ],
   imports: [
     CommonModule,

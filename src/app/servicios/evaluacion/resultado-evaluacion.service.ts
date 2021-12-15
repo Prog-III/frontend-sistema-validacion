@@ -34,15 +34,35 @@ export class ResultadoEvaluacionService {
     }, httpOptions);
   }
 
-  BuscarRegistroPorIdInvitacion(idInvitacionEvaluar: number): Observable<ResultadoEvaluacionModel> { 
+  BuscarRegistro(idResultadoEvaluacion: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}`
+    })}
+
+    return this.http.get<ResultadoEvaluacionModel>(`${this.url}/resultados-evaluaciones/${idResultadoEvaluacion}`, httpOptions);
+  } 
+
+  BuscarRegistroPorIdInvitacion(idInvitacionEvaluar: number): Observable<ResultadoEvaluacionModel[]> { 
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<ResultadoEvaluacionModel>(`${this.url}/resultados-evaluaciones?filter={
+    return this.http.get<ResultadoEvaluacionModel[]>(`${this.url}/resultados-evaluaciones?filter={
       "where": {"id_invitacion_evaluar":${idInvitacionEvaluar}}
     }`, httpOptions)
+  }
+
+  EliminarRegistro(idResultadoEvaluacion: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}`
+    })}
+
+    return this.http.delete<ResultadoEvaluacionService>(`${this.url}/resultados-evaluaciones/${idResultadoEvaluacion}`, httpOptions);
   }
 }

@@ -42,17 +42,17 @@
                                 </div>
                             </ng-container>
                             <ng-template #seleccionarPorfiltro>
-                                <div [ngSwitch]="filtro">
-                                    <div *ngSwitchCase="1">
+                                <ng-container *ngIf="filtro === 1; then thenTemplate; else elseTemplate"></ng-container>
+                                <ng-template #thenTemplate>
+                                    <div>
                                         <a class="card-link pe-auto" routerLink="/evaluacion/crear-invitacion-evaluar/{{ solicitud.id }}">Seleccionar</a>
                                     </div>
-                                    <div *ngSwitchCase="2">
+                                </ng-template>
+                                <ng-template #elseTemplate>
+                                    <div>
                                         <a class="card-link pe-auto" routerLink="/evaluacion/listar-resultado-evaluacion/{{ solicitud.id }}">Ver resumen evaluaciones</a>
                                     </div>
-                                    <div *ngSwitchCase="3">
-                                        
-                                    </div>
-                                </div>
+                                </ng-template>
                             </ng-template>
                             
                         </div>

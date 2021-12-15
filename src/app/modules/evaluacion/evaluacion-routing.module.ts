@@ -21,6 +21,7 @@ import { ListarEvaluarSolicitudComponent } from './evaluar-solicitud/listar-eval
 import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/responder-invitacion-evaluar/responder-invitacion-evaluar.component';
 import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 import { ResumenRecordatorioComponent } from './recordatorio/resumen-recordatorio/resumen-recordatorio.component';
+import { DetallesEvaluacionComponent } from './resultado-evaluacion/detalles-evaluacion/detalles-evaluacion.component';
 
 const routes: Routes = [
   {
@@ -90,6 +91,10 @@ const routes: Routes = [
     path: "listar-resultado-evaluacion/:idSolicitud",
     component:ListarResultadoEvaluacionComponent,
     canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
+  },
+  {
+    path: "detalles-evaluacion/:idResultadoEvaluacion",
+    component: DetallesEvaluacionComponent
   },
   {
     path: "listar-evaluar-solicitud/:id",

@@ -1,5 +1,5 @@
 export class ResultadoEvaluacionJuradoModel {
-    id?: string;
+    id?: number;
     id_jurado?: number;
     descripcion?: string;
     fecha?: string;

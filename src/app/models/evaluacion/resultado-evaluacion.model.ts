@@ -1,5 +1,5 @@
 export class ResultadoEvaluacionModel {
-    id?: string;
+    id?: number;
     descripcion?: string;
     fecha?: string;
     formato_diligenciado?: string;
