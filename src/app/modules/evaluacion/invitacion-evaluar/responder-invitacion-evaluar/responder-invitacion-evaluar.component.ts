@@ -55,7 +55,7 @@ export class ResponderInvitacionEvaluarComponent implements OnInit, OnDestroy {
         if (confirmacion) {
           const respuestaInvitacion: RespuestaInvitacionModel = {
             nuevoEstado: parseInt(this.formularioRespuesta.get("respuesta_invitacion")?.value),
-            observaciones: this.formularioRespuesta.get("respuesta_invitacion")?.value
+            observaciones: this.formularioRespuesta.get("observaciones")?.value
           }
 
           this.invitacionEvaluarService.ActualizarInvitacionPorHash(this.hashInvitacion!, respuestaInvitacion).subscribe({

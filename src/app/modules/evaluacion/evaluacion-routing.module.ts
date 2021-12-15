@@ -87,7 +87,7 @@ const routes: Routes = [
     canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
-    path: "listar-resultado-evaluacion",
+    path: "listar-resultado-evaluacion/:idSolicitud",
     component:ListarResultadoEvaluacionComponent,
     canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   },

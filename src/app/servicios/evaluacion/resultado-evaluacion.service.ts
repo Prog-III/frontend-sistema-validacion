@@ -34,7 +34,7 @@ export class ResultadoEvaluacionService {
     }, httpOptions);
   }
 
-  BuscarRegistroPorIdJuradoIdSolicitud(idjurado: number, idsolicitud: number): Observable<ResultadoEvaluacionModel> { 
+  BuscarRegistroPorIdInvitacion(idInvitacionEvaluar: number): Observable<ResultadoEvaluacionModel> { 
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export class ResultadoEvaluacionService {
     })}
 
     return this.http.get<ResultadoEvaluacionModel>(`${this.url}/resultados-evaluaciones?filter={
-      "where": {"id_jurado": ${idjurado}, "estado_evaluacion": 1}
+      "where": {"id_invitacion_evaluar":${idInvitacionEvaluar}}
     }`, httpOptions)
   }
 }

@@ -4,7 +4,7 @@ import { ComiteModel } from 'src/app/models/parametros/comite.model';
 import { SolicitudModel } from 'src/app/models/parametros/solicitud.model';
 import { SolicitudComiteService } from 'src/app/servicios/parametros/solicitud-comite.service';
 import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service';
-import { faArrowLeft,faAsterisk, faUniversity, faPaste } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faAsterisk, faUniversity, faPaste } from '@fortawesome/free-solid-svg-icons';
 import { TipoSolicitudService } from 'src/app/servicios/parametros/tipo-solicitud.service';
 import { TipoSolicitudModel } from 'src/app/models/parametros/tipoSolicitud.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +17,8 @@ import { ResultadoEvaluacionService } from 'src/app/servicios/evaluacion/resulta
 import { ToastData } from 'src/app/models/compartido/toast-data';
 import { GeneralData } from 'src/app/config/general-data';
 import { ToastService } from 'src/app/servicios/toast/toast.service';
+import { ModalService } from '../../../../servicios/modal/modal.service';
+import { ModalData } from 'src/app/models/compartido/modal-data';
 
 @Component({
   selector: 'app-evaluar',
@@ -27,7 +29,7 @@ export class EvaluarComponent implements OnInit {
 
   idjurado = parseInt(this.route.snapshot.params["idjurado"])
   idsolicitud = parseInt(this.route.snapshot.params["idsolicitud"])
-  solicitud: SolicitudModel = new SolicitudModel; 
+  solicitud: SolicitudModel = new SolicitudModel;
   comitesSolicitud: ComiteModel[] = []
   faArrowLeft = faArrowLeft
   faAsterisk = faAsterisk
@@ -44,6 +46,7 @@ export class EvaluarComponent implements OnInit {
     private cargaArchivos: CargaArchivosService,
     private fb: FormBuilder,
     private toastService: ToastService,
+    private modalService: ModalService,
     private router: Router
   ) { }
 
@@ -60,67 +63,75 @@ export class EvaluarComponent implements OnInit {
     })
   }
 
-  CrearRegistro(){
-    const formData = new FormData();
-    formData.append('file', this.formulario.get('formato')?.value);
+  CrearRegistro() {
+    const modalData: ModalData = {
+      header: "Registrar evaluación",
+      body: "¿Está seguro que desea registrar la evaluación?",
+      esModalConfirmacion: true
+    }
 
-
-    let model = new ResultadoEvaluacionModel();
-    model.descripcion = this.formulario.controls['descripcion'].value;
-    model.fecha = dayjs().format('YYYY-MM-DD HH:mm:ss');
-
-    this.serviceInvitacionEvaluar.BuscarRegistroPorIdJuradoIdSolicitud(this.idjurado, this.idsolicitud).subscribe({
-      next: (data: InvitacionEvaluarModel[]) =>{
+    this.modalService.openModal(modalData)
+      ?.subscribe(confirmacion => {
+        if (!confirmacion) return;
         
-        model.id_invitacion_evaluar = data[0].id
-        
-        this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
-          next: (data: any) =>{
-            model.formato_diligenciado=data.name;
-             this.serviceResultadoEvaluacion.GuardarRegistro(model).subscribe({
-              next: (data: ResultadoEvaluacionModel) =>{
-                  const mensajeToast: ToastData = {
-                    tipo: 'success',
-                    mensaje: GeneralData.TOAST_MENSAJE_CREACION('El resultado de la evaluación')
+        const formData = new FormData();
+        formData.append('file', this.formulario.get('formato')?.value);
+
+
+        let model = new ResultadoEvaluacionModel();
+        model.descripcion = this.formulario.controls['descripcion'].value;
+        model.fecha = dayjs().format('YYYY-MM-DD HH:mm:ss');
+
+        this.serviceInvitacionEvaluar.BuscarRegistroPorIdJuradoIdSolicitud(this.idjurado, this.idsolicitud).subscribe({
+          next: (data: InvitacionEvaluarModel[]) => {
+
+            model.id_invitacion_evaluar = data[0].id
+
+            this.cargaArchivos.GuardarRegistro(this.formulario.get('formato')?.value).subscribe({
+              next: (data: any) => {
+                model.formato_diligenciado = data.name;
+                this.serviceResultadoEvaluacion.GuardarRegistro(model).subscribe({
+                  next: (data: ResultadoEvaluacionModel) => {
+                    const mensajeToast: ToastData = {
+                      tipo: 'success',
+                      mensaje: GeneralData.TOAST_MENSAJE_CREACION('El resultado de la evaluación')
+                    }
+                    this.toastService.openToast(mensajeToast);
+                    this.router.navigate(["/home"]);
+                  },
+                  error: (err: any) => {
+                    const mensajeToast: ToastData = {
+                      tipo: 'error',
+                      mensaje: GeneralData.TOAST_ERROR_CREACION('El resultado de la evaluación')
+                    }
+                    this.toastService.openToast(mensajeToast);
                   }
-                  this.toastService.openToast(mensajeToast);
-                  this.router.navigate(["/home"]);
+                });
               },
-              error: (err:any)=>{
-                const mensajeToast: ToastData = {
-                  tipo: 'error',
-                  mensaje: GeneralData.TOAST_ERROR_CREACION('El resultado de la evaluación')
-                }
-                this.toastService.openToast(mensajeToast);
-              }
+
             });
-          },
-         
+
+          }
+
         });
-
-      }
-      
-    });
-    
-    
-
+      })
   }
 
 
-  obtenerSolicitud(){
+  obtenerSolicitud() {
     this.serviceSolicitud.BuscarRegistro(this.idsolicitud).subscribe({
       next: (data: SolicitudModel) => {
-        if(data)
-        this.solicitud = data
+        if (data)
+          this.solicitud = data
         this.servicetipoSolicitud.BuscarRegistro(this.solicitud.id_tipo_solicitud).subscribe({
           next: (data: TipoSolicitudModel) => {
-            if(data)
-            this.tiposolicitud = data
+            if (data)
+              this.tiposolicitud = data
             console.log(this.tiposolicitud);
-            
+
           },
           error: (err: any) => {
-    
+
           }
         })
       },
@@ -130,12 +141,12 @@ export class EvaluarComponent implements OnInit {
     })
   }
 
-  obtenerComites(){
+  obtenerComites() {
     this.servicecomiteSolicitud.ObtenerComitesPorSolicitud(this.idsolicitud).subscribe({
       next: (data: ComiteModel[]) => {
-        if(data)
-        this.comitesSolicitud = data
-        
+        if (data)
+          this.comitesSolicitud = data
+
       },
       error: (err: any) => {
 
@@ -143,7 +154,7 @@ export class EvaluarComponent implements OnInit {
     })
   }
 
- 
+
 
   descarga(id: any) {
 
@@ -155,11 +166,11 @@ export class EvaluarComponent implements OnInit {
 
   onChangeImageFile(event: any) {
     if (event.target.value) {
-     
+
 
       this.formulario.get('formato')?.setValue(event.target.files[0]);
-      
-      
-    } 
+
+
+    }
   }
 }

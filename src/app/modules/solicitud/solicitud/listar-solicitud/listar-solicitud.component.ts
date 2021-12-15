@@ -48,6 +48,8 @@ export class ListarSolicitudComponent implements OnInit {
           this.filtro = 1;
         } else if (filtroParam === 'evaluacion') {
           this.filtro = 2;
+        } else if (filtroParam === 'asignadas') {
+          this.filtro = 3;
         }
       })
 
