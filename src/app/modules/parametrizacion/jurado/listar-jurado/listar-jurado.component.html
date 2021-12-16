@@ -8,7 +8,11 @@
             <fa-icon class="pt-2 ms-2 text-white" [icon]="faPlus"></fa-icon>
           </a>
           <div class="ms-3">
-            <input class="form-control bd" type="file" id="formFileMultiple" multiple>
+            <label class="btn btn-primary labelArchivoPlano" for="inputArchivosPlanos">
+              Añadir desde archivo plano <fa-icon class="pt-2 ms-2 text-white" [icon]="faPlus"></fa-icon>
+            </label>
+            <input class="inputArchivoPlano" #inputArchivosPlanos
+             id="inputArchivosPlanos" name="inputArchivosPlanos" type="file" accept=".csv" (change)="listenerArchivos($event)">
           </div>
         </div>
       

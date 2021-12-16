@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 import { Component, OnInit, OnDestroy } from '@angular/core';
+=======
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+>>>>>>> jurados-archivo-plano
 import { Router } from '@angular/router';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { NgxCsvParser } from 'ngx-csv-parser';
+import { map, Subscription } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { ModalData } from 'src/app/models/compartido/modal-data';
 import { ToastData } from 'src/app/models/compartido/toast-data';
@@ -13,7 +18,7 @@ import { ToastService } from 'src/app/servicios/toast/toast.service';
 @Component({
   selector: 'app-listar-jurado',
   templateUrl: './listar-jurado.component.html',
-  styleUrls: ['./listar-jurado.component.css']
+  styleUrls: ['./listar-jurado.component.scss']
 })
 export class ListarJuradoComponent implements OnInit, OnDestroy {
 
@@ -28,16 +33,20 @@ export class ListarJuradoComponent implements OnInit, OnDestroy {
 
   id: number = 0;
 
+  @ViewChild('inputArchivosPlanos', { static: false }) inputArchivosPlanos?: ElementRef;
+
   constructor(
     private service: JuradoService,
     private modalService: ModalService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private ngxCsvParser: NgxCsvParser
   ) { }
 
   ngOnInit(): void {
     this.GetRecordList();
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -69,9 +78,6 @@ export class ListarJuradoComponent implements OnInit, OnDestroy {
             this.toastService.openToast(mensajeToast);
             this.router.navigateByUrl('/', { skipLocationChange: true })
               .then(() => this.router.navigate(['/parametrizacion/listar-jurado']))
-            //aqui va el modal
-            console.log("Se elimino el mensaje");
-            location.reload();
           },
           error: (err: any) => {
             const mensajeToast: ToastData = {
@@ -87,5 +93,65 @@ export class ListarJuradoComponent implements OnInit, OnDestroy {
     this.subscription.add(modalSubscription);
   }
 
+  listenerArchivos($event: any): void {
+    const archivosInput = $event.target['files'] as FileList;
+    if (!archivosInput) {
+      this.resetearInputArchivos();
+      return this.toastService.openToast({ tipo: "error", mensaje: "No existe archivos en la selección" })
+    }
 
+    const archivoCSV = archivosInput[0];
+    if (archivoCSV.type !== 'application/vnd.ms-excel') {
+      this.resetearInputArchivos();
+      return this.toastService.openToast({ tipo: "error", mensaje: "Extensión de archivo incompatible" })
+    }
+
+    const csvSubscription = this.ngxCsvParser.parse(archivoCSV, { header: true, delimiter: ',' })
+      .pipe(
+        map((jurados: any) => {
+          const arregloJurados: JuradoModel[] = jurados.map((jurado: any)=> {
+            return {
+              nombre: jurado.Nombre,
+              telefono: jurado.Teléfono,
+              email: jurado.Email,
+              entidad: jurado.Entidad
+            }
+          })
+          return arregloJurados;
+        })
+      )
+      .subscribe({
+        next: async (jurados: JuradoModel[]) => {
+          const guardarObservable = await this.service.GuardarVariosRegistros(jurados);
+          guardarObservable.subscribe({
+            next: (juradosCreados) => {
+              const mensajeToast: ToastData = {
+                tipo: 'success',
+                mensaje: `Se ha asociado con éxito un total de ${juradosCreados.length} jurados`
+              }
+
+              this.toastService.openToast(mensajeToast);
+              this.router.navigateByUrl('/', { skipLocationChange: true })
+                .then(() => this.router.navigate(['/parametrizacion/listar-jurado']))
+            },
+            error: (error: any) => {
+              console.error(error);
+              this.toastService.openToast({ tipo: "error", mensaje: "Error al leer los jurados" });
+              this.resetearInputArchivos();
+            }
+          })
+        },
+        error: (error: any) => {
+          console.error(error);
+          this.toastService.openToast({ tipo: "error", mensaje: "Error al leer los jurados" });
+          this.resetearInputArchivos();
+        }
+      })
+    
+    this.subscription.add(csvSubscription);
+  }
+
+  resetearInputArchivos() {
+    this.inputArchivosPlanos!.nativeElement.value = "";
+  }
 }

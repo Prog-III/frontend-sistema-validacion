@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
+import filterAsync from 'node-filter-async';
 import { GeneralData } from 'src/app/config/general-data';
 import { JuradoModel } from 'src/app/models/parametros/jurado.model';
 import { TemporalModel } from 'src/app/models/seguridad/temporal.model';
@@ -13,6 +14,7 @@ export class JuradoService {
   url: string = GeneralData.MS_NEGOCIO_URL;
   url2: string = GeneralData.MS_SEGUIRIDAD_URL;
   token: any
+
   constructor(
     private http: HttpClient
   ) {
@@ -44,6 +46,27 @@ export class JuradoService {
     },httpOptions);
   }
 
+  /**
+   * 
+   * @param data 
+   */
+  async GuardarVariosRegistros(data: JuradoModel[]): Promise<Observable<JuradoModel[]>> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+
+    const juradosValidos = data.filter(jurado => (jurado.email && jurado.nombre && jurado.email))
+    const juradosFiltrados = await filterAsync(juradosValidos, async (jurado: JuradoModel) => {
+      const juradoEnDb = await firstValueFrom(this.BuscarRegistrosPorEmail(jurado.email!))
+
+      return juradoEnDb.length === 0
+    });
+
+    return this.http.post<JuradoModel[]>(`${this.url}/jurados-arreglo`, juradosFiltrados, httpOptions)
+  }
+
   BuscarRegistro(id: number): Observable<JuradoModel>{
     const httpOptions = {
       headers: new HttpHeaders({
@@ -51,9 +74,9 @@ export class JuradoService {
       'Authorization': `Bearer ${this.token.token}` 
     })}
 
-    return this.http.get<JuradoModel>(`${this.url}/jurados/${id}`,httpOptions)
+    return this.http.get<JuradoModel>(`${this.url}/jurados/${id}`, httpOptions)
   }
-
+  
   BuscarRegistrosPorEmail(email: string): Observable<JuradoModel[]> {
 
     const httpOptions = {
