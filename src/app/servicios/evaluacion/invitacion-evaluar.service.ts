@@ -19,11 +19,11 @@ export class InvitacionEvaluarService {
     this.token = JSON.parse(localStorage.getItem("session-info") || '{}')
   }
 
-  GetRecordList(filtro?: string): Observable<InvitacionEvaluarModel[]>{
+  GetRecordList(filtro?: string, tokenTemporal?: string): Observable<InvitacionEvaluarModel[]>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.token.token}` 
+      'Authorization': `Bearer ${tokenTemporal ? tokenTemporal : this.token.token}` 
     })}
 
     let urlEndpoint = `${this.url}/invitaciones-evaluar`;

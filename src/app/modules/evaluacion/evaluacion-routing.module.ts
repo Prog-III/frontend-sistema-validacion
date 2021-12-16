@@ -22,6 +22,7 @@ import { ResponderInvitacionEvaluarComponent } from './invitacion-evaluar/respon
 import { EvaluarComponent } from './evaluar-solicitud/evaluar/evaluar.component';
 import { ResumenRecordatorioComponent } from './recordatorio/resumen-recordatorio/resumen-recordatorio.component';
 import { DetallesEvaluacionComponent } from './resultado-evaluacion/detalles-evaluacion/detalles-evaluacion.component';
+import { InvitacionHashGuard } from '../../guardianes/invitacion-hash.guard';
 
 const routes: Routes = [
   {
@@ -46,7 +47,8 @@ const routes: Routes = [
   },
   {
     path: "responder-invitacion-evaluar/:hash",
-    component: ResponderInvitacionEvaluarComponent
+    component: ResponderInvitacionEvaluarComponent,
+    canActivate: [InvitacionHashGuard]
   },
   {
     path: "crear-recordatorio",
