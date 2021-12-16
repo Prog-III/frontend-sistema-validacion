@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { Component, OnInit, OnDestroy } from '@angular/core';
-=======
 import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
->>>>>>> jurados-archivo-plano
 import { Router } from '@angular/router';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgxCsvParser } from 'ngx-csv-parser';

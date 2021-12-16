@@ -126,7 +126,6 @@ export class EditarJuradoComponent implements OnInit {
                 }
                 this.toastService.openToast(mensajeToast);
                 this.router.navigate(["/parametrizacion/listar-jurado"]);
-               
               });
           })
       },

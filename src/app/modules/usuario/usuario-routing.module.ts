@@ -15,7 +15,7 @@ const routes: Routes = [
     canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
-    path: "editar-usuario",
+    path: "editar-usuario/:idUsuario",
     component:EditarUsuarioComponent,
     canActivate:[AutenticadoGuard, AdministradorGuard]
   },

@@ -2,7 +2,7 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <form [formGroup]="formularioUsuario">
+                <form [formGroup]="formularioUsuario" (submit)="crearUsuario()">
                     <input type="hidden">
 
                     <h1 class="fs-2 m-0 fw-bold">Crear usuario</h1>
@@ -140,7 +140,7 @@
 
                     <div class="d-flex align-items-center justify-content-center w-100">
 
-                        <button [disabled]="formularioUsuario.invalid" (click)="crearUsuario()" type="submit"
+                        <button [disabled]="formularioUsuario.invalid" type="submit"
                             class="btn btn-primary text-white w-50 me-2 ">Crear</button>
 
                         <button type="reset" routerLink="/usuario/listar-usuario"

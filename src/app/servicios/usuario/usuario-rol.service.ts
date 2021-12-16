@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
+import { CountModel } from 'src/app/models/reportes/count.model';
 import { UsuarioRolModel } from 'src/app/models/usuario/usuario-rol.model';
 import { RolModel } from '../../models/usuario/rol.model';
 
@@ -29,7 +30,7 @@ export class UsuarioRolService {
     return this.http.get<RolModel[]>(`${this.url}/usuarios/${idUsuario}/roles` ,httpOptions);
   }
 
-  AsociarUsuarioRoles(idUsuario: string, roles: number[]): Observable<boolean>{
+  AsociarUsuarioRoles(idUsuario: string, roles: string[]): Observable<boolean>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export class UsuarioRolService {
     })}
 
     return this.http.post<boolean>(`${this.url}/asociar-usuario-roles/${idUsuario}`, {
-      array_general: roles
+      arraygeneral: roles
     }, httpOptions);
   }
 
@@ -51,5 +52,18 @@ export class UsuarioRolService {
     const { id_usuario, id_rol } = usuarioRol; 
 
     return this.http.delete(`${this.url}/usuarios/${id_usuario}/${id_rol}`, httpOptions);
+  }
+
+  ObtenerCantidadJurados(): Observable<CountModel>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}`
+    })}
+
+    let urlGet = `${this.url}/usuariorol/count?where[id_rol]=617ac07f522bb52fccc4ffcd`
+    
+
+    return this.http.get<CountModel>(urlGet,httpOptions);
   }
 }

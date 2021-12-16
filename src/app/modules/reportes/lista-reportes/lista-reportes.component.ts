@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js' ;
 import { BaseChartDirective } from 'ng2-charts';
 import * as dayjs from 'dayjs';
 import 'dayjs/locale/es'
@@ -7,8 +7,8 @@ import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service
 import { EstadoSolicitudService } from 'src/app/servicios/parametros/estado-solicitud.service';
 import { EstadoSolicitudModel } from 'src/app/models/parametros/estadosolicitud.model';
 import { faUsers, faUsersSlash, faUserTie } from '@fortawesome/free-solid-svg-icons';
-import { UsuarioService } from 'src/app/servicios/usuarios/usuario.service';
-import { UsuarioRolService } from 'src/app/servicios/usuarios/usuario-rol.service';
+import { UsuarioService } from 'src/app/servicios/usuario/usuario.service';
+import { UsuarioRolService } from 'src/app/servicios/usuario/usuario-rol.service';
 
 
 @Component({

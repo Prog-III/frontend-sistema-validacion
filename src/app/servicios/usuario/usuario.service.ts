@@ -2,6 +2,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
+import { CountModel } from 'src/app/models/reportes/count.model';
 import { UsuarioModel } from '../../models/usuario/usuario.model';
 
 @Injectable({
@@ -44,7 +45,7 @@ export class UsuarioService {
     return this.http.post<UsuarioModel>(`${this.url}/usuarios`, JSON.stringify(usuario), httpOptions);
   }
 
-  BuscarRegistro(id?: number ): Observable<UsuarioModel>{
+  BuscarRegistro(id?: string): Observable<UsuarioModel>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ export class UsuarioService {
     return this.http.put<UsuarioModel>(`${this.url}/usuarios/${usuario._id}`, JSON.stringify(usuario), httpOptions);
   }
 
-  EliminarRegistro(id: number): Observable<any>{
+  EliminarRegistro(id: string): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -73,5 +74,32 @@ export class UsuarioService {
 
     return this.http.delete(`${this.url}/usuarios/${id}`,httpOptions);
   }
-  
+
+  ObtenerCantidadActivos(): Observable<CountModel>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}`
+    })}
+
+    let estado = true
+    let urlGet = `${this.url}/usuarios/count?where[estado]=${estado}`
+    
+
+    return this.http.get<CountModel>(urlGet,httpOptions);
+  }
+
+  ObtenerCantidadInactivos(): Observable<CountModel>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}`
+    })}
+
+    let estado = false
+    let urlGet = `${this.url}/usuarios/count?where[estado]=${estado}`
+    
+
+    return this.http.get<CountModel>(urlGet,httpOptions);
+  }  
 }

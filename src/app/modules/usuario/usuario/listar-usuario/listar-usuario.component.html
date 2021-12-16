@@ -34,8 +34,8 @@
                                 <p class="fw-bold m-2">{{ usuario.estado ? "Habilitado" : "Inhabilitado" }}</p>
     
                                 <div>
-                                    <a class="card-link fw-bold">Editar</a>
-                                    <a class="card-link text-danger fw-bold">Eliminar</a>
+                                    <a [routerLink]="['/usuario', 'editar-usuario', usuario._id]" class="card-link fw-bold">Editar</a>
+                                    <a (click)="eliminarUsuario(usuario._id)" class="card-link text-danger fw-bold">Eliminar</a>
                                 </div>
                             </div>
                         </div>
