@@ -105,8 +105,7 @@ export class CrearJuradoComponent implements OnInit {
     if (!elementoYaExistente) {
       this.lineasInvestigacionSeleccionadas.push(lineaInvestigacion);
     }
-    console.log(this.formulario);
-    
+        
     this.formulario.get(controlName)?.setValue("");
   }
 

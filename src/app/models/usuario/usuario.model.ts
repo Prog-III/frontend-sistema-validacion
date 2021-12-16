@@ -4,7 +4,7 @@ export class UsuarioModel {
     apellidos?: string;
     documento?: string;
     fecha_nacimiento?: Date;
-    email?: string;
+    correo?: string;
     celular?: string;
     estado?: boolean;
 }

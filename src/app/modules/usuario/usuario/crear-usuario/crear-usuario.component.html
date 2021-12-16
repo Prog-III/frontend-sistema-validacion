@@ -1,1 +1,153 @@
-<p>crear-usuario works!</p>
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <form [formGroup]="formularioUsuario">
+                    <input type="hidden">
+
+                    <h1 class="fs-2 m-0 fw-bold">Crear usuario</h1>
+
+                    <hr>
+
+                    <div class="mb-3">
+                        <label for="nombres" required="required" class="form-label fw-bold">
+                            Nombres<fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+
+                        <input [ngClass]="{'is-invalid': nombresControl?.invalid && nombresControl?.touched }"
+                            formControlName="nombres" type="text" class="form-control" id="nombres">
+
+                        <span *ngIf="nombresControl?.invalid && nombresControl?.touched" role="alert"
+                            class="fw-bold text-danger">
+                            Nombre inválido
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="apellidos" required="required" class="form-label fw-bold">
+                            Apellidos<fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+
+                        <input [ngClass]="{'is-invalid': apellidosControl?.invalid && apellidosControl?.touched }"
+                            formControlName="apellidos" type="text" class="form-control" id="apellidos">
+
+                        <span *ngIf="apellidosControl?.invalid && apellidosControl?.touched" role="alert"
+                            class="fw-bold text-danger">
+                            Apellido inválido
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="documento" required="required" class="form-label fw-bold">
+                            Documento<fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+
+                        <div [ngClass]="{'is-loading': documentoControl?.status === 'PENDING'}">
+                            <input [ngClass]="{'is-invalid': documentoControl?.invalid && documentoControl?.touched }"
+                                formControlName="documento" type="string" class="form-control" id="documento">
+                            <div *ngIf="documentoControl?.status === 'PENDING'"
+                                class="spinner-border spinner-border-sm"></div>
+                        </div>
+
+                        <div *ngIf="documentoControl?.invalid">
+                            <ng-container
+                                *ngIf="documentoControl?.getError('documentoNoDisponible'); else elseTemplate">
+                                <span role="alert" class="fw-bold text-danger">
+                                    El documento ya se encuentra asignado
+                                </span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <span *ngIf="documentoControl?.invalid && documentoControl?.touched" role="alert"
+                                    class="fw-bold text-danger">
+                                    Documento inválido
+                                </span>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="fechaNacimiento" required="required" class="form-label fw-bold">
+                            Fecha nacimiento<fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+
+                        <input
+                            [ngClass]="{'is-invalid': fechaNacimientoControl?.invalid && fechaNacimientoControl?.touched }"
+                            formControlName="fechaNacimiento" type="date" class="form-control" id="fechaNacimiento">
+
+                        <span *ngIf="fechaNacimientoControl?.invalid && fechaNacimientoControl?.touched" role="alert"
+                            class="fw-bold text-danger">
+                            Fecha de nacimiento inválida
+                        </span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" required="required" class="form-label fw-bold">
+                            Email<fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+
+                        <div [ngClass]="{'is-loading': emailControl?.status === 'PENDING'}">
+                            <input [ngClass]="{'is-invalid': emailControl?.invalid && emailControl?.touched }"
+                                formControlName="email" type="email" class="form-control" id="email">
+                            <div *ngIf="emailControl?.status === 'PENDING'" class="spinner-border spinner-border-sm">
+                            </div>
+                        </div>
+
+                        <div *ngIf="emailControl?.invalid">
+                            <ng-container *ngIf="emailControl?.getError('emailNoDisponible'); else elseTemplate">
+                                <span role="alert" class="fw-bold text-danger">
+                                    El correo electrónico no está disponible
+                                </span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <span *ngIf="emailControl?.invalid && emailControl?.touched" role="alert"
+                                    class="fw-bold text-danger">
+                                    El correo electrónico no es válido
+                                </span>
+                            </ng-template>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label fw-bold">Telefono</label>
+                        <input formControlName="telefono" type="text" class="form-control" id="telefono">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="departamentos" required="required" class="form-label fw-bold">
+                            Rol <fa-icon class="ps-1 icon" size="xs" [icon]="faAsterisk"></fa-icon>
+                        </label>
+                        <select formControlName="roles" type="select" class="form-select"
+                            (change)="resetearSelect('roles')">
+                            <option value="">-- Elegir roles --</option>
+                            <option *ngFor="let rol of opcionesDeRoles" value="{{ rol | json }}">{{ rol.nombre }}
+                            </option>
+                        </select>
+
+                        <div>
+                            <ul class="list-unstyled mt-2 d-flex m-w-full flex-wrap gap-3">
+                                <li *ngFor="let departamento of rolesSeleccionados; let i = index">
+                                    <span class="badge bg-primary">
+                                        {{ departamento.nombre }}
+                                        <fa-icon [icon]="faTimes" class="ms-1" (click)="eliminarElementoArreglo(i)">
+                                        </fa-icon>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center w-100">
+
+                        <button [disabled]="formularioUsuario.invalid" (click)="crearUsuario()" type="submit"
+                            class="btn btn-primary text-white w-50 me-2 ">Crear</button>
+
+                        <button type="reset" routerLink="/usuario/listar-usuario"
+                            class="btn bg-white border border-primary w-50 text-primary">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

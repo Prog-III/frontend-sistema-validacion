@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { JuradoService } from '../parametros/jurado.service';
 import { CorreoNotificacionService } from '../parametros/correo-notificacion.service';
 import { ProponenteService } from '../seguridad/proponente.service';
+import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ValidadoresService {
   constructor(
     private juradoService: JuradoService,
     private correoNotificacionService: CorreoNotificacionService,
-    private proponenteService: ProponenteService
+    private proponenteService: ProponenteService,
+    private usuarioService: UsuarioService
   ) { }
 
   existeEmailJurado(emailExcepcion?: string): AsyncValidatorFn {
@@ -68,6 +70,34 @@ export class ValidadoresService {
           }
 
           return proponentes.includes(control.value) ? { 'documentoNoDisponible': true } : null;
+        }))
+    }
+  }
+
+  existeDocumentoUsuario(documentoExcepcion?: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.usuarioService.GetRecordList()
+        .pipe(map(usuarios => usuarios.map(usuario => usuario.documento)))
+        .pipe(map(usuarios => {
+          if (documentoExcepcion) {
+            usuarios = usuarios.filter(documento => documento !== documentoExcepcion)
+          }
+
+          return usuarios.includes(control.value) ? { 'documentoNoDisponible': true } : null;
+        }))
+    }
+  }
+
+  existeEmailUsuario(emailExcepcion?: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.usuarioService.GetRecordList()
+        .pipe(map(usuarios => usuarios.map(usuario => usuario.correo)))
+        .pipe(map(usuarios => {
+          if (emailExcepcion) {
+            usuarios = usuarios.filter(email => email !== emailExcepcion)
+          }
+
+          return usuarios.includes(control.value) ? { 'emailNoDisponible': true } : null;
         }))
     }
   }
