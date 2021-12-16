@@ -7,8 +7,10 @@ import { SolicitudModel } from 'src/app/models/parametros/solicitud.model';
 import { TokenModel } from 'src/app/models/seguridad/token.model';
 import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service';
 import { faArrowLeft, faUniversity, faPaste } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InvitacionEvaluarService } from 'src/app/servicios/evaluacion/invitacion-evaluar.service';
+import { JuradoService } from 'src/app/servicios/parametros/jurado.service';
+import { LocalStorageService } from 'src/app/servicios/compartidos/local-storage.service';
 
 @Component({
   selector: 'app-listar-evaluar-solicitud',
@@ -32,15 +34,19 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
     private http: HttpClient,
     private serviceInvitacionEvaluar: InvitacionEvaluarService,
     private serviceSolicitud: SolicitudService,
-    private route: ActivatedRoute
+    private servicioJurado: JuradoService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private localStorageService: LocalStorageService,
   ) { }
 
   ngOnInit(): void {
     this.obtenerSolicitudes()
-    
+    this.verificarAcceso()
+
   }
 
-  obtenerSolicitudes(){
+  obtenerSolicitudes() {
     let id = parseInt(this.route.snapshot.params["id"])
     this.idjurado = id
     this.serviceInvitacionEvaluar.BuscarRegistrosPorIdJurado(id).subscribe({
@@ -49,8 +55,8 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
         for (let i = 0; i < this.invitaciones.length; i++) {
           this.serviceSolicitud.BuscarRegistro(this.invitaciones[i].id_solicitud).subscribe({
             next: (data: SolicitudModel) => {
-              if(data)
-              this.solicitudes.push(data)
+              if (data)
+                this.solicitudes.push(data)
 
             },
             error: (err: any) => {
@@ -67,6 +73,49 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   }
 
+  verificarAcceso() {
+    let id = parseInt(this.route.snapshot.params["id"]);
+    //hacer verificacion al token 
+    this.servicioJurado.obtenerCorreo(id).subscribe(
+      (correo) => {
+        //console.log(correo);
+
+        if (correo.dato)
+          this.servicioJurado.validarJuradoPorEmail(id, correo.dato).subscribe(
+            (data) => {
+              if (data) {
+              } else {
+                let roles = this.localStorageService.GetRolActivo();
+                let permitir = false;
+
+                roles.forEach(role => {
+                  if (role.nombre == "Administrador") {
+                    permitir = true;
+                  }
+                })
+                if (permitir) {
+
+                } else {
+                  this.router.navigate(["/home"]);
+                }
+
+              }
+            },
+            (err) => {
+              console.log("No se encontro cuenta con acceo actualmente");
+              this.router.navigate(["/home"]);
+
+            })
+      },
+      (err) => {
+        console.log("No se encontro el email del jurado");
+        this.router.navigate(["/home"]);
+      }
+    )
+
+
+  }
+
   ObjetoToken(token: string): Observable<TokenModel> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -78,6 +127,7 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   }
 
+  
   descarga(id: any) {
 
     let url = 'http://localhost:3000/descargar_archivos_azure/' + id;

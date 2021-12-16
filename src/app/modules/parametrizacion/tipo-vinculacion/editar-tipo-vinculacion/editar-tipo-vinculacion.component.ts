@@ -41,12 +41,16 @@ export class EditarTipoVinculacionComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: TipoVinculacionModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: TipoVinculacionModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
+      },
+      (err)=>{
+        console.log("no existe el registro");
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){

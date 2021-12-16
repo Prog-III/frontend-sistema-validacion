@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { JuradoModel } from 'src/app/models/parametros/jurado.model';
+import { TemporalModel } from 'src/app/models/seguridad/temporal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { JuradoModel } from 'src/app/models/parametros/jurado.model';
 export class JuradoService {
 
   url: string = GeneralData.MS_NEGOCIO_URL;
+  url2: string = GeneralData.MS_SEGUIRIDAD_URL;
   token: any
   constructor(
     private http: HttpClient
@@ -89,4 +91,24 @@ export class JuradoService {
 
     return this.http.delete(`${this.url}/jurados/${id}`,httpOptions);
   }
+
+   validarJuradoPorEmail(id:number, correo:string): Observable<boolean>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+    return this.http.post<boolean>(`${this.url2}/verificar-token-id/${id}`, {'token':this.token.token, 'correo':correo},httpOptions);
+  }
+
+  obtenerCorreo(id:number):Observable<TemporalModel> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+    return this.http.get<TemporalModel>(`${this.url}/jurados-email/${id}`, httpOptions);
+  }
+
+
 }

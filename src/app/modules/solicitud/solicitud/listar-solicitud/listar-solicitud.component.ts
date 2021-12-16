@@ -9,6 +9,7 @@ import { GeneralData } from 'src/app/config/general-data';
 import { ModalService } from '../../../../servicios/modal/modal.service';
 import { ModalData } from '../../../../models/compartido/modal-data';
 import { filter, Subscription, map } from 'rxjs';
+import { ProponenteDepartamentoService } from 'src/app/servicios/parametros/proponente-departamento.service';
 @Component({
   selector: 'app-listar-solicitud',
   templateUrl: './listar-solicitud.component.html',
@@ -33,6 +34,7 @@ export class ListarSolicitudComponent implements OnInit {
     private solicitudService: SolicitudService,
     private solicitudProponenteService: SolicitudProponenteService,
     private toastService: ToastService,
+    private proponenteDepartamentoService: ProponenteDepartamentoService,
     private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router
@@ -56,10 +58,21 @@ export class ListarSolicitudComponent implements OnInit {
       
     this.obtenerSolicitudes();
     this.idProponente = parseInt(this.route.snapshot.params["id"]);
-
+    this.verificarProponenteExiste();
     this.subscription.add(querySubscription);
   }
-
+verificarProponenteExiste(){
+  if(this.idProponente)
+  {
+    this.proponenteDepartamentoService.obtenerProponente(this.idProponente).subscribe((data)=>{
+      //console.log("existe el proponente");
+    },
+    (err)=>{
+      console.log("no existe el proponente");
+      this.router.navigate(["/home"]);
+    })
+  }
+}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

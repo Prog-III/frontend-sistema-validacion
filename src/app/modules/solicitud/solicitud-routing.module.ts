@@ -52,7 +52,8 @@ const routes: Routes = [
   },
   {
     path: "listar-solicitud",
-    component:ListarSolicitudComponent
+    component:ListarSolicitudComponent,
+    canActivate:[AutenticadoGuard, AdministradorGuard]
   },
   {
     path: "listar-solicitud/:id",

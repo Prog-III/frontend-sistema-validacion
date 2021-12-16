@@ -14,6 +14,7 @@ import { CargaArchivosService } from 'src/app/servicios/compartidos/carga-archiv
 import { ComiteService } from 'src/app/servicios/parametros/comite.service';
 import { LineaInvestigacionService } from 'src/app/servicios/parametros/linea-investigacion.service';
 import { ModalidadService } from 'src/app/servicios/parametros/modalidad.service';
+import { ProponenteDepartamentoService } from 'src/app/servicios/parametros/proponente-departamento.service';
 import { SolicitudComiteService } from 'src/app/servicios/parametros/solicitud-comite.service';
 import { SolicitudProponenteService } from 'src/app/servicios/parametros/solicitud-proponente.service';
 import { SolicitudService } from 'src/app/servicios/parametros/solicitud.service';
@@ -50,6 +51,7 @@ export class CrearSolicitudComponent implements OnInit {
     private serviceModalidad: ModalidadService,
     private serviceComite: ComiteService,
     private cargaArchivos: CargaArchivosService,
+    private proponenteDepartamentoService: ProponenteDepartamentoService,
     private solicitudComiteService: SolicitudComiteService,
     private solicitudProponenteService: SolicitudProponenteService,
     private route: ActivatedRoute
@@ -63,6 +65,16 @@ export class CrearSolicitudComponent implements OnInit {
     this.GetComiteList();
 
     this.idProponente = parseInt(this.route.snapshot.params["id"]);
+    this.verificarProponenteExiste(this.idProponente);
+  }
+  verificarProponenteExiste(id: number){
+    this.proponenteDepartamentoService.obtenerProponente(id).subscribe((data)=>{
+      //console.log("existe el proponente");
+    },
+    (err)=>{
+      console.log("no existe el proponente");
+      this.router.navigate(["/home"]);
+    })
   }
 
   GetLineaList() {

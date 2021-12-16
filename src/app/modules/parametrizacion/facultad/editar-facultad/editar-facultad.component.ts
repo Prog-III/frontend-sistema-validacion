@@ -41,13 +41,17 @@ export class EditarFacultadComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: FacultadModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: FacultadModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["codigo"].setValue(data.codigo)
         this.formulario.controls["nombre"].setValue(data.nombre)
+      },
+      (err)=>{
+        console.log("no existe el registro");
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){

@@ -46,13 +46,17 @@ export class EditarDepartamentoComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: DepartamentoModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: DepartamentoModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
         this.formulario.controls["id_facultad"].setValue(data.id_facultad)
+      },
+      (err)=>{
+        console.log("no existe el registro");
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){

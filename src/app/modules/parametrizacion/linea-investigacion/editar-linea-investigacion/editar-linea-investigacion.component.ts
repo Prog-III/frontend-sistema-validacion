@@ -41,12 +41,15 @@ export class EditarLineaInvestigacionComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: LineaInvestigacionModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: LineaInvestigacionModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
+      },
+      (err)=>{
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){
@@ -68,6 +71,7 @@ export class EditarLineaInvestigacionComponent implements OnInit {
           mensaje: GeneralData.TOAST_ERROR_EDICION('La linea de investigación')
         }
         this.toastService.openToast(mensajeToast);
+        
       }
     });
 

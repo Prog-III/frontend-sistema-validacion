@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar-invitacion-evaluar',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editar-invitacion-evaluar.component.css']
 })
 export class EditarInvitacionEvaluarComponent implements OnInit {
-
-  constructor() { }
+  idProponente?: number;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.idProponente = parseInt(this.route.snapshot.params["id"]);
   }
 
 }

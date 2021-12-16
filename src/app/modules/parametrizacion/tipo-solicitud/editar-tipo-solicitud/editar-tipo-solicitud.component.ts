@@ -45,13 +45,16 @@ subidaarchivo:boolean = false;
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: TipoSolicitudModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: TipoSolicitudModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
         this.formulario.controls["formato"].setValue(data.formato)
+      },
+      (err)=>{
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){
@@ -108,6 +111,7 @@ subidaarchivo:boolean = false;
             mensaje: GeneralData.TOAST_ERROR_EDICION('El tipo de solicitud')
           }
           this.toastService.openToast(mensajeToast);
+          
         }
       });
 

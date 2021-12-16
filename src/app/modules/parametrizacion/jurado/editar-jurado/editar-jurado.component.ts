@@ -71,8 +71,8 @@ export class EditarJuradoComponent implements OnInit {
   }
 
   BuscarRegistro() {
-    this.juradoService.BuscarRegistro(this.juradoId!).subscribe({
-      next: (data: JuradoModel) => {
+    this.juradoService.BuscarRegistro(this.juradoId!).subscribe(
+      (data: JuradoModel) => {
         this.formulario?.controls["nombre"].setValue(data.nombre)
         this.formulario?.controls["email"].setValue(data.email)
         this.formulario?.controls["telefono"].setValue(data.telefono)
@@ -80,8 +80,12 @@ export class EditarJuradoComponent implements OnInit {
 
         this.formulario?.controls["email"]
           .setAsyncValidators(this.validadoresService.existeEmailJurado(data.email));
+      },
+      (err)=>{
+        console.log("no existe el registro");
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro() {

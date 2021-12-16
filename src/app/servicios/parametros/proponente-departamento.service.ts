@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { GeneralData } from 'src/app/config/general-data';
 import { TokenModel } from 'src/app/models/compartido/token.model';
 import { ProponenteDepartamentoModel } from 'src/app/models/parametros/proponente-departamento.model';
-
+import { ProponenteModel } from 'src/app/models/parametros/proponente.model';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +37,9 @@ export class ProponenteDepartamentoService {
   ObtenerProponentesPorDepartamento(idDepartamento: number) {
     return this.http.get<ProponenteDepartamentoModel[]>(`${this.url}/departamentos/${idDepartamento}/proponentes`, this.httpOptions);
   }
-
+  obtenerProponente(id: number): Observable<ProponenteModel>{
+    return this.http.get<ProponenteModel>(`${this.url}/proponentes/${id}`, this.httpOptions);
+  }
   EliminarDepartamentosProponentes(DepartamentoProponente: ProponenteDepartamentoModel) {
     const { id_departamento, id_proponente } = DepartamentoProponente; 
 
