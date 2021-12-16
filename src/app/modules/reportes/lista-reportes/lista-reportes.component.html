@@ -1,0 +1,120 @@
+<section class="w-100 py-5 d-flex justify-content-center align-items-center">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="icon"> <fa-icon class="text-primary" size="xs" [icon]="faUsers"></fa-icon> </div>
+                                <div class="ms-2 c-details">
+                                    <h6 class="mb-0">Usuarios Activos</h6> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-center">{{usuariosactivos}}</h3>
+                            <div class="mt-5">
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" ></div>
+                                </div>
+                                <div class="mt-3"> <span class="text1">Teniendo en cuenta los jurados </span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="icon"> <fa-icon class="text-primary" size="xs" [icon]="faUsersSlash"></fa-icon>  </div>
+                                <div class="ms-2 c-details">
+                                    <h6 class="mb-0">Usuarios Inactivos</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-center">{{usuariosinactivos}}</h3>
+                            <div class="mt-5">
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" ></div>
+                                </div>
+                                <div class="mt-3"> <span class="text1">No pueden acceder al sistema</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 mb-2">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="icon"> <fa-icon class="text-primary" size="xs" [icon]="faUserTie"></fa-icon> </div>
+                                <div class="ms-2 c-details">
+                                    <h6 class="mb-0">Jurados</h6> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-center">{{usuariosjurados}}</h3>
+                            <div class="mt-5">
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" ></div>
+                                </div>
+                                <div class="mt-3"> <span class="text1">Funcionalidades Limitadas</span> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center ">
+                <p class="fs-2 fw-bold text-center">Solicitudes Registradas por Mes</p>
+
+                <hr>
+                <div class="col-md-5 col-lg-4 col-xl-5 mx-auto">
+                    <div class="table-responsive">
+                        <table class="table text-center ">
+                            <tr class="bg-primary text-white">
+                                <th class="px-2" *ngFor="let label of lineChartData.labels">{{label}}</th>
+                            </tr>
+                            <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
+                                <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-4 col-xl-5 mx-auto">
+                    <div class="chart" *ngIf="lineChartData.datasets[0].data.length > 0" >
+                        <canvas baseChart width="400" height="400" [data]="lineChartData"
+                            [type]="lineChartType"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-5">
+                <p class="fs-2 fw-bold text-center">Tipos de Solicitudes Actuales</p>
+
+                <hr>
+                <div class="col-md-5 col-lg-4 col-xl-5 mx-auto">
+                    <div class="table-responsive">
+                        <table class="table text-center ">
+                            <tr class="bg-primary text-white">
+                                <th class="px-2" *ngFor="let label of pieChartData.labels">{{label}}</th>
+                            </tr>
+                            <tr *ngFor="let d of pieChartData.datasets; let i=index" [class]="'line-'+i">
+                                <td *ngFor="let label of pieChartData.labels; let j=index">{{d && d.data[j]}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-4 col-xl-5 mx-auto">
+                    <div class="chart">
+                        <canvas baseChart
+                                [data]="pieChartData"
+                                [type]="pieChartType"
+                                >
+                        </canvas>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

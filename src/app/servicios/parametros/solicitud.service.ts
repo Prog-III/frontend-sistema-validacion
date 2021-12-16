@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { SolicitudModel } from 'src/app/models/parametros/solicitud.model';
+import { CountModel } from 'src/app/models/reportes/count.model';
 
 @Injectable({
   providedIn: 'root'
@@ -91,5 +92,33 @@ export class SolicitudService {
     })}
 
     return this.http.delete(`${this.url}/solicitudes/${id}`,httpOptions);
+  }
+
+  ObtenerCantidadPorMes(mes:string): Observable<CountModel>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+
+
+    let urlGet = `${this.url}/solicitudes/count?where[fecha][regexp]=/-${mes}-/`
+    
+
+    return this.http.get<CountModel>(urlGet,httpOptions);
+  }
+
+  ObtenerCantidadPorIdEstado(estado:number): Observable<CountModel>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+
+
+    let urlGet = `${this.url}/solicitudes/count?where[id_estado][regexp]=${estado}`
+    
+
+    return this.http.get<CountModel>(urlGet,httpOptions);
   }
 }
