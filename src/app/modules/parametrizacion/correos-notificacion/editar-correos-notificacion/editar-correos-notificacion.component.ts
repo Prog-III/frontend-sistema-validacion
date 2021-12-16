@@ -45,16 +45,20 @@ export class EditarCorreosNotificacionComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: CorreoNotificacionModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: CorreoNotificacionModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
         this.formulario.controls["correo"].setValue(data.correo)
         this.formulario.controls["estado"].setValue(data.estado)
 
         this.formulario.controls["correo"].setAsyncValidators(this.validadoresService.existeCorreoNotificacion(data.correo));
+      },
+      (err)=>{
+        console.log("no existe el registro");
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){

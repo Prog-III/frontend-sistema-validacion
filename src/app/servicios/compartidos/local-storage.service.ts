@@ -41,7 +41,15 @@ export class LocalStorageService {
       return "";
     }
   }
-
+  GetTokenReal(): string{
+    let datos_actuales = localStorage.getItem("session-info");
+    if (datos_actuales) {
+      let datosSesionJson = JSON.parse(datos_actuales);
+      return datosSesionJson.token;
+    }else{
+      return "";
+    }
+  }
   GetSessionInfo(): DatosSesionModel{
     let datos_actuales = localStorage.getItem("session-info");
     if (datos_actuales) {

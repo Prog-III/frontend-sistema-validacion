@@ -76,25 +76,43 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
   verificarAcceso() {
     let id = parseInt(this.route.snapshot.params["id"]);
     //hacer verificacion al token 
-    this.servicioJurado.validarJuradoPorEmail(id).subscribe(data => {
-      if (data) {
-      } else {
-        let roles = this.localStorageService.GetRolActivo();
-        let permitir = false;
+    this.servicioJurado.obtenerCorreo(id).subscribe(
+      (correo) => {
+        //console.log(correo);
 
-        roles.forEach(role => {
-          if (role.nombre == "Administrador") {
-            permitir = true;
-          }
-        })
-        if(permitir){
-          
-        }else{
-          this.router.navigate(["/home"]);
-        }
-        
+        if (correo.dato)
+          this.servicioJurado.validarJuradoPorEmail(id, correo.dato).subscribe(
+            (data) => {
+              if (data) {
+              } else {
+                let roles = this.localStorageService.GetRolActivo();
+                let permitir = false;
+
+                roles.forEach(role => {
+                  if (role.nombre == "Administrador") {
+                    permitir = true;
+                  }
+                })
+                if (permitir) {
+
+                } else {
+                  this.router.navigate(["/home"]);
+                }
+
+              }
+            },
+            (err) => {
+              console.log("No se encontro cuenta con acceo actualmente");
+              this.router.navigate(["/home"]);
+
+            })
+      },
+      (err) => {
+        console.log("No se encontro el email del jurado");
+        this.router.navigate(["/home"]);
       }
-    })
+    )
+
 
   }
 
@@ -109,6 +127,7 @@ export class ListarEvaluarSolicitudComponent implements OnInit {
 
   }
 
+  
   descarga(id: any) {
 
     let url = 'http://localhost:3000/descargar_archivos_azure/' + id;

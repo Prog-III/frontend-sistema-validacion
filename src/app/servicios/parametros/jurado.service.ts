@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GeneralData } from 'src/app/config/general-data';
 import { JuradoModel } from 'src/app/models/parametros/jurado.model';
+import { TemporalModel } from 'src/app/models/seguridad/temporal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -91,13 +92,22 @@ export class JuradoService {
     return this.http.delete(`${this.url}/jurados/${id}`,httpOptions);
   }
 
-  validarJuradoPorEmail(id:number): Observable<boolean>{
+   validarJuradoPorEmail(id:number, correo:string): Observable<boolean>{
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.token.token}` 
     })}
-    return this.http.post<boolean>(`${this.url2}/verificar-token-id/${id}`, {'token':this.token.token},httpOptions);
+    return this.http.post<boolean>(`${this.url2}/verificar-token-id/${id}`, {'token':this.token.token, 'correo':correo},httpOptions);
+  }
+
+  obtenerCorreo(id:number):Observable<TemporalModel> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token.token}` 
+    })}
+    return this.http.get<TemporalModel>(`${this.url}/jurados-email/${id}`, httpOptions);
   }
 
 

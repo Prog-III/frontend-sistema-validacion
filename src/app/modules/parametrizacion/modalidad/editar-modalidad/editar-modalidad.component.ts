@@ -42,12 +42,15 @@ export class EditarModalidadComponent implements OnInit {
 
   BuscarRegistro(){
     let id = parseInt(this.route.snapshot.params["id"]);
-    this.service.BuscarRegistro(id).subscribe({
-      next:(data: ModalidadModel) => {
+    this.service.BuscarRegistro(id).subscribe(
+      (data: ModalidadModel) => {
         this.formulario.controls["id"].setValue(data.id)
         this.formulario.controls["nombre"].setValue(data.nombre)
+      },
+      (err)=>{
+        this.router.navigate(["/home"]);
       }
-    });
+    );
   }
 
   CrearRegistro(){
@@ -69,6 +72,7 @@ export class EditarModalidadComponent implements OnInit {
           mensaje: GeneralData.TOAST_ERROR_EDICION('La modalidad')
         }
         this.toastService.openToast(mensajeToast);
+        
       }
     });
 
