@@ -9,6 +9,7 @@ import { TokenModel } from 'src/app/models/seguridad/token.model';
 import { SeguridadService } from 'src/app/servicios/compartidos/seguridad.service';
 import { InvitacionEvaluarService } from 'src/app/servicios/evaluacion/invitacion-evaluar.service';
 import { JuradoService } from 'src/app/servicios/parametros/jurado.service';
+import { LocalStorageService } from '../../../servicios/compartidos/local-storage.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -33,10 +34,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private seguridadService: SeguridadService,
     private service: JuradoService,
-    private serviceInvitacionEvaluar: InvitacionEvaluarService
+    private serviceInvitacionEvaluar: InvitacionEvaluarService,
+    private localStorageService: LocalStorageService
   ) { }
   
-  ngOnInit(): void {
+  ngOnInit(): void {  
     const seguridadSubscription = this.seguridadService.GetSessionInfo().subscribe({
       next: (data: DatosSesionModel) => {
         this.activeSession = data.isLoggedIn;
@@ -48,10 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.subscription.add(seguridadSubscription);
 
-    this.IdJurado();
-    
-    
-      
+    this.IdJurado();  
   }
 
   IdJurado(){
@@ -91,7 +90,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
       'Content-Type': 'application/json' 
     })}
 
-    return this.http.post<TokenModel>(`http://localhost:3002/verificar-token`, JSON.stringify(token) ,httpOptions);
-    
+    return this.http.post<TokenModel>(`http://localhost:3002/verificar-token`, JSON.stringify(token) ,httpOptions); 
+  }
+
+  devolverNombresRoles() {
+    const roles = this.localStorageService.GetRolActivo();
+
+    return roles.map(rol => rol.nombre?.toUpperCase());
+  }
+
+  get esAuxiliar() {
+    return this.devolverNombresRoles().includes("AUXILIAR")
+  }
+
+  get esAdministrador() {
+    return this.devolverNombresRoles().includes("ADMINISTRADOR")
+  }
+
+  get esDirector() {
+    return this.devolverNombresRoles().includes("DIRECTOR(A)")
+  }
+
+  get esEvaluador() {
+    return this.devolverNombresRoles().includes("EVALUADOR")
   }
 }

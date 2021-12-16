@@ -38,7 +38,9 @@ export class ListarSolicitudComponent implements OnInit {
     private modalService: ModalService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     const querySubscription = this.route.queryParams
@@ -53,31 +55,33 @@ export class ListarSolicitudComponent implements OnInit {
         } else if (filtroParam === 'asignadas') {
           this.filtro = 3;
         }
-      })
 
-      
-    this.obtenerSolicitudes();
-    this.idProponente = parseInt(this.route.snapshot.params["id"]);
-    this.verificarProponenteExiste();
-    this.subscription.add(querySubscription);
+
+        this.obtenerSolicitudes();
+        this.idProponente = parseInt(this.route.snapshot.params["id"]);
+        this.verificarProponenteExiste();
+        this.subscription.add(querySubscription);
+      })      
   }
-verificarProponenteExiste(){
-  if(this.idProponente)
-  {
-    this.proponenteDepartamentoService.obtenerProponente(this.idProponente).subscribe((data)=>{
-      //console.log("existe el proponente");
-    },
-    (err)=>{
-      console.log("no existe el proponente");
-      this.router.navigate(["/home"]);
-    })
+
+  verificarProponenteExiste() {
+    if (this.idProponente) {
+      this.proponenteDepartamentoService.obtenerProponente(this.idProponente).subscribe((data) => {
+        //console.log("existe el proponente");
+      },
+        (err) => {
+          console.log("no existe el proponente");
+          this.router.navigate(["/home"]);
+        })
+    }
   }
-}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   obtenerSolicitudes() {
+    this.solicitudes = [];
+    
     this.solicitudService.GetRecordList(this.filtro).subscribe(solicitudes => {
       this.solicitudes = solicitudes;
     })
@@ -104,7 +108,7 @@ verificarProponenteExiste(){
           this.router.navigateByUrl("/home");
         }
       })
-    
+
     this.subscription.add(modalSubscription);
   }
 }

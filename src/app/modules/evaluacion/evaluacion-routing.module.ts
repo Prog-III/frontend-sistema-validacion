@@ -27,12 +27,12 @@ const routes: Routes = [
   {
     path: "crear-invitacion-evaluar/:id",
     component:CrearInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard,  AuxiliarDirectorGuard]
+    canActivate:[AutenticadoGuard, AuxiliarDirectorGuard]
   },
   {
     path: "editar-invitacion-evaluar",
     component:EditarInvitacionEvaluarComponent,
-    canActivate:[AutenticadoGuard,AuxiliarGuard]
+    canActivate:[AutenticadoGuard, AuxiliarGuard]
   },
   {
     path: "eliminar-invitacion-evaluar",

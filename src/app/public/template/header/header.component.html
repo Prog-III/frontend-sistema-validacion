@@ -21,24 +21,24 @@
                         Evaluación
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
+                        <a *ngIf="esAdministrador || esAuxiliar || esDirector" class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
                             [routerLink]="['/solicitud', 'listar-solicitud']" [queryParams]="{ filtro: 'registradas' }">
                             Crear invitación a evaluar
                         </a>
-                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
+                        <a *ngIf="esEvaluador" class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
                             [routerLink]="['evaluacion/listar-evaluar-solicitud',idjurado]">Evaluar Solicitud</a>
-                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
+                        <a *ngIf="esAdministrador || esAuxiliar" class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
                             routerLink="evaluacion/listar-invitacion-evaluar">Invitaciones a evaluar</a>
-                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
+                        <a *ngIf="esAdministrador || esAuxiliar" class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
                             routerLink="evaluacion/listar-recordatorio">Recordatorio</a>
-                        <a class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
+                        <a *ngIf="esAdministrador || esDirector" class="ps-4 py-2 ps-lg-2 px-lg-3 dropdown-item"
                             [routerLink]="['/solicitud', 'listar-solicitud']" [queryParams]="{ filtro: 'evaluacion' }">
                             Resultado de la Evaluación
                         </a>
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" *ngIf="esAdministrador">
                     <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <fa-icon class="pt-2 text-white" [icon]="faCog"></fa-icon>
@@ -68,16 +68,16 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" *ngIf="esAdministrador || esAuxiliar || esDirector">
                     <a class="nav-link py-3 py-lg-0 mx-lg-2 dropdown-toggle text-white" id="navbarDropdown" href="#"
                         role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <fa-icon class="pt-2 text-white" [icon]="faGlobe"></fa-icon>
                         Solicitud
                     </a>
                     <div class="dropdown-menu border-0" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"
+                        <a *ngIf="esAdministrador || esAuxiliar" class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"
                             routerLink="solicitud/crear-proponente">Crear solicitud</a>
-                        <a class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"
+                        <a *ngIf="esAdministrador || esDirector" class="dropdown-item ps-4 py-2 ps-lg-2 px-lg-3"
                             [routerLink]="['/solicitud', 'listar-solicitud']" [queryParams]="{ filtro: 'asignadas' }">
                             Solicitudes asignadas
                         </a>
@@ -86,7 +86,7 @@
 
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="esAdministrador">
                     <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" role="button" aria-haspopup="true"
                         aria-expanded="false" routerLink="/usuario/listar-usuario">
                         <fa-icon class="pt-2 text-white" [icon]="faUsers"></fa-icon>
@@ -94,7 +94,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="esAdministrador">
                     <a class="nav-link py-3 py-lg-0 mx-lg-2 text-white" routerLink="/reportes/listar-reportes">
                         <fa-icon class="pt-2 text-white" [icon]="faStickyNote"></fa-icon>
                         Reportes
@@ -111,9 +111,8 @@
                         <fa-icon class="pt-2 text-white" size="1x" [icon]="faUser"></fa-icon>
                     </a>
                     <div class="dropdown-menu border-0 dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item cursor-pointer" routerLink="/seguridad/cambio-clave">Cambiar contraseña</a>
                         <a class="dropdown-item cursor-pointer" routerLink="/seguridad/logout">Cerrar sesión</a>
-                        <a class="dropdown-item cursor-pointer" routerLink="/seguridad/cambio-clave">Cambiar
-                            Contraseña</a>
                     </div>
                 </li>
             </ul>
